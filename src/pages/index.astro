@@ -1,0 +1,571 @@
+---
+import Base from '../layouts/Base.astro';
+import BenefitChecker from '../components/BenefitChecker.jsx';
+---
+<Base
+  title="Working Parent Benefit Checker 2026/27 | BenefitsCheck UK"
+  description="Find out what benefits you're owed in 60 seconds. Free UK benefit checker for working parents — no sign-up, no long forms. Updated for 2026/27 rates."
+>
+  <style is:global>
+    body { min-height: 100vh; }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .left-panel {
+      background: #1a2e1f;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .left-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 3rem;
+    }
+
+    .left-logo-mark {
+      width: 32px;
+      height: 32px;
+      background: #4caf72;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .left-logo-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #a8c5a0;
+      letter-spacing: 0.04em;
+    }
+
+    .left-headline {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .left-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6ac98a;
+      margin-bottom: 1.25rem;
+    }
+
+    .left-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .left-title em {
+      color: #4caf72;
+      font-style: normal;
+    }
+
+    .left-strapline {
+      font-size: 15px;
+      color: #c8deca;
+      line-height: 1.65;
+      margin-bottom: 2rem;
+      max-width: 360px;
+    }
+
+    .left-stats-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6ac98a;
+      margin-bottom: 0.6rem;
+    }
+
+    .left-usps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .left-usp {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .left-usp-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .left-usp-heading {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+    .left-usp-body {
+      font-size: 13px;
+      color: #9abda0;
+      line-height: 1.55;
+    }
+
+    .left-body {
+      font-size: 14px;
+      color: #a8c8a8;
+      line-height: 1.7;
+      max-width: 340px;
+      margin-bottom: 2.5rem;
+    }
+
+    .left-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: #4caf72;
+      border: 1px solid #4caf72;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .left-stat {
+      background: #0f1f13;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+
+    .left-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.25rem;
+      color: #4caf72;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .left-stat-label {
+      font-size: 12px;
+      color: #c0d8c4;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .left-footer {
+      font-size: 12px;
+      color: #9abda0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .left-footer::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #4caf72;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .right-panel {
+      background: #f5f4f0;
+      padding: 3rem 2.5rem;
+      overflow-y: auto;
+    }
+
+    .progress-wrap { margin-bottom: 2.25rem; }
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .progress-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #888;
+      transition: color 0.3s;
+    }
+    .progress-label.active { color: #1a2e1f; }
+    .progress-label.done { color: #4caf72; }
+    .progress-track {
+      height: 2px;
+      background: #e0dfd9;
+      border-radius: 999px;
+    }
+    .progress-fill {
+      height: 2px;
+      background: #1a2e1f;
+      border-radius: 999px;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #1a1a1a;
+      margin-bottom: 0.35rem;
+      font-weight: 700;
+    }
+    .step-hint {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 1.75rem;
+      line-height: 1.5;
+    }
+
+    .field { margin-bottom: 1.4rem; }
+    .field-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 6px;
+    }
+    .field-sublabel {
+      font-size: 13px;
+      color: #444;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .radio-group { display: flex; flex-direction: column; gap: 8px; }
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 1.5px solid #e0dfd9;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #1a1a1a;
+      background: #fff;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .radio-option:hover { border-color: #c0bfb9; }
+    .radio-option.selected {
+      border-color: #1a2e1f;
+      background: #f0f7f1;
+    }
+    .radio-option input {
+      accent-color: #1a2e1f;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .text-input, .sel-input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #e0dfd9;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      color: #1a1a1a;
+      background: #fff;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+    }
+    .text-input:focus, .sel-input:focus {
+      outline: none;
+      border-color: #1a2e1f;
+      box-shadow: 0 0 0 3px rgba(26,46,31,0.08);
+    }
+    .age-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .age-wrap { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .age-label { font-size: 11px; color: #555; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; }
+    .age-input {
+      width: 72px;
+      padding: 11px 8px;
+      border: 1.5px solid #e0dfd9;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      color: #1a1a1a;
+      background: #fff;
+      text-align: center;
+      -moz-appearance: textfield;
+    }
+    .age-input::-webkit-outer-spin-button,
+    .age-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .age-input:focus { outline: none; border-color: #1a2e1f; box-shadow: 0 0 0 3px rgba(26,46,31,0.08); }
+
+    .checkbox-group { display: flex; flex-direction: column; gap: 8px; }
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 16px;
+      border: 1.5px solid #e0dfd9;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #111;
+      font-weight: 500;
+      background: #fff;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .checkbox-option:hover { border-color: #c0bfb9; background: #fafaf8; }
+    .checkbox-option input { accent-color: #1a2e1f; width: 15px; height: 15px; flex-shrink: 0; cursor: pointer; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #e8e7e2;
+      margin: 1.5rem 0;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e8e7e2;
+    }
+    .nav-right { margin-left: auto; }
+
+    .btn-primary {
+      padding: 11px 24px;
+      background: #1a2e1f;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-primary:hover { background: #243d2a; }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-ghost {
+      padding: 11px 16px;
+      background: transparent;
+      color: #333;
+      border: 1.5px solid #c8c7c0;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-ghost:hover { border-color: #c0bfb9; color: #444; }
+
+    .result-banner {
+      background: #1a2e1f;
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+    .result-banner.none { background: #e8e7e2; }
+    .result-missing-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #7aaa85;
+      margin-bottom: 0.75rem;
+    }
+    .result-total {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 10vw, 5.5rem);
+      font-weight: 700;
+      color: #4caf72;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.02em;
+    }
+    .result-total-sub {
+      font-size: 14px;
+      color: #a8d4b0;
+      font-weight: 500;
+      margin-bottom: 1.75rem;
+    }
+    .result-divider {
+      border: none;
+      border-top: 1px solid #2d4a33;
+      margin: 0 0 1.5rem;
+    }
+    .result-count-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 0.25rem;
+    }
+    .result-count {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #fff;
+      line-height: 1;
+    }
+    .result-count.none { color: #999; }
+    .result-label { font-size: 15px; color: #d4edda; font-weight: 500; }
+    .result-sublabel { font-size: 12px; color: #7aaa85; margin-top: 6px; }
+
+    .results-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .result-card {
+      background: #fff;
+      border: 1.5px solid #e0dfd9;
+      border-radius: 12px;
+      padding: 1.25rem 1.4rem;
+      transition: border-color 0.15s;
+    }
+    .result-card.likely { border-color: #b8dbc0; }
+
+    .result-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .result-name { font-size: 15px; font-weight: 700; color: #111; }
+    .result-amount { font-size: 13px; color: #1a6b3c; font-weight: 600; margin-top: 3px; }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .chip.yes { background: #dcf0e3; color: #145c30; }
+    .chip.no { background: #e8e7e2; color: #333; }
+
+    .result-summary { font-size: 14px; color: #1a1a1a; line-height: 1.7; margin-bottom: 10px; font-weight: 400; }
+    .result-tip { font-size: 13px; color: #333; line-height: 1.6; margin-bottom: 10px; font-style: italic; }
+    .result-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a2e1f;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      border-bottom: 1.5px solid #b8dbc0;
+      padding-bottom: 1px;
+    }
+    .result-link:hover { border-bottom-color: #1a2e1f; }
+    .result-link.muted { color: #555; border-bottom-color: #ccc; }
+
+    .unlikely-heading { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #666; margin: 1.5rem 0 0.6rem; }
+    .already-box { margin-top: 1.25rem; padding: 1rem 1.25rem; background: #f5f4f0; border-radius: 10px; border: 1.5px solid #e0dfd9; }
+    .already-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #555; margin-bottom: 4px; }
+    .already-list { font-size: 14px; color: #111; line-height: 1.6; font-weight: 600; }
+
+    .disclaimer {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: #eeede8;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.6;
+    }
+    .disclaimer strong { color: #111; }
+
+    .footer-note {
+      text-align: center;
+      font-size: 11px;
+      color: #bbb;
+      margin-top: 2rem;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 800px) {
+      .page { grid-template-columns: 1fr; }
+      .left-panel { position: relative; height: auto; padding: 2rem 1.5rem; }
+      .left-headline { margin: 1.5rem 0; }
+      .right-panel { padding: 2rem 1.25rem; }
+    }
+  </style>
+
+  <div class="page">
+    <div class="left-panel">
+      <div class="left-logo">
+        <div class="left-logo-mark">£</div>
+        <span class="left-logo-name">BenefitsCheck UK</span>
+      </div>
+      <div class="left-headline">
+        <div class="left-eyebrow">Free · 2026/27 Rates · No sign-up needed</div>
+        <h1 class="left-title">Find out what benefits<br>you're owed in<br><em>60 seconds</em></h1>
+        <p class="left-strapline">Most working parents miss out on thousands every year. Our free checker tells you exactly what you're entitled to — no long forms, no sign-up.</p>
+        <div class="left-usps">
+          <div class="left-usp">
+            <div class="left-usp-icon">🔒</div>
+            <div>
+              <div class="left-usp-heading">Your data never leaves your device</div>
+              <div class="left-usp-body">All calculations happen in your browser. Nothing is stored, tracked, or shared — ever.</div>
+            </div>
+          </div>
+          <div class="left-usp">
+            <div class="left-usp-icon">🎯</div>
+            <div>
+              <div class="left-usp-heading">Built specifically for working parents</div>
+              <div class="left-usp-body">Not a generic tool covering every benefit for every person. Focused on the 7 benefits working families miss most.</div>
+            </div>
+          </div>
+          <div class="left-usp">
+            <div class="left-usp-icon">💷</div>
+            <div>
+              <div class="left-usp-heading">See exactly what you're missing</div>
+              <div class="left-usp-body">Most families earning up to £60,000 qualify for at least one benefit they're not claiming. Find out how much.</div>
+            </div>
+          </div>
+        </div>
+        <div class="left-stats-label">The scale of the problem</div>
+        <div class="left-stats">
+          <div class="left-stat">
+            <div class="left-stat-num">£24bn</div>
+            <div class="left-stat-label">in benefits go unclaimed every year in the UK</div>
+          </div>
+          <div class="left-stat">
+            <div class="left-stat-num">8m+</div>
+            <div class="left-stat-label">households missing out on money they're owed</div>
+          </div>
+        </div>
+      </div>
+      <div class="left-footer">All calculations happen in your browser. Nothing is stored or shared.</div>
+    </div>
+
+    <div class="right-panel">
+      <BenefitChecker client:only="react" />
+      <p class="footer-note" id="footer-note">Working Parent Benefit Checker · 2026/27 · Not financial advice</p>
+    </div>
+  </div>
+
+  <footer style="text-align:center;padding:1.5rem;font-size:12px;color:#888;font-family:'Inter',sans-serif;border-top:1px solid #e0dfd9;background:#f5f4f0;">
+    <a href="/about" style="color:#1a2e1f;text-decoration:none;margin:0 1rem;">About</a>
+    <a href="/privacy" style="color:#1a2e1f;text-decoration:none;margin:0 1rem;">Privacy Policy</a>
+    <span style="margin:0 1rem;">© 2026 BenefitsCheck UK</span>
+    <span style="margin:0 1rem;">Rates verified April 2026</span>
+  </footer>
+</Base>
