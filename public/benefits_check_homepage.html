@@ -1,7 +1,11 @@
----
-import Base from '../layouts/Base.astro';
----
-<style is:global>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BenefitsCheck UK — Free Benefit Checkers for Every Situation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Inter', sans-serif; background: #f5f4f0; color: #1a1a1a; }
 
@@ -102,11 +106,8 @@ import Base from '../layouts/Base.astro';
     .nav-links { display: none; }
   }
 </style>
-
-<Base
-  title="BenefitsCheck UK — Free Benefit Checkers for Every Situation"
-  description="Free UK benefit checkers for working parents, pensioners, carers and more. Find out what you're entitled to in 60 seconds. No sign-up, no long forms, 2026/27 rates."
->
+</head>
+<body>
 
 <!-- Nav -->
 <nav class="nav">
@@ -247,4 +248,5 @@ import Base from '../layouts/Base.astro';
   <p class="footer-copy">© 2026 BenefitsCheck UK · Free, independent benefit checkers · Not financial advice · 2026/27 rates</p>
 </footer>
 
-</Base>
+</body>
+</html>
