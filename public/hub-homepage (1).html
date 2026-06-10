@@ -1,7 +1,11 @@
----
-import Base from '../layouts/Base.astro';
----
-<style is:global>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BenefitsCheck UK — Free Benefit Checkers for Every Situation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Inter', sans-serif; background: #dcdbd6; color: #1a1a1a; }
 
@@ -102,11 +106,8 @@ import Base from '../layouts/Base.astro';
     .nav-links { display: none; }
   }
 </style>
-
-<Base
-  title="BenefitsCheck UK — Free Benefit Checkers for Every Situation"
-  description="Free UK benefit checkers for working parents, pensioners, carers and more. Find out what you're entitled to in 60 seconds. No sign-up, no long forms, 2026/27 rates."
->
+</head>
+<body>
 
 <!-- Nav -->
 <nav class="nav">
@@ -182,15 +183,15 @@ import Base from '../layouts/Base.astro';
       <span class="checker-card-btn">Start check →</span>
     </a>
 
-    <a href="/carers" class="checker-card">
-      <span class="checker-card-badge badge-live">Live now</span>
+    <div class="checker-card coming-soon">
+      <span class="checker-card-badge badge-soon">Coming soon</span>
       <div class="checker-card-icon">🤝</div>
       <h3 class="checker-card-title">Carers</h3>
       <p class="checker-card-hook">1.3 million people are eligible for Carer's Allowance but not claiming it — worth £81.90/week.</p>
       <p class="checker-card-desc">If you look after a disabled or elderly person, you may be entitled to significant financial support you don't know about.</p>
-      <div class="checker-card-stat">Checks <strong>8 benefits</strong> · Results in under 60 seconds</div>
-      <span class="checker-card-btn">Start check →</span>
-    </a>
+      <div class="checker-card-stat">Will check <strong>Carer's Allowance, UC carer element</strong> & more</div>
+      <span class="checker-card-btn disabled">Coming soon</span>
+    </div>
 
     <a href="/redundancy" class="checker-card">
       <span class="checker-card-badge badge-live">Live now</span>
@@ -260,4 +261,5 @@ import Base from '../layouts/Base.astro';
   <p class="footer-copy">© 2026 BenefitsCheck UK · Free, independent benefit checkers · Not financial advice · 2026/27 rates</p>
 </footer>
 
-</Base>
+</body>
+</html>
