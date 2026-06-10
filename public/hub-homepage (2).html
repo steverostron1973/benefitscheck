@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BenefitsCheck UK — Free Benefit Checkers for Every Situation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #dcdbd6; color: #1a1a1a; }
+
+  /* Nav */
+  .nav { background: #0d1f3c; padding: 0 2.5rem; display: flex; align-items: center; justify-content: space-between; height: 68px; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid #c8102e; }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo-mark { width: 38px; height: 38px; background: #c8102e; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; font-weight: 900; font-family: 'Playfair Display', serif; }
+  .nav-logo-text { display: flex; flex-direction: column; }
+  .nav-logo-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.01em; line-height: 1.1; }
+  .nav-logo-tagline { font-size: 10px; color: #7a9ec0; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+  .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+  .nav-link { font-size: 13px; font-weight: 500; color: #a8c0d8; text-decoration: none; padding: 6px 14px; border-radius: 8px; transition: all 0.15s; }
+  .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+  .nav-link.active { color: #fff; font-weight: 600; }
+
+  /* Hero */
+  .hero { background: #0d1f3c; padding: 5rem 2rem 4.5rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #c8102e 0%, #e8192e 50%, #c8102e 100%); }
+  .hero-eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: #c8102e; padding: 5px 16px; border-radius: 4px; margin-bottom: 1.75rem; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 6vw, 4.2rem); color: #fff; line-height: 1.12; margin-bottom: 1.25rem; max-width: 820px; margin-left: auto; margin-right: auto; }
+  .hero-title em { color: #e8192e; font-style: normal; position: relative; }
+  .hero-subtitle { font-size: clamp(1rem, 2vw, 1.15rem); color: #a8c0d8; line-height: 1.7; max-width: 580px; margin: 0 auto 3rem; }
+  .hero-trust { display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .hero-trust-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #7a9ec0; font-weight: 500; }
+  .hero-trust-dot { width: 6px; height: 6px; background: #c8102e; border-radius: 50%; flex-shrink: 0; }
+
+  /* Stats bar */
+  .stats-bar { background: #091629; padding: 0; display: flex; justify-content: center; }
+  .stat-item { text-align: center; padding: 1.75rem 3rem; border-right: 1px solid #1a3050; flex: 1; max-width: 280px; }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #c8102e; line-height: 1; margin-bottom: 6px; }
+  .stat-label { font-size: 12px; color: #7a9ec0; font-weight: 500; line-height: 1.5; }
+
+  /* Checkers section */
+  .checkers-section { padding: 4.5rem 2rem; max-width: 1060px; margin: 0 auto; }
+  .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #c8102e; text-align: center; margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); color: #0d1f3c; text-align: center; margin-bottom: 0.75rem; }
+  .section-subtitle { font-size: 15px; color: #555; text-align: center; margin-bottom: 3rem; line-height: 1.65; max-width: 580px; margin-left: auto; margin-right: auto; }
+
+  .checker-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+
+  .checker-card { background: #fff; border: 2px solid #d0cfc9; border-radius: 16px; padding: 2rem; text-decoration: none; color: inherit; transition: all 0.2s; display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .checker-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: #0d1f3c; transition: background 0.2s; }
+  .checker-card:hover { border-color: #0d1f3c; transform: translateY(-3px); box-shadow: 0 12px 40px rgba(13,31,60,0.12); }
+  .checker-card:hover::before { background: #c8102e; }
+  .checker-card.coming-soon { opacity: 0.5; cursor: default; }
+  .checker-card.coming-soon:hover { transform: none; box-shadow: none; border-color: #e0dfd9; }
+  .checker-card.coming-soon::before { background: #ccc; }
+  .checker-card.coming-soon:hover::before { background: #ccc; }
+
+  .checker-card-badge { position: absolute; top: 1.25rem; right: 1.25rem; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+  .badge-live { background: #0d1f3c; color: #fff; }
+  .badge-soon { background: #e8e7e2; color: #888; }
+
+  .checker-card-icon { font-size: 2.5rem; margin-bottom: 1rem; margin-top: 0.5rem; }
+  .checker-card-title { font-family: 'Playfair Display', serif; font-size: 1.45rem; color: #0d1f3c; margin-bottom: 0.6rem; line-height: 1.2; }
+  .checker-card-hook { font-size: 14px; font-weight: 600; color: #c8102e; margin-bottom: 0.75rem; line-height: 1.45; }
+  .checker-card-desc { font-size: 13px; color: #555; line-height: 1.65; flex: 1; margin-bottom: 1.25rem; }
+  .checker-card-stat { font-size: 12px; color: #555; margin-bottom: 1.5rem; padding: 0.65rem 0.9rem; background: #f5f4f0; border-radius: 8px; line-height: 1.4; border-left: 3px solid #0d1f3c; }
+  .checker-card-stat strong { color: #0d1f3c; }
+
+  .checker-card-btn { display: inline-flex; align-items: center; gap: 6px; padding: 11px 22px; background: #0d1f3c; color: #fff; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.15s; align-self: flex-start; }
+  .checker-card-btn:hover { background: #c8102e; }
+  .checker-card-btn.disabled { background: #e0dfd9; color: #999; cursor: default; pointer-events: none; }
+
+  /* How it works */
+  .how-section { background: #0d1f3c; padding: 4.5rem 2rem; }
+  .how-inner { max-width: 860px; margin: 0 auto; }
+  .how-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #c8102e; text-align: center; margin-bottom: 0.5rem; }
+  .how-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: #fff; text-align: center; margin-bottom: 3rem; }
+  .how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+  .how-step { text-align: center; }
+  .how-step-num { width: 48px; height: 48px; background: #c8102e; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin: 0 auto 1.25rem; }
+  .how-step-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+  .how-step-desc { font-size: 13px; color: #7a9ec0; line-height: 1.65; }
+
+  /* Disclaimer strip */
+  .disclaimer-strip { background: #f5f4f0; border-top: 1px solid #e0dfd9; border-bottom: 1px solid #e0dfd9; padding: 1.25rem 2rem; text-align: center; }
+  .disclaimer-strip p { font-size: 12px; color: #888; line-height: 1.6; max-width: 700px; margin: 0 auto; }
+  .disclaimer-strip strong { color: #555; }
+
+  /* Footer */
+  .footer { background: #091629; padding: 2.5rem 2rem; text-align: center; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #fff; margin-bottom: 1.25rem; }
+  .footer-logo span { color: #c8102e; }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .footer-link { font-size: 13px; color: #7a9ec0; text-decoration: none; transition: color 0.15s; }
+  .footer-link:hover { color: #fff; }
+  .footer-copy { font-size: 11px; color: #3a5070; line-height: 1.6; }
+
+  @media (max-width: 700px) {
+    .how-steps { grid-template-columns: 1fr; gap: 2rem; }
+    .stats-bar { flex-direction: column; }
+    .stat-item { border-right: none; border-bottom: 1px solid #1a3050; max-width: 100%; padding: 1.25rem; }
+    .stat-item:last-child { border-bottom: none; }
+    .hero { padding: 3rem 1.25rem 3rem; }
+    .nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-mark">£</div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">BenefitsCheck UK</span>
+      <span class="nav-logo-tagline">Free · Independent · 2026/27 Rates</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="/" class="nav-link active">Home</a>
+    <a href="/working-parents" class="nav-link">Working Parents</a>
+    <a href="/pensioners" class="nav-link">Pensioners</a>
+    <a href="/about" class="nav-link">About</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-eyebrow">Free UK Benefit Checkers · 2026/27 Rates</div>
+  <h1 class="hero-title">Are you missing out on<br>benefits you're <em>entitled to?</em></h1>
+  <p class="hero-subtitle">Most people in the UK are owed money they're not claiming. Our free checkers tell you exactly what — in 60 seconds, no long forms, no sign-up, nothing stored.</p>
+  <div class="hero-trust">
+    <span class="hero-trust-item"><span class="hero-trust-dot"></span>Completely free</span>
+    <span class="hero-trust-item"><span class="hero-trust-dot"></span>No sign-up required</span>
+    <span class="hero-trust-item"><span class="hero-trust-dot"></span>Your data never leaves your device</span>
+    <span class="hero-trust-item"><span class="hero-trust-dot"></span>Updated for 2026/27</span>
+  </div>
+</section>
+
+<!-- Stats bar -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">£24bn</div>
+    <div class="stat-label">in benefits go unclaimed every year in the UK</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">8m+</div>
+    <div class="stat-label">households missing out on money they're owed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">60s</div>
+    <div class="stat-label">is all it takes to find out what you're entitled to</div>
+  </div>
+</div>
+
+<!-- Checkers -->
+<section class="checkers-section" style="background:#dcdbd6;">
+  <div class="section-eyebrow">Choose your checker</div>
+  <h2 class="section-title">Which situation applies to you?</h2>
+  <p class="section-subtitle">Seven free checkers, each built specifically for that audience — not a generic form that covers everyone badly. Select yours and get your results in 60 seconds.</p>
+
+  <div class="checker-grid">
+
+    <a href="/working-parents" class="checker-card">
+      <span class="checker-card-badge badge-live">Live now</span>
+      <div class="checker-card-icon">👶</div>
+      <h3 class="checker-card-title">Working Parents</h3>
+      <p class="checker-card-hook">Most working families earning up to £60,000 qualify for benefits they're not claiming.</p>
+      <p class="checker-card-desc">Check Universal Credit, Child Benefit, Tax-Free Childcare, Free School Meals, Healthy Start vouchers and more.</p>
+      <div class="checker-card-stat">Checks <strong>7 benefits</strong> · Takes under 2 minutes</div>
+      <span class="checker-card-btn">Start check →</span>
+    </a>
+
+    <a href="/pensioners" class="checker-card">
+      <span class="checker-card-badge badge-live">Live now</span>
+      <div class="checker-card-icon">👴</div>
+      <h3 class="checker-card-title">Pensioners</h3>
+      <p class="checker-card-hook">800,000 pensioners miss out on an average of £3,900/year. Is this you or someone you love?</p>
+      <p class="checker-card-desc">Check Pension Credit, Attendance Allowance, Warm Home Discount, Winter Fuel Payment, and more.</p>
+      <div class="checker-card-stat">Checks <strong>9 benefits</strong> · Also works for checking on behalf of a relative</div>
+      <span class="checker-card-btn">Start check →</span>
+    </a>
+
+    <div class="checker-card coming-soon">
+      <span class="checker-card-badge badge-soon">Coming soon</span>
+      <div class="checker-card-icon">🤝</div>
+      <h3 class="checker-card-title">Carers</h3>
+      <p class="checker-card-hook">1.3 million people are eligible for Carer's Allowance but not claiming it — worth £81.90/week.</p>
+      <p class="checker-card-desc">If you look after a disabled or elderly person, you may be entitled to significant financial support you don't know about.</p>
+      <div class="checker-card-stat">Will check <strong>Carer's Allowance, UC carer element</strong> & more</div>
+      <span class="checker-card-btn disabled">Coming soon</span>
+    </div>
+
+    <a href="/redundancy" class="checker-card">
+      <span class="checker-card-badge badge-live">Live now</span>
+      <div class="checker-card-icon">📋</div>
+      <h3 class="checker-card-title">Recently Redundant</h3>
+      <p class="checker-card-hook">Just lost your job? You're probably entitled to more support than you realise.</p>
+      <p class="checker-card-desc">Check New Style JSA, Universal Credit, redundancy pay, mortgage interest support, and council tax reduction — before your savings run out.</p>
+      <div class="checker-card-stat">Checks <strong>8 entitlements</strong> · Act quickly — JSA must be claimed within 3 months</div>
+      <span class="checker-card-btn">Start check →</span>
+    </a>
+
+    <a href="/self-employed" class="checker-card">
+      <span class="checker-card-badge badge-live">Live now</span>
+      <div class="checker-card-icon">💼</div>
+      <h3 class="checker-card-title">Self-Employed</h3>
+      <p class="checker-card-hook">Self-employed doesn't mean unsupported — most sole traders miss out on benefits they're fully entitled to.</p>
+      <p class="checker-card-desc">Check Universal Credit, Maternity Allowance, Tax-Free Childcare, free childcare hours, and more — built specifically for sole traders.</p>
+      <div class="checker-card-stat">Checks <strong>8 benefits</strong> · Results in under 60 seconds</div>
+      <span class="checker-card-btn">Start check →</span>
+    </a>
+
+    <a href="/new-parent" class="checker-card">
+      <span class="checker-card-badge badge-live">Live now</span>
+      <div class="checker-card-icon">👶</div>
+      <h3 class="checker-card-title">New Parents</h3>
+      <p class="checker-card-hook">A new baby is expensive — make sure you're claiming everything you're entitled to from day one.</p>
+      <p class="checker-card-desc">Check SMP, Maternity Allowance, Sure Start Grant, Child Benefit, Healthy Start vouchers, free childcare hours and more.</p>
+      <div class="checker-card-stat">Checks <strong>8 benefits</strong> · Some have strict claim deadlines</div>
+      <span class="checker-card-btn">Start check →</span>
+    </a>
+
+    <a href="/disabled-worker" class="checker-card">
+      <span class="checker-card-badge badge-live">Live now</span>
+      <div class="checker-card-icon">♿</div>
+      <h3 class="checker-card-title">Sick or Disabled Workers</h3>
+      <p class="checker-card-hook">A disability or health condition shouldn't mean financial hardship — find the support you're entitled to.</p>
+      <p class="checker-card-desc">Check PIP, Access to Work, UC health element, council tax discounts, Blue Badge, Railcard and more.</p>
+      <div class="checker-card-stat">Checks <strong>8 benefits</strong> · PIP not means-tested — income doesn't affect it</div>
+      <span class="checker-card-btn">Start check →</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="how-section">
+  <div class="how-inner">
+    <div class="how-eyebrow">How it works</div>
+    <h2 class="how-title">Simple. Fast. Private.</h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <div class="how-step-title">Choose your checker</div>
+        <div class="how-step-desc">Select the checker that matches your situation — working parent, pensioner, carer, or recently redundant.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <div class="how-step-title">Answer a few questions</div>
+        <div class="how-step-desc">No long forms, no jargon. Just the questions that actually matter — takes under 60 seconds.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <div class="how-step-title">See what you're owed</div>
+        <div class="how-step-desc">Get a personalised results page showing exactly what you're likely entitled to, with direct links to claim on GOV.UK.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Disclaimer -->
+<div class="disclaimer-strip">
+  <p><strong>Disclaimer:</strong> BenefitsCheck UK provides estimates only, based on information entered and 2026/27 benefit rates. Results are not financial advice. Always verify your entitlement on GOV.UK or with Citizens Advice before making any claim decisions. Nothing you enter is stored or shared.</p>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-logo">Benefits<span>Check</span> UK</div>
+  <div class="footer-links">
+    <a href="/working-parents" class="footer-link">Working Parents</a>
+    <a href="/pensioners" class="footer-link">Pensioners</a>
+    <a href="/carers" class="footer-link">Carers</a>
+    <a href="/redundancy" class="footer-link">Redundancy</a>
+    <a href="/self-employed" class="footer-link">Self-Employed</a>
+    <a href="/new-parent" class="footer-link">New Parents</a>
+    <a href="/disabled-worker" class="footer-link">Disabled Workers</a>
+    <a href="/about" class="footer-link">About</a>
+    <a href="/privacy" class="footer-link">Privacy Policy</a>
+  </div>
+  <p class="footer-copy">© 2026 BenefitsCheck UK · Free, independent benefit checkers · Not financial advice · 2026/27 rates</p>
+</footer>
+
+</body>
+</html>
