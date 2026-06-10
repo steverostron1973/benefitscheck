@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carer's Benefit Checker 2026/27 | BenefitsCheck UK</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #ede9e3; min-height: 100vh; color: #1a1a1a; }
+  .page { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; }
+
+  /* Left panel - warm amber/teal for carers */
+  .left-panel { background: #1a2a2e; padding: 2rem 2.5rem; display: flex; flex-direction: column; justify-content: flex-start; position: sticky; top: 0; height: 100vh; overflow: hidden; }
+  .left-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; }
+  .left-logo-mark { width: 36px; height: 36px; background: #e07b3a; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; font-weight: 900; font-family: 'Playfair Display', serif; }
+  .left-logo-text { display: flex; flex-direction: column; }
+  .left-logo-name { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.01em; line-height: 1.1; }
+  .left-logo-tagline { font-size: 10px; color: #e07b3a; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+  .left-strapline-top {
+    font-size: 15px;
+    color: #c0d0d4;
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
+    font-style: italic;
+  }
+
+  .left-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #e07b3a; margin-bottom: 0.75rem; }
+  .left-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.8rem, 3vw, 2.4rem); color: #fff; line-height: 1.2; margin-bottom: 0.9rem; }
+  .left-title em { color: #e07b3a; font-style: normal; }
+  .left-title-intro { font-size: clamp(1.1rem, 2vw, 1.4rem); color: #e07b3a; }
+  .left-stats-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #e07b3a; margin-bottom: 0.5rem; margin-top: 0; }
+  .left-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #e07b3a; border: 1px solid #e07b3a; border-radius: 14px; overflow: hidden; margin-bottom: 1.25rem; }
+  .left-stat { background: #0f1e22; padding: 1rem 1.25rem; text-align: center; }
+  .left-stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: #e07b3a; line-height: 1; margin-bottom: 4px; }
+  .left-stat-label { font-size: 12px; color: #c0d0d4; font-weight: 500; line-height: 1.4; }
+  .left-usps { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 1rem; }
+  .left-usp { display: flex; align-items: flex-start; gap: 1rem; }
+  .left-usp-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 1px; }
+  .left-usp-heading { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .left-usp-body { font-size: 13px; color: #9ab0b4; line-height: 1.55; }
+  .left-footer { font-size: 12px; color: #9ab0b4; display: flex; align-items: center; gap: 8px; margin-top: auto; }
+  .left-footer::before { content: ''; width: 6px; height: 6px; background: #e07b3a; border-radius: 50%; flex-shrink: 0; }
+
+  /* Right panel */
+  .right-panel { background: #ede9e3; padding: 3rem 2.5rem; overflow-y: auto; }
+  .progress-wrap { margin-bottom: 1.75rem; }
+  .progress-labels { display: flex; justify-content: space-between; margin-bottom: 8px; gap: 4px; }
+  .progress-label { font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: #a09080; transition: color 0.3s; text-align: center; flex: 1; }
+  .progress-label.active { color: #1a2a2e; font-weight: 700; }
+  .progress-label.done { color: #e07b3a; }
+  .progress-track { height: 3px; background: #d8d0c4; border-radius: 999px; }
+  .progress-fill { height: 3px; background: linear-gradient(90deg, #e07b3a, #f09060); border-radius: 999px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+  .step-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #1a2a2e; margin: 0 0 0.35rem; font-weight: 700; }
+  .step-hint { font-size: 14px; color: #333; margin-bottom: 1.75rem; line-height: 1.5; }
+  .field { margin-bottom: 1.4rem; }
+  .field-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #b85a10; margin-bottom: 6px; }
+  .field-sublabel { font-size: 13px; color: #444; margin-bottom: 8px; line-height: 1.5; }
+  .radio-group { display: flex; flex-direction: column; gap: 8px; }
+  .radio-option { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1.5px solid #d8cfc4; border-radius: 10px; cursor: pointer; font-size: 14px; color: #2a1a0a; background: #faf7f3; transition: all 0.15s; font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .radio-option:hover { border-color: #e07b3a; }
+  .radio-option.selected { border-color: #e07b3a; background: #fff5ee; }
+  .radio-option input { accent-color: #e07b3a; width: 15px; height: 15px; flex-shrink: 0; cursor: pointer; }
+  .text-input, .sel-input { width: 100%; padding: 11px 14px; border: 1.5px solid #d8cfc4; border-radius: 10px; font-size: 14px; font-family: 'Inter', sans-serif; color: #1a1a1a; background: #faf7f3; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .text-input:focus, .sel-input:focus { outline: none; border-color: #e07b3a; box-shadow: 0 0 0 3px rgba(224,123,58,0.15); }
+  .checkbox-group { display: flex; flex-direction: column; gap: 8px; }
+  .checkbox-option { display: flex; align-items: center; gap: 12px; padding: 11px 16px; border: 1.5px solid #d8cfc4; border-radius: 10px; cursor: pointer; font-size: 14px; color: #2a1a0a; background: #faf7f3; font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .checkbox-option input { accent-color: #e07b3a; width: 15px; height: 15px; flex-shrink: 0; cursor: pointer; }
+  .divider { border: none; border-top: 1px solid #e8e7e2; margin: 1.5rem 0; }
+  .info-box { background: #fff3e8; border: 2px solid #e07b3a; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 13px; color: #7a3a0a; line-height: 1.6; }
+  .nav { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #d8cfc4; }
+  .nav-right { margin-left: auto; }
+  .btn-primary { padding: 11px 24px; background: linear-gradient(135deg, #c0621a, #e07b3a); color: #fff; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-ghost { padding: 11px 16px; background: transparent; color: #333; border: 1.5px solid #c8c7c0; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; }
+  .btn-ghost:hover { background: #f0f5f6; }
+
+  /* Results */
+  .result-banner { background: #1a2a2e; border-radius: 16px; padding: 2.5rem 2rem; text-align: center; margin-bottom: 1.75rem; }
+  .result-banner.none { background: #e8e7e2; }
+  .result-missing-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #e07b3a; margin-bottom: 0.75rem; }
+  .result-total { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 10vw, 5.5rem); font-weight: 700; color: #e07b3a; line-height: 1; margin-bottom: 0.3rem; letter-spacing: -0.02em; }
+  .result-total-sub { font-size: 14px; color: #a0b8bc; font-weight: 500; margin-bottom: 1.75rem; }
+  .result-divider { border: none; border-top: 1px solid #2d4a50; margin: 0 0 1.5rem; }
+  .result-count-row { display: flex; align-items: baseline; justify-content: center; gap: 0.6rem; margin-bottom: 0.25rem; }
+  .result-count { font-family: 'Playfair Display', serif; font-size: 2rem; color: #fff; line-height: 1; }
+  .result-count.none { color: #999; }
+  .result-label { font-size: 15px; color: #d4e0e2; font-weight: 500; }
+  .result-sublabel { font-size: 12px; color: #6a8a8e; margin-top: 6px; }
+  .results-list { display: flex; flex-direction: column; gap: 10px; }
+  .result-card { background: #fff; border: 1.5px solid #e0dfd9; border-radius: 12px; padding: 1.25rem 1.4rem; }
+  .result-card.likely { border-color: #e07b3a; }
+  .result-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+  .result-name { font-size: 15px; font-weight: 700; color: #111; }
+  .result-amount { font-size: 13px; color: #b05a15; font-weight: 600; margin-top: 3px; }
+  .chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+  .chip.yes { background: #fde8d4; color: #8a3a0a; }
+  .chip.no { background: #e8e7e2; color: #333; }
+  .result-summary { font-size: 14px; color: #1a1a1a; line-height: 1.7; margin-bottom: 8px; }
+  .result-tip { font-size: 13px; color: #333; line-height: 1.6; margin-bottom: 10px; font-style: italic; }
+  .result-link { font-size: 13px; font-weight: 600; color: #1a2a2e; text-decoration: none; border-bottom: 1.5px solid #f0c9a0; padding-bottom: 1px; }
+  .result-link:hover { border-bottom-color: #1a2a2e; }
+  .result-link.muted { color: #555; border-bottom-color: #ccc; }
+  .unlikely-heading { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #666; margin: 1.5rem 0 0.6rem; }
+  .already-box { margin-top: 1.25rem; padding: 1rem 1.25rem; background: #f0ebe4; border-radius: 10px; border: 1.5px solid #d8cfc4; }
+  .already-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #555; margin-bottom: 4px; }
+  .already-list { font-size: 14px; color: #111; line-height: 1.6; font-weight: 600; }
+  .disclaimer { margin-top: 1.5rem; padding: 1rem 1.25rem; background: #e5dfd8; border-radius: 10px; font-size: 13px; color: #444; line-height: 1.6; }
+  .disclaimer strong { color: #111; }
+  .footer-note { text-align: center; font-size: 11px; color: #888; margin-top: 1rem; }
+
+  @media (max-width: 800px) {
+    .page { grid-template-columns: 1fr; }
+    .left-panel { position: relative; height: auto; padding: 2rem 1.5rem; }
+    .right-panel { padding: 2rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Left panel -->
+  <div class="left-panel">
+    <div class="left-logo">
+      <div class="left-logo-mark">🤝</div>
+      <div class="left-logo-text">
+        <span class="left-logo-name">BenefitsCheck UK</span>
+        <span class="left-logo-tagline">Free · Independent · 2026/27 Rates</span>
+      </div>
+    </div>
+    <div class="left-eyebrow">For Carers & Their Families · Free · No sign-up needed</div>
+    <p class="left-strapline-top">You give everything looking after someone else.</p>
+    <h1 class="left-title">Are you claiming<br>everything<br>you're <em>owed?</em></h1>
+    <div class="left-stats-label">The scale of the problem</div>
+    <div class="left-stats">
+      <div class="left-stat">
+        <div class="left-stat-num">£4,495</div>
+        <div class="left-stat-label">average annual Carer's Allowance going unclaimed per carer</div>
+      </div>
+      <div class="left-stat">
+        <div class="left-stat-num">1.3m</div>
+        <div class="left-stat-label">people eligible but not claiming — are you one of them?</div>
+      </div>
+    </div>
+    <div class="left-usps">
+      <div class="left-usp">
+        <div class="left-usp-icon">🔒</div>
+        <div>
+          <div class="left-usp-heading">Your data never leaves your device</div>
+          <div class="left-usp-body">All calculations happen in your browser. Nothing is stored, tracked, or shared — ever.</div>
+        </div>
+      </div>
+      <div class="left-usp">
+        <div class="left-usp-icon">👴</div>
+        <div>
+          <div class="left-usp-heading">Works even if you get a State Pension</div>
+          <div class="left-usp-body">Pensioners often can't be paid Carer's Allowance — but may still qualify for thousands in other support.</div>
+        </div>
+      </div>
+      <div class="left-usp">
+        <div class="left-usp-icon">💷</div>
+        <div>
+          <div class="left-usp-heading">8 benefits checked instantly</div>
+          <div class="left-usp-body">Including Carer's Allowance, UC carer element, Pension Credit addition and more.</div>
+        </div>
+      </div>
+    </div>
+    <div class="left-footer">All calculations happen in your browser. Nothing is stored or shared.</div>
+  </div>
+
+  <!-- Right panel -->
+  <div class="right-panel">
+    <div id="root"></div>
+    <p class="footer-note" id="footer-note">Carer's Benefit Checker · 2026/27 · Not financial advice · <a href="/" style="color:#1a2a2e;">BenefitsCheck UK</a></p>
+  </div>
+</div>
+
+<script type="text/babel">
+const { useState } = React;
+
+const STEPS = ["about","caring","income","existing","results"];
+const LABELS = ["About","Caring","Income","Already claiming","Results"];
+
+function calcBenefits(d) {
+  const all = [];
+  const self = d.checkingFor === "myself";
+  const age = parseInt(d.age)||0;
+  const hoursPerWeek = parseInt(d.hoursPerWeek)||0;
+  const weeklyEarnings = parseFloat(d.weeklyEarnings)||0;
+  const receives = d.alreadyClaiming||[];
+  const onUC = d.onUC === "yes";
+  const onPensionCredit = d.onPensionCredit === "yes" || receives.includes("Pension Credit");
+  const onStatePension = d.onStatePension === "yes";
+  const statePensionAmount = parseFloat(d.statePensionAmount)||0;
+  const inScotland = d.country === "scotland";
+  const careReceivesBenefit = d.careReceivesBenefit === "yes";
+  const inFullTimeEducation = d.fullTimeEducation === "yes";
+
+  // Eligibility basics
+  const ageOk = age >= 16;
+  const hoursOk = hoursPerWeek >= 35;
+  const earningsOk = weeklyEarnings <= 204;
+  const educationOk = !inFullTimeEducation;
+  const careQualifies = careReceivesBenefit;
+
+  // 1. Carer's Allowance
+  const caBasicEligible = ageOk && hoursOk && earningsOk && educationOk && careQualifies;
+  // Overlapping benefit rule — State Pension ≥ £86.45/week blocks payment
+  const statesPensionBlocks = onStatePension && statePensionAmount >= 86.45;
+  const caPayable = caBasicEligible && !statesPensionBlocks;
+  const caUnderlyingEntitlement = caBasicEligible && statesPensionBlocks;
+
+  all.push({
+    name: "Carer's Allowance",
+    likely: caBasicEligible,
+    amount: caPayable ? "£86.45/week (£4,495/year)" : caUnderlyingEntitlement ? "Underlying entitlement only (not payable — State Pension overlap)" : null,
+    summary: caPayable
+      ? `${self?"You":"They"} appear to meet all the criteria for Carer's Allowance — caring for 35+ hours/week for someone on a qualifying benefit, with earnings under £204/week. Worth £86.45/week (£4,495/year).`
+      : caUnderlyingEntitlement
+      ? `${self?"Your":"Their"} State Pension (£${statePensionAmount}/week) means Carer's Allowance cannot be paid on top — but ${self?"you":"they"} should still apply to establish underlying entitlement. This unlocks thousands in extra Pension Credit.`
+      : !hoursOk ? `Carer's Allowance requires at least 35 hours of care per week. ${self?"You're":"They're"} currently providing ${hoursPerWeek} hours.`
+      : !earningsOk ? `The earnings limit is £204/week net. With earnings of £${weeklyEarnings}/week, ${self?"you":"they"} exceed this threshold. Note: some expenses can be deducted.`
+      : !careQualifies ? "The person being cared for needs to be receiving a qualifying disability benefit (PIP, DLA, Attendance Allowance, etc.)."
+      : !educationOk ? "Carer's Allowance is not available to those in full-time education (21+ hours/week)."
+      : "Carer's Allowance criteria not met based on the information provided.",
+    tip: caPayable ? "Carer's Allowance is taxable if your total income exceeds £12,570/year. It also earns you National Insurance credits towards your State Pension." 
+      : caUnderlyingEntitlement ? "Even though Carer's Allowance can't be paid, applying is essential — it unlocks the Pension Credit carer addition worth £48.15/week (£2,503/year)." : null,
+    url: "https://www.gov.uk/carers-allowance",
+    cta: "Check Carer's Allowance on GOV.UK",
+    annualValue: caPayable ? 4495 : 0
+  });
+
+  // 2. Carer's Credit
+  const creditEligible = hoursOk && careQualifies && !caPayable;
+  all.push({
+    name: "Carer's Credit",
+    likely: creditEligible,
+    amount: creditEligible ? "National Insurance credits (protects your State Pension)" : null,
+    summary: creditEligible
+      ? `${self?"You":"They"} may qualify for Carer's Credit — free National Insurance credits for carers who can't receive Carer's Allowance. These protect ${self?"your":"their"} State Pension entitlement.`
+      : caPayable ? "Carer's Allowance already includes NI credits — Carer's Credit is not needed on top."
+      : "Carer's Credit is for people who care for 20+ hours/week but don't qualify for Carer's Allowance.",
+    tip: creditEligible ? "Carer's Credit is not automatic — you must apply separately even if you already get other benefits." : null,
+    url: "https://www.gov.uk/carers-credit",
+    cta: "Apply for Carer's Credit",
+    annualValue: 0
+  });
+
+  // 3. UC Carer Element
+  const ucCarerEligible = onUC && caBasicEligible;
+  all.push({
+    name: "Universal Credit — Carer Element",
+    likely: ucCarerEligible,
+    amount: ucCarerEligible ? "£209.34/month extra on top of UC" : null,
+    summary: ucCarerEligible
+      ? `As a carer on Universal Credit, ${self?"you":"they"} should receive the carer element of £209.34/month on top of the standard UC allowance. Carer's Allowance counts as income but the carer element broadly offsets it.`
+      : !onUC ? "This applies to carers who also receive Universal Credit."
+      : "The UC carer element requires meeting the same basic caring criteria as Carer's Allowance.",
+    tip: ucCarerEligible ? "Make sure the UC claim includes the carer element — it's not always added automatically. Report your caring role to DWP." : null,
+    url: "https://www.gov.uk/universal-credit/what-youll-get",
+    cta: "Check UC carer element on GOV.UK",
+    annualValue: ucCarerEligible ? Math.round(209.34*12) : 0
+  });
+
+  // 4. Pension Credit Carer Addition
+  const pcCarerEligible = (onPensionCredit || age >= 66) && caBasicEligible;
+  all.push({
+    name: "Pension Credit — Carer Addition",
+    likely: pcCarerEligible,
+    amount: pcCarerEligible ? "£48.15/week extra (£2,503/year)" : null,
+    summary: pcCarerEligible
+      ? `If ${self?"you":"they"} receive Pension Credit or are of Pension Credit age, the carer addition of £48.15/week (£2,503/year) should be included. This applies even if Carer's Allowance can't be paid due to the State Pension overlap.`
+      : age < 66 ? "The Pension Credit carer addition is for those of Pension Credit age (66+)."
+      : "This addition requires underlying entitlement to Carer's Allowance and receiving Pension Credit.",
+    tip: pcCarerEligible ? "This is one of the most commonly missed entitlements — many pensioners caring for a spouse or relative have no idea they qualify for this extra £2,503/year." : null,
+    url: "https://www.gov.uk/pension-credit",
+    cta: "Check Pension Credit carer addition",
+    annualValue: pcCarerEligible ? 2503 : 0
+  });
+
+  // 5. Council Tax Reduction
+  const ctrEligible = caPayable || onUC || onPensionCredit;
+  all.push({
+    name: "Council Tax Reduction",
+    likely: ctrEligible,
+    amount: ctrEligible ? "25–100% off your council tax bill" : null,
+    summary: ctrEligible
+      ? `Carers on Carer's Allowance, Universal Credit, or Pension Credit often qualify for significant Council Tax Reduction. The amount varies by local council but can be up to 100%.`
+      : "Council Tax Reduction is means-tested and varies by council. Worth checking directly with your local council.",
+    tip: "Apply directly to your local council — never automatic. Also, if you live alone with the person you care for, a single person discount (25% off) may apply.",
+    url: "https://www.gov.uk/council-tax-reduction",
+    cta: "Check Council Tax Reduction",
+    annualValue: ctrEligible ? 800 : 0
+  });
+
+  // 6. Carer's Allowance Supplement (Scotland only)
+  if (inScotland) {
+    const casEligible = caBasicEligible;
+    all.push({
+      name: "Carer's Support Payment / Carer's Allowance Supplement",
+      likely: casEligible,
+      amount: casEligible ? "£293.50 twice a year (£587/year extra)" : null,
+      summary: casEligible
+        ? "In Scotland, Carer's Allowance is being replaced by Carer Support Payment. Scottish carers also receive the Carer's Allowance Supplement of £293.50 twice a year — an additional £587/year on top of the standard rate."
+        : "Carer's Allowance Supplement is only available in Scotland to those receiving Carer's Allowance.",
+      tip: "Carer Support Payment is being rolled out across Scotland. Contact Social Security Scotland to check which payment applies to you.",
+      url: "https://www.socialsecurity.gov.scot/claim-online/carer-support-payment",
+      cta: "Check Carer Support Payment",
+      annualValue: casEligible ? 587 : 0
+    });
+  }
+
+  // 7. NHS prescription exemptions
+  const nhsEligible = caPayable || onUC || onPensionCredit;
+  all.push({
+    name: "NHS Prescription & Dental Exemptions",
+    likely: nhsEligible,
+    amount: nhsEligible ? "Free prescriptions and dental treatment" : null,
+    summary: nhsEligible
+      ? `Carers on Carer's Allowance, Universal Credit, or Pension Credit qualify for free NHS prescriptions and may qualify for free dental treatment and sight tests.`
+      : "NHS exemptions are available to those on qualifying benefits.",
+    tip: "Apply for an HC1 form to claim free or reduced cost health services. This is separate from prescription exemptions.",
+    url: "https://www.nhs.uk/nhs-services/help-with-health-costs/",
+    cta: "Check NHS health cost exemptions",
+    annualValue: nhsEligible ? 350 : 0
+  });
+
+  // 8. Employment support / breaks from caring
+  all.push({
+    name: "Carer's Assessment & Local Support",
+    likely: hoursOk,
+    amount: hoursOk ? "Free carer's assessment + possible respite support" : null,
+    summary: hoursOk
+      ? `As someone providing substantial care, ${self?"you":"they"} have a legal right to a free Carer's Assessment from the local council. This can unlock respite care, emergency support, and local carer services.`
+      : "A Carer's Assessment is available to anyone providing regular care.",
+    tip: "A Carer's Assessment is free and doesn't affect benefits. Contact your local council's adult social care team to request one.",
+    url: "https://www.carersuk.org/help-and-advice/practical-support/getting-a-carers-assessment/",
+    cta: "Find out about Carer's Assessment",
+    annualValue: 0
+  });
+
+  return all.map(r => ({...r, alreadyClaiming: receives.includes(r.name)}));
+}
+
+function Radio({options, value, onChange}) {
+  return (
+    <div className="radio-group">
+      {options.map(o => (
+        <label key={o.v} className={`radio-option${value===o.v?' selected':''}`} onClick={()=>onChange(o.v)}>
+          <input type="radio" checked={value===o.v} onChange={()=>onChange(o.v)} onClick={e=>e.stopPropagation()} />
+          <span>{o.l}</span>
+        </label>
+      ))}
+    </div>
+  );
+}
+
+function Btn({children, onClick, ghost}) {
+  return ghost
+    ? <button className="btn-ghost" onClick={onClick}>{children}</button>
+    : <button className="btn-primary" onClick={onClick}>{children}</button>;
+}
+
+function App() {
+  const [step, setStep] = useState("about");
+  const [d, setD] = useState({
+    checkingFor:"", age:"", country:"england",
+    hoursPerWeek:"", careReceivesBenefit:"", fullTimeEducation:"no",
+    weeklyEarnings:"", onUC:"", onPensionCredit:"", onStatePension:"", statePensionAmount:"",
+    alreadyClaiming:[]
+  });
+  const [results, setResults] = useState(null);
+
+  const set = (k,v) => setD(prev=>({...prev,[k]:v}));
+  const nav = next => {
+    if (next==="results") setResults(calcBenefits(d));
+    setStep(next);
+    document.querySelector('.right-panel')?.scrollTo({top:0,behavior:'smooth'});
+  };
+  const reset = () => {
+    setStep("about");
+    setD({checkingFor:"",age:"",country:"england",hoursPerWeek:"",careReceivesBenefit:"",fullTimeEducation:"no",weeklyEarnings:"",onUC:"",onPensionCredit:"",onStatePension:"",statePensionAmount:"",alreadyClaiming:[]});
+    setResults(null);
+  };
+
+  const idx = STEPS.indexOf(step);
+  const pct = Math.round((idx/(STEPS.length-1))*100);
+  const self = d.checkingFor === "myself";
+  const they = self ? "you" : "they";
+  const their = self ? "your" : "their";
+  const Their = self ? "Your" : "Their";
+
+  const footerNote = document.getElementById('footer-note');
+  if (footerNote) footerNote.style.display = step==='results'?'none':'block';
+
+  return (
+    <div>
+      {step!=="results" && (
+        <div className="progress-wrap">
+          <div className="progress-labels">
+            {LABELS.map((l,i) => <span key={l} className={`progress-label${i===idx?' active':i<idx?' done':''}`}>{l}</span>)}
+          </div>
+          <div className="progress-track"><div className="progress-fill" style={{width:`${pct}%`}} /></div>
+        </div>
+      )}
+
+      {step==="about" && (
+        <>
+          <h2 className="step-title">About the carer</h2>
+          <div className="field">
+            <label className="field-label">Who are you checking for?</label>
+            <Radio value={d.checkingFor} onChange={v=>set("checkingFor",v)} options={[
+              {v:"myself",l:"Myself — I am the carer"},
+              {v:"relative",l:"Someone else — a family member or friend who is a carer"}
+            ]} />
+          </div>
+          <div className="field">
+            <label className="field-label">{Their} age</label>
+            <input className="text-input" type="number" placeholder="e.g. 45" value={d.age} onChange={e=>set("age",e.target.value)} />
+          </div>
+          <div className="field">
+            <label className="field-label">{self?"Do you":"Do they"} live in Scotland?</label>
+            <p className="field-sublabel">Scottish carers may be eligible for additional support through Carer Support Payment</p>
+            <Radio value={d.country} onChange={v=>set("country",v)} options={[
+              {v:"england",l:"No — England, Wales, or Northern Ireland"},
+              {v:"scotland",l:"Yes — Scotland"}
+            ]} />
+          </div>
+          <div className="nav"><div className="nav-right"><Btn onClick={()=>d.checkingFor&&d.age&&nav("caring")}>Continue →</Btn></div></div>
+        </>
+      )}
+
+      {step==="caring" && (
+        <>
+          <h2 className="step-title">The caring role</h2>
+          <div className="field">
+            <label className="field-label">How many hours per week {self?"do you":"do they"} spend caring?</label>
+            <p className="field-sublabel">Include all time spent helping with personal care, medication, appointments, and supervision</p>
+            <input className="text-input" type="number" placeholder="e.g. 40" value={d.hoursPerWeek} onChange={e=>set("hoursPerWeek",e.target.value)} />
+          </div>
+          <div className="field">
+            <label className="field-label">Does the person being cared for receive a disability benefit?</label>
+            <p className="field-sublabel">e.g. PIP (daily living), DLA (middle/highest care), Attendance Allowance, or similar</p>
+            <Radio value={d.careReceivesBenefit} onChange={v=>set("careReceivesBenefit",v)} options={[
+              {v:"yes",l:"Yes — they receive PIP, DLA, Attendance Allowance or similar"},
+              {v:"no",l:"No — they don't currently receive a disability benefit"},
+              {v:"unknown",l:"Not sure"}
+            ]} />
+          </div>
+          <div className="field">
+            <label className="field-label">{self?"Are you":"Are they"} in full-time education?</label>
+            <p className="field-sublabel">Full-time education means 21 or more hours of study per week</p>
+            <Radio value={d.fullTimeEducation} onChange={v=>set("fullTimeEducation",v)} options={[
+              {v:"no",l:"No"},
+              {v:"yes",l:"Yes — in full-time education (21+ hours/week)"}
+            ]} />
+          </div>
+          <div className="nav">
+            <Btn ghost onClick={()=>nav("about")}>← Back</Btn>
+            <Btn onClick={()=>d.hoursPerWeek&&d.careReceivesBenefit&&nav("income")}>Continue →</Btn>
+          </div>
+        </>
+      )}
+
+      {step==="income" && (
+        <>
+          <h2 className="step-title">{Their} income & benefits</h2>
+          <div className="field">
+            <label className="field-label">{Their} weekly earnings (£)</label>
+            <p className="field-sublabel">Net earnings after tax and NI. Enter 0 if not working. Allowable expenses (childcare, equipment) can be deducted from this figure.</p>
+            <input className="text-input" type="number" placeholder="e.g. 150" value={d.weeklyEarnings} onChange={e=>set("weeklyEarnings",e.target.value)} />
+          </div>
+          <div className="field">
+            <label className="field-label">{self?"Do you":"Do they"} currently receive Universal Credit?</label>
+            <Radio value={d.onUC} onChange={v=>set("onUC",v)} options={[
+              {v:"no",l:"No"},
+              {v:"yes",l:"Yes"}
+            ]} />
+          </div>
+          {parseInt(d.age) >= 66 && (<>
+            <div className="field">
+              <label className="field-label">{self?"Do you":"Do they"} receive a State Pension?</label>
+              <Radio value={d.onStatePension} onChange={v=>set("onStatePension",v)} options={[
+                {v:"no",l:"No"},
+                {v:"yes",l:"Yes"}
+              ]} />
+            </div>
+            {d.onStatePension==="yes" && (
+              <div className="field">
+                <label className="field-label">Weekly State Pension amount (£)</label>
+                <p className="field-sublabel">This affects whether Carer's Allowance can be paid — the full new State Pension is £230.25/week</p>
+                <input className="text-input" type="number" placeholder="e.g. 230" value={d.statePensionAmount} onChange={e=>set("statePensionAmount",e.target.value)} />
+              </div>
+            )}
+            {d.onStatePension==="yes" && (
+              <div className="field">
+                <label className="field-label">{self?"Do you":"Do they"} receive Pension Credit?</label>
+                <Radio value={d.onPensionCredit} onChange={v=>set("onPensionCredit",v)} options={[
+                  {v:"no",l:"No"},
+                  {v:"yes",l:"Yes"},
+                  {v:"unknown",l:"Not sure"}
+                ]} />
+              </div>
+            )}
+          </>)}
+          <div className="nav">
+            <Btn ghost onClick={()=>nav("caring")}>← Back</Btn>
+            <Btn onClick={()=>{
+              const age = parseInt(d.age)||0;
+              const basicOk = d.weeklyEarnings!=='' && d.onUC;
+              const pensionOk = age < 66 || (d.onStatePension && (d.onStatePension==="no" || d.onPensionCredit));
+              if(basicOk && pensionOk) nav("existing");
+            }}>Continue →</Btn>
+          </div>
+        </>
+      )}
+
+      {step==="existing" && (
+        <>
+          <h2 className="step-title">Already claiming</h2>
+          <p className="step-hint">{self?"Tick anything you're":"Tick anything they're"} already receiving — we'll skip these in your results.</p>
+          <div className="field">
+            <div className="checkbox-group">
+              {["Carer's Allowance","Carer's Credit","Universal Credit — Carer Element","Pension Credit — Carer Addition","Council Tax Reduction","Carer's Support Payment / Carer's Allowance Supplement","NHS Prescription & Dental Exemptions","Carer's Assessment & Local Support"].map(b => (
+                <label key={b} className="checkbox-option">
+                  <input type="checkbox" checked={d.alreadyClaiming.includes(b)} onChange={e=>{
+                    const next = e.target.checked ? [...d.alreadyClaiming,b] : d.alreadyClaiming.filter(x=>x!==b);
+                    set("alreadyClaiming",next);
+                  }} />
+                  {b}
+                </label>
+              ))}
+            </div>
+          </div>
+          <div className="nav">
+            <Btn ghost onClick={()=>nav("income")}>← Back</Btn>
+            <Btn onClick={()=>nav("results")}>See my results →</Btn>
+          </div>
+        </>
+      )}
+
+      {step==="results" && results && (
+        <>
+          {(() => {
+            const newBenefits = results.filter(r=>!r.alreadyClaiming);
+            const skipped = results.filter(r=>r.alreadyClaiming);
+            const likelyNew = newBenefits.filter(r=>r.likely);
+            const unlikelyNew = newBenefits.filter(r=>!r.likely);
+            const totalValue = likelyNew.reduce((sum,r)=>sum+(r.annualValue||0),0);
+            return (<>
+              <div className={`result-banner${likelyNew.length===0?' none':''}`}>
+                {totalValue>0 ? (<>
+                  <div className="result-missing-label">{d.checkingFor==="myself"?"You could be missing out on":"They could be missing out on"}</div>
+                  <div className="result-total">£{totalValue.toLocaleString()}</div>
+                  <div className="result-total-sub">per year in unclaimed support</div>
+                  <hr className="result-divider" />
+                  <div className="result-count-row">
+                    <div className="result-count">{likelyNew.length}</div>
+                    <div className="result-label">benefit{likelyNew.length!==1?"s":""} likely unclaimed</div>
+                  </div>
+                  <div className="result-sublabel">Estimates based on 2026/27 rates — verify each one below</div>
+                </>) : (<>
+                  <div className={`result-count${likelyNew.length===0?' none':''}`}>{likelyNew.length}</div>
+                  <div className="result-label">benefit{likelyNew.length!==1?"s":""} likely unclaimed</div>
+                  <div className="result-sublabel">Estimates based on 2026/27 rates — verify each one below</div>
+                </>)}
+              </div>
+
+              <div className="results-list">
+                {likelyNew.map(r => (
+                  <div key={r.name} className="result-card likely">
+                    <div className="result-card-head">
+                      <div>
+                        <div className="result-name">{r.name}</div>
+                        {r.amount && <div className="result-amount">{r.amount}</div>}
+                      </div>
+                      <span className="chip yes">✓ Likely eligible</span>
+                    </div>
+                    <p className="result-summary">{r.summary}</p>
+                    {r.tip && <p className="result-tip">💡 {r.tip}</p>}
+                    <a href={r.url} target="_blank" rel="noopener noreferrer" className="result-link">{r.cta} →</a>
+                  </div>
+                ))}
+              </div>
+
+              {unlikelyNew.length>0 && (<>
+                <div className="unlikely-heading">Also checked — unlikely to apply</div>
+                <div className="results-list">
+                  {unlikelyNew.map(r => (
+                    <div key={r.name} className="result-card">
+                      <div className="result-card-head">
+                        <div><div className="result-name">{r.name}</div></div>
+                        <span className="chip no">✗ Unlikely</span>
+                      </div>
+                      <p className="result-summary">{r.summary}</p>
+                      <a href={r.url} target="_blank" rel="noopener noreferrer" className="result-link muted">{r.cta} →</a>
+                    </div>
+                  ))}
+                </div>
+              </>)}
+
+              {skipped.length>0 && (
+                <div className="already-box">
+                  <div className="already-title">Already claiming</div>
+                  <div className="already-list">{skipped.map(r=>r.name).join(" · ")}</div>
+                </div>
+              )}
+
+              <div className="disclaimer">
+                <strong>Disclaimer:</strong> This tool provides estimates only, based on the information entered and 2026/27 benefit rates. It is not financial advice. Always verify entitlement on GOV.UK or with Citizens Advice before making any claim decisions.
+              </div>
+
+              <div className="nav" style={{marginTop:"1.5rem"}}>
+                <Btn ghost onClick={()=>nav("existing")}>← Amend answers</Btn>
+                <Btn ghost onClick={reset}>↺ Start again</Btn>
+              </div>
+            </>);
+          })()}
+        </>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
