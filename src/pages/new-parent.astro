@@ -6,5 +6,322 @@ import NewParentChecker from '../components/NewParentChecker.jsx';
   title="New Parent Benefit Checker 2026/27 | BenefitsCheck UK"
   description="Find out what you're entitled to as a new or expectant parent in 60 seconds. Free UK checker covering Maternity Pay, Child Benefit, Sure Start Grant and more. Updated for 2026/27 rates."
 >
-  <NewParentChecker client:load />
+  <style is:global>
+    body { min-height: 100vh; background: #f5efe8; }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+    }
+
+    /* Left panel - warm amber for new parents */
+    .left-panel {
+      background: #2e1a0a;
+      padding: 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .left-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .left-logo-mark {
+      width: 36px;
+      height: 36px;
+      background: #d4703a;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #fff;
+      font-weight: 900;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .left-logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .left-logo-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+
+    .left-logo-tagline {
+      font-size: 10px;
+      color: #d4703a;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .left-strapline-top {
+      font-size: 15px;
+      color: #c8a888;
+      line-height: 1.5;
+      margin-bottom: 0.6rem;
+      font-style: italic;
+    }
+
+    .left-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #d4703a;
+      margin-bottom: 0.75rem;
+    }
+
+    .left-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 0.9rem;
+    }
+
+    .left-title em {
+      color: #d4703a;
+      font-style: normal;
+    }
+
+    .left-stats-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #d4703a;
+      margin-bottom: 0.5rem;
+      margin-top: 0;
+    }
+
+    .left-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: #d4703a;
+      border: 1px solid #d4703a;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+
+    .left-stat {
+      background: #1a0e05;
+      padding: 1rem 1.25rem;
+      text-align: center;
+    }
+
+    .left-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #d4703a;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .left-stat-label {
+      font-size: 12px;
+      color: #c8a888;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .left-usps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .left-usp {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .left-usp-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .left-usp-heading {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .left-usp-body {
+      font-size: 13px;
+      color: #a07858;
+      line-height: 1.55;
+    }
+
+    .left-footer {
+      font-size: 12px;
+      color: #a07858;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .left-footer::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #d4703a;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Right panel */
+    .right-panel {
+      background: #f5efe8;
+      padding: 3rem 2.5rem;
+      overflow-y: auto;
+    }
+
+    .progress-wrap { margin-bottom: 1.75rem; }
+    .progress-labels { display: flex; justify-content: space-between; margin-bottom: 8px; gap: 4px; }
+    .progress-label { font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: #c8a070; transition: color 0.3s; text-align: center; flex: 1; }
+    .progress-label.active { color: #2e1a0a; font-weight: 700; }
+    .progress-label.done { color: #d4703a; }
+    .progress-track { height: 3px; background: #ddc8a8; border-radius: 999px; }
+    .progress-fill { height: 3px; background: linear-gradient(90deg, #a04820, #d4703a); border-radius: 999px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+    .step-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #2e1a0a; margin: 0 0 0.35rem; font-weight: 700; }
+    .step-hint { font-size: 14px; color: #6a4a2a; margin-bottom: 1.75rem; line-height: 1.5; }
+    .field { margin-bottom: 1.4rem; }
+    .field-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8a4a1a; margin-bottom: 6px; }
+    .field-sublabel { font-size: 13px; color: #6a4a2a; margin-bottom: 8px; line-height: 1.5; }
+    .radio-group { display: flex; flex-direction: column; gap: 8px; }
+    .radio-option { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1.5px solid #ddc8a8; border-radius: 10px; cursor: pointer; font-size: 14px; color: #2e1a0a; background: #fdf8f2; transition: all 0.15s; font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .radio-option:hover { border-color: #d4703a; }
+    .radio-option.selected { border-color: #d4703a; background: #fff0e8; }
+    .radio-option input { accent-color: #d4703a; width: 15px; height: 15px; flex-shrink: 0; cursor: pointer; }
+    .text-input, .sel-input { width: 100%; padding: 11px 14px; border: 1.5px solid #ddc8a8; border-radius: 10px; font-size: 14px; font-family: 'Inter', sans-serif; color: #2e1a0a; background: #fdf8f2; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .text-input:focus, .sel-input:focus { outline: none; border-color: #d4703a; box-shadow: 0 0 0 3px rgba(212,112,58,0.15); }
+    .checkbox-group { display: flex; flex-direction: column; gap: 8px; }
+    .checkbox-option { display: flex; align-items: center; gap: 12px; padding: 11px 16px; border: 1.5px solid #ddc8a8; border-radius: 10px; cursor: pointer; font-size: 14px; color: #2e1a0a; background: #fdf8f2; font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .checkbox-option input { accent-color: #d4703a; width: 15px; height: 15px; flex-shrink: 0; cursor: pointer; }
+    .nav { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #ddc8a8; }
+    .nav-right { margin-left: auto; }
+    .btn-primary { padding: 11px 24px; background: linear-gradient(135deg, #a04820, #d4703a); color: #fff; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-ghost { padding: 11px 16px; background: transparent; color: #6a4a2a; border: 1.5px solid #ddc8a8; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; }
+    .btn-ghost:hover { background: #fff0e8; }
+
+    /* Results */
+    .result-banner { background: #2e1a0a; border-radius: 16px; padding: 2.5rem 2rem; text-align: center; margin-bottom: 1.75rem; }
+    .result-banner.none { background: #ddc8a8; }
+    .result-missing-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #d4703a; margin-bottom: 0.75rem; }
+    .result-total { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 10vw, 5.5rem); font-weight: 700; color: #d4703a; line-height: 1; margin-bottom: 0.3rem; letter-spacing: -0.02em; }
+    .result-total-sub { font-size: 14px; color: #c8a888; font-weight: 500; margin-bottom: 1.75rem; }
+    .result-divider { border: none; border-top: 1px solid #4a2a10; margin: 0 0 1.5rem; }
+    .result-count-row { display: flex; align-items: baseline; justify-content: center; gap: 0.6rem; margin-bottom: 0.25rem; }
+    .result-count { font-family: 'Playfair Display', serif; font-size: 2rem; color: #fff; line-height: 1; }
+    .result-count.none { color: #888; }
+    .result-label { font-size: 15px; color: #c8a888; font-weight: 500; }
+    .result-sublabel { font-size: 12px; color: #7a5a3a; margin-top: 6px; }
+    .results-list { display: flex; flex-direction: column; gap: 10px; }
+    .result-card { background: #fdf8f2; border: 1.5px solid #ddc8a8; border-radius: 12px; padding: 1.25rem 1.4rem; }
+    .result-card.likely { border-color: #d4703a; background: #fff5ee; }
+    .result-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+    .result-name { font-size: 15px; font-weight: 700; color: #2e1a0a; }
+    .result-amount { font-size: 13px; color: #a04820; font-weight: 600; margin-top: 3px; }
+    .chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+    .chip.yes { background: #fde8d4; color: #6a2a0a; }
+    .chip.no { background: #eeddc8; color: #6a4a2a; }
+    .result-summary { font-size: 14px; color: #2e1a0a; line-height: 1.7; margin-bottom: 8px; }
+    .result-tip { font-size: 13px; color: #6a4a2a; line-height: 1.6; margin-bottom: 10px; font-style: italic; }
+    .result-link { font-size: 13px; font-weight: 600; color: #2e1a0a; text-decoration: none; border-bottom: 1.5px solid #d4a888; padding-bottom: 1px; }
+    .result-link:hover { border-bottom-color: #2e1a0a; }
+    .result-link.muted { color: #6a4a2a; border-bottom-color: #ddc8a8; }
+    .unlikely-heading { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #8a6a4a; margin: 1.5rem 0 0.6rem; }
+    .already-box { margin-top: 1.25rem; padding: 1rem 1.25rem; background: #eee0cc; border-radius: 10px; border: 1.5px solid #ddc8a8; }
+    .already-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #6a4a2a; margin-bottom: 4px; }
+    .already-list { font-size: 14px; color: #2e1a0a; line-height: 1.6; font-weight: 600; }
+    .disclaimer { margin-top: 1.5rem; padding: 1rem 1.25rem; background: #eeddc8; border-radius: 10px; font-size: 13px; color: #4a2a0a; line-height: 1.6; }
+    .disclaimer strong { color: #2e1a0a; }
+    .footer-note { text-align: center; font-size: 11px; color: #8a6a4a; margin-top: 1rem; }
+
+    @media (max-width: 800px) {
+      .page { grid-template-columns: 1fr; }
+      .left-panel { position: relative; height: auto; padding: 2rem 1.5rem; }
+      .right-panel { padding: 2rem 1.25rem; }
+    }
+  </style>
+
+  <div class="page">
+    <div class="left-panel">
+      <a href="/" class="left-logo" style="text-decoration:none;">
+        <div class="left-logo-mark">👶</div>
+        <div class="left-logo-text">
+          <span class="left-logo-name">BenefitsCheck UK</span>
+          <span class="left-logo-tagline">Free · Independent · 2026/27 Rates</span>
+        </div>
+      </a>
+      <div class="left-eyebrow">For New Parents · Free · No sign-up needed</div>
+      <p class="left-strapline-top">A new baby is expensive enough.</p>
+      <h1 class="left-title">Make sure you're claiming<br>everything you're<br><em>entitled to.</em></h1>
+      <div class="left-stats-label">Don't miss out</div>
+      <div class="left-stats">
+        <div class="left-stat">
+          <div class="left-stat-num">£500</div>
+          <div class="left-stat-label">Sure Start Maternity Grant — most eligible families never claim it</div>
+        </div>
+        <div class="left-stat">
+          <div class="left-stat-num">8</div>
+          <div class="left-stat-label">benefits checked — including ones most new parents don't know about</div>
+        </div>
+      </div>
+      <div class="left-usps">
+        <div class="left-usp">
+          <div class="left-usp-icon">🔒</div>
+          <div>
+            <div class="left-usp-heading">Your data never leaves your device</div>
+            <div class="left-usp-body">All calculations happen in your browser. Nothing is stored, tracked, or shared — ever.</div>
+          </div>
+        </div>
+        <div class="left-usp">
+          <div class="left-usp-icon">⏰</div>
+          <div>
+            <div class="left-usp-heading">Time-sensitive — claim now</div>
+            <div class="left-usp-body">Some benefits have strict deadlines. The Sure Start Grant must be claimed within 11 weeks of your baby's birth.</div>
+          </div>
+        </div>
+        <div class="left-usp">
+          <div class="left-usp-icon">💷</div>
+          <div>
+            <div class="left-usp-heading">Results in under 60 seconds</div>
+            <div class="left-usp-body">No long forms. Just the questions that matter for new parents.</div>
+          </div>
+        </div>
+      </div>
+      <div class="left-footer">All calculations happen in your browser. Nothing is stored or shared.</div>
+    </div>
+
+    <div class="right-panel">
+      <NewParentChecker client:load />
+      <p class="footer-note" id="footer-note">New Parent Benefit Checker · 2026/27 · Not financial advice · <a href="/" style="color:#2e1a0a;">BenefitsCheck UK</a></p>
+    </div>
+  </div>
 </Base>
