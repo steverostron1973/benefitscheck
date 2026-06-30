@@ -226,17 +226,30 @@ import UniversalCreditChecker from '../components/UniversalCreditChecker.jsx';
     .btn-ghost:hover { background: #f0f0ee; }
 
     .result-banner { background: #0d1f3c; border-radius: 16px; padding: 2.5rem 2rem; text-align: center; margin-bottom: 1.75rem; }
+    .result-banner.none { background: #e8e7e2; }
     .result-missing-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #e8192e; margin-bottom: 0.75rem; }
+    .result-banner.none .result-missing-label { color: #8b1528; }
+    .result-banner.none .result-label { color: #333; }
     .result-label { font-size: 15px; color: #d4e0e2; font-weight: 500; }
     .result-sublabel { font-size: 12px; color: #7a9ec0; margin-top: 6px; }
+    .result-banner.none .result-sublabel { color: #666; }
     .results-list { display: flex; flex-direction: column; gap: 10px; }
     .result-card { background: #fff; border: 1.5px solid #e0dfd9; border-radius: 12px; padding: 1.25rem 1.4rem; }
+    .result-card.likely { border-color: #c8102e; }
     .result-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
     .result-name { font-size: 15px; font-weight: 700; color: #111; }
     .result-amount { font-size: 13px; color: #8b1528; font-weight: 600; margin-top: 3px; }
     .chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+    .chip.yes { background: #fde8ec; color: #8b1528; }
     .chip.no { background: #e8e7e2; color: #333; }
     .result-summary { font-size: 14px; color: #1a1a1a; line-height: 1.7; margin-bottom: 8px; }
+    .result-tip { font-size: 13px; color: #333; line-height: 1.6; margin-bottom: 10px; font-style: italic; }
+    .result-link { font-size: 13px; font-weight: 600; color: #0d1f3c; text-decoration: none; border-bottom: 1.5px solid #f0c0c8; padding-bottom: 1px; }
+    .result-link:hover { border-bottom-color: #0d1f3c; }
+    .result-link.muted { color: #555; border-bottom-color: #ccc; }
+    .already-box { margin-top: 1.25rem; padding: 1rem 1.25rem; background: #f0ebe4; border-radius: 10px; border: 1.5px solid #d8cfc4; }
+    .already-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #555; margin-bottom: 4px; }
+    .already-list { font-size: 14px; color: #111; line-height: 1.6; font-weight: 500; }
     .disclaimer { margin-top: 1.5rem; padding: 1rem 1.25rem; background: #e5dfd8; border-radius: 10px; font-size: 13px; color: #444; line-height: 1.6; }
     .disclaimer strong { color: #111; }
     .footer-note { text-align: center; font-size: 11px; color: #888; margin-top: 1rem; }

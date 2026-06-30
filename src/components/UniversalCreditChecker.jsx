@@ -4,6 +4,7 @@ const STEPS = ['household', 'work', 'housing', 'health', 'savings', 'results'];
 const LABELS = ['Household', 'Work & income', 'Housing', 'Health & caring', 'Savings', 'Results'];
 
 const INITIAL_STATE = {
+  ageEligible: '',
   coupleOrSingle: '',
   hasChildren: '',
   numChildren: '',
@@ -16,6 +17,48 @@ const INITIAL_STATE = {
   cares35Hours: '',
   savings: '',
 };
+
+const GOV_UC_ELIGIBILITY = 'https://www.gov.uk/universal-credit/eligibility';
+const GOV_OTHER_SUPPORT = 'https://www.gov.uk/benefits-calculators';
+
+function assessEligibility(d) {
+  const savings = parseFloat(d.savings) || 0;
+
+  if (d.ageEligible !== 'yes') {
+    return {
+      status: 'not_eligible',
+      reason: 'age',
+      headline: "You're not likely to be eligible",
+      summary:
+        'Universal Credit is for people aged 18 or over who have not reached State Pension age. If you are under 18, you may qualify only in limited circumstances (for example, certain carers or parents). If you have reached State Pension age, Pension Credit and other pensioner benefits may apply instead.',
+      tip: 'Check GOV.UK for benefits that may apply to your age group, or contact Citizens Advice for guidance.',
+      url: GOV_UC_ELIGIBILITY,
+      cta: 'Check UC eligibility on GOV.UK',
+    };
+  }
+
+  if (savings >= 16000) {
+    return {
+      status: 'not_eligible',
+      reason: 'savings',
+      headline: "You're not likely to be eligible",
+      summary: `You told us your household has £${savings.toLocaleString()} in savings and capital. Universal Credit is not available when household savings or capital are £16,000 or more. This includes money in bank accounts, ISAs, and most investments — but not your home or pension pots.`,
+      tip: 'You may still qualify for other support depending on your circumstances. Use the GOV.UK benefits calculator or speak to Citizens Advice.',
+      url: GOV_OTHER_SUPPORT,
+      cta: 'Find other support on GOV.UK',
+    };
+  }
+
+  return {
+    status: 'potentially_eligible',
+    headline: 'You may be eligible',
+    summary:
+      'Based on your age and savings, you meet the basic eligibility criteria for Universal Credit. A full assessment by DWP will also look at your income, housing costs, and household circumstances before deciding your award.',
+    tip: 'This is an eligibility check only — your monthly payment amount will be estimated in the next step. You must apply through GOV.UK for a formal decision.',
+    url: GOV_UC_ELIGIBILITY,
+    cta: 'How to claim Universal Credit on GOV.UK',
+  };
+}
 
 function Radio({ options, value, onChange }) {
   return (
@@ -76,6 +119,7 @@ function App() {
   }, [step]);
 
   const householdValid =
+    d.ageEligible &&
     d.coupleOrSingle &&
     d.hasChildren &&
     (d.hasChildren === 'no' || d.numChildren);
@@ -88,6 +132,9 @@ function App() {
     d.housing && (d.housing !== 'rent' || d.monthlyRent !== '');
 
   const healthValid = d.healthLimitsWork && d.cares35Hours;
+
+  const eligibility = step === 'results' ? assessEligibility(d) : null;
+  const isPotentiallyEligible = eligibility?.status === 'potentially_eligible';
 
   return (
     <div>
@@ -113,6 +160,18 @@ function App() {
         <>
           <h2 className="step-title">Your household</h2>
           <p className="step-hint">Universal Credit is assessed on your household — including your partner if you live together.</p>
+          <div className="field">
+            <label className="field-label">Are you 18 or over and under State Pension age?</label>
+            <p className="field-sublabel">Universal Credit is generally for people of working age — from 18 up to State Pension age</p>
+            <Radio
+              value={d.ageEligible}
+              onChange={(v) => set('ageEligible', v)}
+              options={[
+                { v: 'yes', l: 'Yes' },
+                { v: 'no', l: 'No' },
+              ]}
+            />
+          </div>
           <div className="field">
             <label className="field-label">Are you single or in a couple?</label>
             <Radio
@@ -316,35 +375,57 @@ function App() {
         </>
       )}
 
-      {step === 'results' && (
+      {step === 'results' && eligibility && (
         <>
-          <div className="result-banner">
-            <div className="result-missing-label">Universal Credit estimate</div>
-            <div className="result-label" style={{ fontSize: '1.15rem', marginBottom: '0.5rem' }}>
-              Calculating…
+          <div className={`result-banner${!isPotentiallyEligible ? ' none' : ''}`}>
+            <div className="result-missing-label">Universal Credit eligibility</div>
+            <div className="result-label" style={{ fontSize: '1.35rem', marginBottom: '0.5rem', fontWeight: 600 }}>
+              {eligibility.headline}
             </div>
             <div className="result-sublabel">
-              Your personalised results will appear here once the calculation engine is connected.
+              {isPotentiallyEligible
+                ? 'Basic criteria met — payment estimate coming next'
+                : 'Based on the information you provided'}
             </div>
           </div>
 
           <div className="results-list">
-            <div className="result-card">
+            <div className={`result-card${isPotentiallyEligible ? ' likely' : ''}`}>
               <div className="result-card-head">
                 <div>
                   <div className="result-name">Universal Credit</div>
-                  <div className="result-amount">Results placeholder</div>
+                  {!isPotentiallyEligible && (
+                    <div className="result-amount">Not eligible at this stage</div>
+                  )}
                 </div>
-                <span className="chip no">Pending</span>
+                <span className={`chip ${isPotentiallyEligible ? 'yes' : 'no'}`}>
+                  {isPotentiallyEligible ? '✓ Potentially eligible' : '✗ Not eligible'}
+                </span>
               </div>
-              <p className="result-summary">
-                Based on your answers, we'll estimate your monthly Universal Credit award — including standard allowance, housing element, child element, and any health or carer additions.
-              </p>
+              <p className="result-summary">{eligibility.summary}</p>
+              {eligibility.tip && <p className="result-tip">💡 {eligibility.tip}</p>}
+              <a
+                href={eligibility.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`result-link${isPotentiallyEligible ? '' : ' muted'}`}
+              >
+                {eligibility.cta} →
+              </a>
             </div>
           </div>
 
+          {isPotentiallyEligible && (
+            <div className="already-box">
+              <div className="already-title">Next step</div>
+              <div className="already-list">
+                Your monthly Universal Credit estimate will be calculated based on your income, rent, children, and other answers — coming in the next update to this checker.
+              </div>
+            </div>
+          )}
+
           <div className="disclaimer">
-            <strong>Disclaimer:</strong> This tool will provide estimates only, based on the information you enter and 2026/27 benefit rates. It is not financial advice. Your actual entitlement will be determined by DWP. Always verify on GOV.UK or with Citizens Advice before making any claim decisions.
+            <strong>Disclaimer:</strong> This tool provides eligibility guidance only, based on the information you enter and 2026/27 rules. It is not financial advice. Your actual entitlement will be determined by DWP. Always verify on GOV.UK or with Citizens Advice before making any claim decisions.
           </div>
 
           <div className="nav" style={{ marginTop: '1.5rem' }}>
