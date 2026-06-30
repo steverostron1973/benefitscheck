@@ -1,0 +1,217 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Header from '../../../components/Header.astro';
+import {
+  guideCategories,
+  categoryLabels,
+  categoryIntros,
+  type GuideCategory,
+} from '../../../data/guideCategories';
+
+export async function getStaticPaths() {
+  const allGuides = await getCollection('guides');
+
+  return guideCategories.map((category) => ({
+    params: { category },
+    props: {
+      category,
+      guides: allGuides
+        .filter((guide) => guide.data.category === category)
+        .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()),
+    },
+  }));
+}
+
+interface Props {
+  category: GuideCategory;
+  guides: CollectionEntry<'guides'>[];
+}
+
+const { category, guides } = Astro.props;
+const categoryLabel = categoryLabels[category];
+const pageTitle = `${categoryLabel} Guides | BenefitsCheck.co.uk`;
+---
+
+<Base
+  title={pageTitle}
+  description={categoryIntros[category]}
+>
+  <Header />
+
+  <style is:global>
+    body { background: #dcdbd6; }
+
+    .guides-page {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 4.5rem;
+    }
+
+    .guides-breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem 0.5rem;
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .guides-breadcrumb a {
+      color: #0d1f3c;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .guides-breadcrumb a:hover {
+      color: #c8102e;
+    }
+
+    .guides-breadcrumb-sep {
+      color: #bbb;
+    }
+
+    .guides-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: #0d1f3c;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .guides-subtitle {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.65;
+      max-width: 620px;
+      margin-bottom: 2.5rem;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .guide-card {
+      background: #fff;
+      border: 2px solid #d0cfc9;
+      border-radius: 16px;
+      padding: 2rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .guide-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #0d1f3c;
+      transition: background 0.2s;
+    }
+
+    .guide-card:hover {
+      border-color: #0d1f3c;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(13, 31, 60, 0.12);
+    }
+
+    .guide-card:hover::before {
+      background: #c8102e;
+    }
+
+    .guide-card-badge {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: #0d1f3c;
+      color: #fff;
+    }
+
+    .guide-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: #0d1f3c;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+      padding-right: 5rem;
+    }
+
+    .guide-card-desc {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.25rem;
+    }
+
+    .guide-card-meta {
+      font-size: 12px;
+      color: #888;
+      padding: 0.65rem 0.9rem;
+      background: #f5f4f0;
+      border-radius: 8px;
+      line-height: 1.4;
+      border-left: 3px solid #0d1f3c;
+    }
+
+    .guides-empty {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 600px) {
+      .guides-page {
+        padding: 2.5rem 1.25rem 3.5rem;
+      }
+    }
+  </style>
+
+  <div class="guides-page">
+    <nav class="guides-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="guides-breadcrumb-sep">›</span>
+      <a href="/guides/">Guides</a>
+      <span class="guides-breadcrumb-sep">›</span>
+      <span>{categoryLabel}</span>
+    </nav>
+
+    <h1 class="guides-title">{categoryLabel} Guides</h1>
+    <p class="guides-subtitle">{categoryIntros[category]}</p>
+
+    {guides.length === 0 ? (
+      <p class="guides-empty">No {categoryLabel.toLowerCase()} guides published yet. <a href="/guides/">Browse all guides</a>.</p>
+    ) : (
+      <div class="guide-grid">
+        {guides.map((guide) => (
+          <a href={`/guides/${guide.slug}/`} class="guide-card">
+            <span class="guide-card-badge">{categoryLabels[guide.data.category]}</span>
+            <h2 class="guide-card-title">{guide.data.title}</h2>
+            <p class="guide-card-desc">{guide.data.description}</p>
+            {guide.data.readingTime && (
+              <p class="guide-card-meta">{guide.data.readingTime}</p>
+            )}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</Base>

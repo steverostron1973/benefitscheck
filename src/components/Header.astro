@@ -14,6 +14,11 @@ const checkers = [
 const isCheckerActive = checkers.some(
   (checker) => currentPath === checker.href || currentPath.startsWith(`${checker.href}/`)
 );
+
+const isGuidesActive =
+  currentPath === '/guides' ||
+  currentPath === '/guides/' ||
+  currentPath.startsWith('/guides/');
 ---
 
 <style is:global>
@@ -110,6 +115,7 @@ const isCheckerActive = checkers.some(
         ))}
       </div>
     </div>
+    <a href="/guides/" class:list={['nav-link', { active: isGuidesActive }]}>Guides</a>
     <a href="/about" class:list={['nav-link', { active: currentPath === '/about' }]}>About</a>
   </div>
 </nav>
