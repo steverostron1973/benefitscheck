@@ -6,6 +6,8 @@ const LABELS = ['Household', 'Work & income', 'Housing', 'Health & caring', 'Sav
 const INITIAL_STATE = {
   ageEligible: '',
   coupleOrSingle: '',
+  age25OrOver: '',
+  coupleBothUnder25: '',
   hasChildren: '',
   numChildren: '',
   working: '',
@@ -16,6 +18,19 @@ const INITIAL_STATE = {
   healthLimitsWork: '',
   cares35Hours: '',
   savings: '',
+};
+
+const RATES = {
+  singleUnder25: 316.98,
+  single25Plus: 400.14,
+  coupleBothUnder25: 496.93,
+  coupleOneOrBoth25Plus: 628.1,
+  childElement: 287.92,
+  workAllowanceWithHousing: 404,
+  workAllowanceNoHousing: 673,
+  taperRate: 0.55,
+  savingsTariffPer250: 4.35,
+  savingsTariffThreshold: 6000,
 };
 
 const GOV_UC_ELIGIBILITY = 'https://www.gov.uk/universal-credit/eligibility';
@@ -53,42 +68,139 @@ function assessEligibility(d) {
     status: 'potentially_eligible',
     headline: 'You may be eligible',
     summary:
-      'Based on your age and savings, you meet the basic eligibility criteria for Universal Credit. A full assessment by DWP will also look at your income, housing costs, and household circumstances before deciding your award.',
-    tip: 'This is an eligibility check only — your monthly payment amount will be estimated in the next step. You must apply through GOV.UK for a formal decision.',
+      'Based on your age and savings, you meet the basic eligibility criteria for Universal Credit. See your estimated monthly payment below.',
+    tip: 'You must apply through GOV.UK for a formal decision — this checker provides an estimate only.',
     url: GOV_UC_ELIGIBILITY,
     cta: 'How to claim Universal Credit on GOV.UK',
   };
 }
 
-function Radio({ options, value, onChange }) {
+function getStandardAllowance(d) {
+  if (d.coupleOrSingle === 'couple') {
+    if (d.coupleBothUnder25 === 'yes') {
+      return { amount: RATES.coupleBothUnder25, label: 'Couple standard allowance (both under 25)' };
+    }
+    return { amount: RATES.coupleOneOrBoth25Plus, label: 'Couple standard allowance (one or both aged 25+)' };
+  }
+  if (d.age25OrOver === 'no') {
+    return { amount: RATES.singleUnder25, label: 'Single standard allowance (under 25)' };
+  }
+  return { amount: RATES.single25Plus, label: 'Single standard allowance (aged 25+)' };
+}
+
+function getChildElement(d) {
+  const totalChildren = parseInt(d.numChildren, 10) || 0;
+  if (d.hasChildren !== 'yes' || totalChildren === 0) {
+    return { amount: 0, counted: 0, notes: [] };
+  }
+
+  const counted = Math.min(totalChildren, 2);
+  const amount = counted * RATES.childElement;
+  const notes = [
+    'Child element uses £287.92 per child (2026/27 rate for children born on or after 6 April 2017). Your first child could be £333.33/month if born before that date — we do not collect birth dates here.',
+  ];
+  if (totalChildren > 2) {
+    notes.push(
+      'If you have 3+ children, some exceptions to the two-child limit may apply — use the full calculator on GOV.UK for an exact figure.',
+    );
+  }
+
+  return { amount, counted, totalChildren, notes };
+}
+
+export function calcUcEstimate(d) {
+  const savings = parseFloat(d.savings) || 0;
+  const monthlyPay = parseFloat(d.monthlyPay) || 0;
+  const renting = d.housing === 'rent';
+  const housingElement = renting ? parseFloat(d.monthlyRent) || 0 : 0;
+
+  const standard = getStandardAllowance(d);
+  const child = getChildElement(d);
+
+  const qualifiesForWorkAllowance =
+    d.hasChildren === 'yes' || d.healthLimitsWork === 'yes';
+  const workAllowance = qualifiesForWorkAllowance
+    ? housingElement > 0
+      ? RATES.workAllowanceWithHousing
+      : RATES.workAllowanceNoHousing
+    : 0;
+
+  let taperDeduction = 0;
+  if (d.working === 'yes') {
+    const excess = Math.max(0, monthlyPay - workAllowance);
+    taperDeduction = excess * RATES.taperRate;
+  }
+
+  let savingsTariff = 0;
+  if (savings > RATES.savingsTariffThreshold && savings < 16000) {
+    const excess = savings - RATES.savingsTariffThreshold;
+    const units = Math.ceil(excess / 250);
+    savingsTariff = units * RATES.savingsTariffPer250;
+  }
+
+  const maxAward = standard.amount + child.amount + housingElement;
+  const estimatedMonthly = Math.max(0, maxAward - taperDeduction - savingsTariff);
+
+  const notes = [...child.notes];
+  if (housingElement > 0) {
+    notes.push(
+      'Housing element uses your rent as a simple proxy. Real Universal Credit uses Local Housing Allowance rates for your area, so your actual housing element may be lower.',
+    );
+  }
+
+  return {
+    estimatedMonthly: Math.round(estimatedMonthly * 100) / 100,
+    breakdown: {
+      standardAllowance: standard.amount,
+      standardLabel: standard.label,
+      childElement: child.amount,
+      childrenCounted: child.counted,
+      housingElement,
+      maxAward: Math.round(maxAward * 100) / 100,
+      workAllowance,
+      monthlyPay: d.working === 'yes' ? monthlyPay : 0,
+      taperDeduction: Math.round(taperDeduction * 100) / 100,
+      savingsTariff: Math.round(savingsTariff * 100) / 100,
+    },
+    notes,
+  };
+}
+
+function Radio({ name, options, value, onChange }) {
   return (
-    <div className="radio-group">
-      {options.map((o) => (
-        <label
-          key={o.v}
-          className={`radio-option${value === o.v ? ' selected' : ''}`}
-          onClick={() => onChange(o.v)}
-        >
-          <input
-            type="radio"
-            checked={value === o.v}
-            onChange={() => onChange(o.v)}
-            onClick={(e) => e.stopPropagation()}
-          />
-          {o.l}
-        </label>
-      ))}
+    <div className="radio-group" role="radiogroup" aria-label={name}>
+      {options.map((o) => {
+        const id = `${name}-${o.v}`;
+        const checked = value === o.v;
+        return (
+          <label
+            key={o.v}
+            htmlFor={id}
+            className={`radio-option${checked ? ' selected' : ''}`}
+          >
+            <input
+              id={id}
+              type="radio"
+              name={name}
+              value={o.v}
+              checked={checked}
+              onChange={() => onChange(o.v)}
+            />
+            <span>{o.l}</span>
+          </label>
+        );
+      })}
     </div>
   );
 }
 
-function Btn({ children, onClick, ghost }) {
+function Btn({ children, onClick, ghost, disabled }) {
   return ghost ? (
-    <button type="button" className="btn-ghost" onClick={onClick}>
+    <button type="button" className="btn-ghost" onClick={onClick} disabled={disabled}>
       {children}
     </button>
   ) : (
-    <button type="button" className="btn-primary" onClick={onClick}>
+    <button type="button" className="btn-primary" onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
@@ -121,6 +233,7 @@ function App() {
   const householdValid =
     d.ageEligible &&
     d.coupleOrSingle &&
+    (d.coupleOrSingle === 'single' ? d.age25OrOver : d.coupleBothUnder25) &&
     d.hasChildren &&
     (d.hasChildren === 'no' || d.numChildren);
 
@@ -135,6 +248,7 @@ function App() {
 
   const eligibility = step === 'results' ? assessEligibility(d) : null;
   const isPotentiallyEligible = eligibility?.status === 'potentially_eligible';
+  const estimate = isPotentiallyEligible ? calcUcEstimate(d) : null;
 
   return (
     <div>
@@ -164,6 +278,7 @@ function App() {
             <label className="field-label">Are you 18 or over and under State Pension age?</label>
             <p className="field-sublabel">Universal Credit is generally for people of working age — from 18 up to State Pension age</p>
             <Radio
+              name="ageEligible"
               value={d.ageEligible}
               onChange={(v) => set('ageEligible', v)}
               options={[
@@ -175,22 +290,62 @@ function App() {
           <div className="field">
             <label className="field-label">Are you single or in a couple?</label>
             <Radio
+              name="coupleOrSingle"
               value={d.coupleOrSingle}
-              onChange={(v) => set('coupleOrSingle', v)}
+              onChange={(v) =>
+                setD((prev) => ({
+                  ...prev,
+                  coupleOrSingle: v,
+                  age25OrOver: '',
+                  coupleBothUnder25: '',
+                }))
+              }
               options={[
                 { v: 'single', l: 'Single' },
                 { v: 'couple', l: 'In a couple (married, civil partners, or living together)' },
               ]}
             />
           </div>
+          {d.coupleOrSingle === 'single' && (
+            <div className="field">
+              <label className="field-label">Are you 25 or over?</label>
+              <Radio
+                name="age25OrOver"
+                value={d.age25OrOver}
+                onChange={(v) => set('age25OrOver', v)}
+                options={[
+                  { v: 'yes', l: 'Yes — aged 25 or over' },
+                  { v: 'no', l: 'No — under 25' },
+                ]}
+              />
+            </div>
+          )}
+          {d.coupleOrSingle === 'couple' && (
+            <div className="field">
+              <label className="field-label">Are you and your partner both under 25?</label>
+              <Radio
+                name="coupleBothUnder25"
+                value={d.coupleBothUnder25}
+                onChange={(v) => set('coupleBothUnder25', v)}
+                options={[
+                  { v: 'yes', l: 'Yes — both under 25' },
+                  { v: 'no', l: 'No — at least one of us is 25 or over' },
+                ]}
+              />
+            </div>
+          )}
           <div className="field">
             <label className="field-label">Do you have children you're responsible for?</label>
             <Radio
+              name="hasChildren"
               value={d.hasChildren}
-              onChange={(v) => {
-                set('hasChildren', v);
-                if (v === 'no') set('numChildren', '');
-              }}
+              onChange={(v) =>
+                setD((prev) => ({
+                  ...prev,
+                  hasChildren: v,
+                  numChildren: v === 'no' ? '' : prev.numChildren,
+                }))
+              }
               options={[
                 { v: 'yes', l: 'Yes' },
                 { v: 'no', l: 'No' },
@@ -216,7 +371,9 @@ function App() {
           )}
           <div className="nav">
             <div className="nav-right">
-              <Btn onClick={() => householdValid && nav('work')}>Continue →</Btn>
+              <Btn onClick={() => nav('work')} disabled={!householdValid}>
+                Continue →
+              </Btn>
             </div>
           </div>
         </>
@@ -229,14 +386,16 @@ function App() {
           <div className="field">
             <label className="field-label">Are you currently working?</label>
             <Radio
+              name="working"
               value={d.working}
-              onChange={(v) => {
-                set('working', v);
-                if (v === 'no') {
-                  set('monthlyPay', '');
-                  set('selfEmployed', '');
-                }
-              }}
+              onChange={(v) =>
+                setD((prev) => ({
+                  ...prev,
+                  working: v,
+                  monthlyPay: v === 'no' ? '' : prev.monthlyPay,
+                  selfEmployed: v === 'no' ? '' : prev.selfEmployed,
+                }))
+              }
               options={[
                 { v: 'yes', l: 'Yes' },
                 { v: 'no', l: 'No' },
@@ -260,6 +419,7 @@ function App() {
               <div className="field">
                 <label className="field-label">Are you self-employed?</label>
                 <Radio
+                  name="selfEmployed"
                   value={d.selfEmployed}
                   onChange={(v) => set('selfEmployed', v)}
                   options={[
@@ -272,7 +432,9 @@ function App() {
           )}
           <div className="nav">
             <Btn ghost onClick={() => nav('household')}>← Back</Btn>
-            <Btn onClick={() => workValid && nav('housing')}>Continue →</Btn>
+            <Btn onClick={() => nav('housing')} disabled={!workValid}>
+              Continue →
+            </Btn>
           </div>
         </>
       )}
@@ -284,11 +446,15 @@ function App() {
           <div className="field">
             <label className="field-label">Do you pay rent or a mortgage?</label>
             <Radio
+              name="housing"
               value={d.housing}
-              onChange={(v) => {
-                set('housing', v);
-                if (v !== 'rent') set('monthlyRent', '');
-              }}
+              onChange={(v) =>
+                setD((prev) => ({
+                  ...prev,
+                  housing: v,
+                  monthlyRent: v !== 'rent' ? '' : prev.monthlyRent,
+                }))
+              }
               options={[
                 { v: 'rent', l: 'I pay rent' },
                 { v: 'mortgage', l: 'I pay a mortgage' },
@@ -312,7 +478,9 @@ function App() {
           )}
           <div className="nav">
             <Btn ghost onClick={() => nav('work')}>← Back</Btn>
-            <Btn onClick={() => housingValid && nav('health')}>Continue →</Btn>
+            <Btn onClick={() => nav('health')} disabled={!housingValid}>
+              Continue →
+            </Btn>
           </div>
         </>
       )}
@@ -324,6 +492,7 @@ function App() {
           <div className="field">
             <label className="field-label">Do you have a health condition or disability that limits your ability to work?</label>
             <Radio
+              name="healthLimitsWork"
               value={d.healthLimitsWork}
               onChange={(v) => set('healthLimitsWork', v)}
               options={[
@@ -335,6 +504,7 @@ function App() {
           <div className="field">
             <label className="field-label">Do you care for someone for 35+ hours a week?</label>
             <Radio
+              name="cares35Hours"
               value={d.cares35Hours}
               onChange={(v) => set('cares35Hours', v)}
               options={[
@@ -345,7 +515,9 @@ function App() {
           </div>
           <div className="nav">
             <Btn ghost onClick={() => nav('housing')}>← Back</Btn>
-            <Btn onClick={() => healthValid && nav('savings')}>Continue →</Btn>
+            <Btn onClick={() => nav('savings')} disabled={!healthValid}>
+              Continue →
+            </Btn>
           </div>
         </>
       )}
@@ -370,7 +542,9 @@ function App() {
           </div>
           <div className="nav">
             <Btn ghost onClick={() => nav('health')}>← Back</Btn>
-            <Btn onClick={() => d.savings !== '' && nav('results')}>See my results →</Btn>
+            <Btn onClick={() => nav('results')} disabled={d.savings === ''}>
+              See my results →
+            </Btn>
           </div>
         </>
       )}
@@ -378,15 +552,25 @@ function App() {
       {step === 'results' && eligibility && (
         <>
           <div className={`result-banner${!isPotentiallyEligible ? ' none' : ''}`}>
-            <div className="result-missing-label">Universal Credit eligibility</div>
-            <div className="result-label" style={{ fontSize: '1.35rem', marginBottom: '0.5rem', fontWeight: 600 }}>
-              {eligibility.headline}
-            </div>
-            <div className="result-sublabel">
-              {isPotentiallyEligible
-                ? 'Basic criteria met — payment estimate coming next'
-                : 'Based on the information you provided'}
-            </div>
+            {isPotentiallyEligible && estimate ? (
+              <>
+                <div className="result-missing-label">Your Universal Credit estimate</div>
+                <div className="result-total">£{estimate.estimatedMonthly.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</div>
+                <div className="result-total-sub">estimated per month (2026/27 rates)</div>
+                <hr className="result-divider" />
+                <div className="result-label" style={{ fontSize: '1rem', lineHeight: 1.5 }}>
+                  Based on what you've told us, you could be entitled to approximately £{estimate.estimatedMonthly.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} per month in Universal Credit
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="result-missing-label">Universal Credit eligibility</div>
+                <div className="result-label" style={{ fontSize: '1.35rem', marginBottom: '0.5rem', fontWeight: 600 }}>
+                  {eligibility.headline}
+                </div>
+                <div className="result-sublabel">Based on the information you provided</div>
+              </>
+            )}
           </div>
 
           <div className="results-list">
@@ -394,16 +578,55 @@ function App() {
               <div className="result-card-head">
                 <div>
                   <div className="result-name">Universal Credit</div>
-                  {!isPotentiallyEligible && (
-                    <div className="result-amount">Not eligible at this stage</div>
+                  {isPotentiallyEligible && estimate ? (
+                    <div className="result-amount">
+                      ~£{estimate.estimatedMonthly.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}/month
+                    </div>
+                  ) : (
+                    !isPotentiallyEligible && <div className="result-amount">Not eligible at this stage</div>
                   )}
                 </div>
                 <span className={`chip ${isPotentiallyEligible ? 'yes' : 'no'}`}>
                   {isPotentiallyEligible ? '✓ Potentially eligible' : '✗ Not eligible'}
                 </span>
               </div>
-              <p className="result-summary">{eligibility.summary}</p>
+              <p className="result-summary">
+                {isPotentiallyEligible && estimate
+                  ? eligibility.summary
+                  : eligibility.summary}
+              </p>
+              {isPotentiallyEligible && estimate && (
+                <div className="estimate-breakdown">
+                  <div className="estimate-breakdown-title">How we calculated this</div>
+                  <ul className="estimate-breakdown-list">
+                    <li>{estimate.breakdown.standardLabel}: £{estimate.breakdown.standardAllowance.toFixed(2)}</li>
+                    {estimate.breakdown.childElement > 0 && (
+                      <li>
+                        Child element ({estimate.breakdown.childrenCounted} child
+                        {estimate.breakdown.childrenCounted !== 1 ? 'ren' : ''}): £
+                        {estimate.breakdown.childElement.toFixed(2)}
+                      </li>
+                    )}
+                    {estimate.breakdown.housingElement > 0 && (
+                      <li>Housing element (rent proxy): £{estimate.breakdown.housingElement.toFixed(2)}</li>
+                    )}
+                    <li>Maximum award before deductions: £{estimate.breakdown.maxAward.toFixed(2)}</li>
+                    {estimate.breakdown.taperDeduction > 0 && (
+                      <li>
+                        Earnings taper (55% above £{estimate.breakdown.workAllowance} work allowance): −£
+                        {estimate.breakdown.taperDeduction.toFixed(2)}
+                      </li>
+                    )}
+                    {estimate.breakdown.savingsTariff > 0 && (
+                      <li>Savings tariff deduction: −£{estimate.breakdown.savingsTariff.toFixed(2)}</li>
+                    )}
+                  </ul>
+                </div>
+              )}
               {eligibility.tip && <p className="result-tip">💡 {eligibility.tip}</p>}
+              {estimate?.notes.map((note) => (
+                <p key={note} className="result-tip">💡 {note}</p>
+              ))}
               <a
                 href={eligibility.url}
                 target="_blank"
@@ -415,17 +638,11 @@ function App() {
             </div>
           </div>
 
-          {isPotentiallyEligible && (
-            <div className="already-box">
-              <div className="already-title">Next step</div>
-              <div className="already-list">
-                Your monthly Universal Credit estimate will be calculated based on your income, rent, children, and other answers — coming in the next update to this checker.
-              </div>
-            </div>
-          )}
-
           <div className="disclaimer">
-            <strong>Disclaimer:</strong> This tool provides eligibility guidance only, based on the information you enter and 2026/27 rules. It is not financial advice. Your actual entitlement will be determined by DWP. Always verify on GOV.UK or with Citizens Advice before making any claim decisions.
+            <strong>Disclaimer:</strong>{' '}
+            {isPotentiallyEligible
+              ? 'This is an estimate based on simplified calculations and 2026/27 rates. Your actual award may differ — for an exact figure, use the official GOV.UK benefits calculator or contact Citizens Advice.'
+              : 'This tool provides eligibility guidance only, based on the information you enter and 2026/27 rules. It is not financial advice. Your actual entitlement will be determined by DWP. Always verify on GOV.UK or with Citizens Advice before making any claim decisions.'}
           </div>
 
           <div className="nav" style={{ marginTop: '1.5rem' }}>
