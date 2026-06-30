@@ -34,7 +34,11 @@ const RATES = {
 };
 
 const GOV_UC_ELIGIBILITY = 'https://www.gov.uk/universal-credit/eligibility';
+const GOV_UC_CLAIM = 'https://www.gov.uk/apply-universal-credit';
 const GOV_OTHER_SUPPORT = 'https://www.gov.uk/benefits-calculators';
+const GUIDES_UC = '/guides/universal-credit/';
+const ESTIMATE_DISCLAIMER =
+  'This is an estimate based on simplified calculations and 2026/27 rates. Your actual award may differ — for an exact figure, use the official GOV.UK benefits calculator or contact Citizens Advice.';
 
 function assessEligibility(d) {
   const savings = parseFloat(d.savings) || 0;
@@ -203,6 +207,96 @@ function Btn({ children, onClick, ghost, disabled }) {
     <button type="button" className="btn-primary" onClick={onClick} disabled={disabled}>
       {children}
     </button>
+  );
+}
+
+function formatMoney(amount) {
+  return amount.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function BreakdownRow({ label, amount, variant = 'add' }) {
+  let display;
+  if (variant === 'deduction') display = `−£${formatMoney(amount)}`;
+  else if (variant === 'add') display = `+£${formatMoney(amount)}`;
+  else display = `£${formatMoney(amount)}`;
+
+  return (
+    <div className={`breakdown-row breakdown-row--${variant}`}>
+      <span className="breakdown-label">{label}</span>
+      <span className="breakdown-value">{display}</span>
+    </div>
+  );
+}
+
+function EstimateBreakdown({ estimate }) {
+  const b = estimate.breakdown;
+
+  return (
+    <div className="estimate-breakdown">
+      <h3 className="estimate-breakdown-heading">How your estimate was calculated</h3>
+      <div className="breakdown-table">
+        <BreakdownRow label="Standard allowance" amount={b.standardAllowance} />
+        {b.childElement > 0 && (
+          <BreakdownRow
+            label={`Child element (${b.childrenCounted} child${b.childrenCounted !== 1 ? 'ren' : ''})`}
+            amount={b.childElement}
+          />
+        )}
+        {b.housingElement > 0 && (
+          <BreakdownRow label="Housing element (rent estimate)" amount={b.housingElement} />
+        )}
+        <BreakdownRow label="Maximum award before deductions" amount={b.maxAward} variant="subtotal" />
+        {b.taperDeduction > 0 && (
+          <BreakdownRow
+            label={`Earnings taper (55% above £${b.workAllowance} work allowance)`}
+            amount={b.taperDeduction}
+            variant="deduction"
+          />
+        )}
+        {b.savingsTariff > 0 && (
+          <BreakdownRow label="Savings tariff deduction" amount={b.savingsTariff} variant="deduction" />
+        )}
+        <BreakdownRow label="Estimated monthly payment" amount={estimate.estimatedMonthly} variant="final" />
+      </div>
+    </div>
+  );
+}
+
+function NextSteps({ isPotentiallyEligible }) {
+  return (
+    <div className="next-steps-box">
+      <div className="next-steps-title">Next steps</div>
+      <p className="next-steps-intro">
+        {isPotentiallyEligible
+          ? 'If this estimate looks right for your situation, you can apply online through GOV.UK. Read our guides first if you want more detail on how Universal Credit works.'
+          : 'You may still qualify for other support. Use the links below to check your options or read our Universal Credit guides.'}
+      </p>
+      <div className="next-steps-links">
+        {isPotentiallyEligible && (
+          <a
+            href={GOV_UC_CLAIM}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="next-steps-link next-steps-link--primary"
+          >
+            Claim Universal Credit on GOV.UK →
+          </a>
+        )}
+        <a href={GUIDES_UC} className="next-steps-link">
+          Read Universal Credit guides →
+        </a>
+        {!isPotentiallyEligible && (
+          <a
+            href={GOV_OTHER_SUPPORT}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="next-steps-link"
+          >
+            Find other support on GOV.UK →
+          </a>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -555,94 +649,47 @@ function App() {
             {isPotentiallyEligible && estimate ? (
               <>
                 <div className="result-missing-label">Your Universal Credit estimate</div>
-                <div className="result-total">£{estimate.estimatedMonthly.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</div>
-                <div className="result-total-sub">estimated per month (2026/27 rates)</div>
-                <hr className="result-divider" />
-                <div className="result-label" style={{ fontSize: '1rem', lineHeight: 1.5 }}>
-                  Based on what you've told us, you could be entitled to approximately £{estimate.estimatedMonthly.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} per month in Universal Credit
+                <div className="result-total">
+                  £{formatMoney(estimate.estimatedMonthly)}
                 </div>
+                <div className="result-total-sub">per month · 2026/27 rates</div>
+                <p className="result-headline">
+                  Based on what you've told us, you could be entitled to approximately{' '}
+                  <strong>£{formatMoney(estimate.estimatedMonthly)} per month</strong> in Universal Credit
+                </p>
               </>
             ) : (
               <>
                 <div className="result-missing-label">Universal Credit eligibility</div>
-                <div className="result-label" style={{ fontSize: '1.35rem', marginBottom: '0.5rem', fontWeight: 600 }}>
-                  {eligibility.headline}
-                </div>
+                <div className="result-ineligible-headline">{eligibility.headline}</div>
                 <div className="result-sublabel">Based on the information you provided</div>
               </>
             )}
           </div>
 
+          {isPotentiallyEligible && estimate && <EstimateBreakdown estimate={estimate} />}
+
           <div className="results-list">
             <div className={`result-card${isPotentiallyEligible ? ' likely' : ''}`}>
               <div className="result-card-head">
-                <div>
-                  <div className="result-name">Universal Credit</div>
-                  {isPotentiallyEligible && estimate ? (
-                    <div className="result-amount">
-                      ~£{estimate.estimatedMonthly.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}/month
-                    </div>
-                  ) : (
-                    !isPotentiallyEligible && <div className="result-amount">Not eligible at this stage</div>
-                  )}
-                </div>
+                <div className="result-name">Universal Credit</div>
                 <span className={`chip ${isPotentiallyEligible ? 'yes' : 'no'}`}>
                   {isPotentiallyEligible ? '✓ Potentially eligible' : '✗ Not eligible'}
                 </span>
               </div>
-              <p className="result-summary">
-                {isPotentiallyEligible && estimate
-                  ? eligibility.summary
-                  : eligibility.summary}
-              </p>
-              {isPotentiallyEligible && estimate && (
-                <div className="estimate-breakdown">
-                  <div className="estimate-breakdown-title">How we calculated this</div>
-                  <ul className="estimate-breakdown-list">
-                    <li>{estimate.breakdown.standardLabel}: £{estimate.breakdown.standardAllowance.toFixed(2)}</li>
-                    {estimate.breakdown.childElement > 0 && (
-                      <li>
-                        Child element ({estimate.breakdown.childrenCounted} child
-                        {estimate.breakdown.childrenCounted !== 1 ? 'ren' : ''}): £
-                        {estimate.breakdown.childElement.toFixed(2)}
-                      </li>
-                    )}
-                    {estimate.breakdown.housingElement > 0 && (
-                      <li>Housing element (rent proxy): £{estimate.breakdown.housingElement.toFixed(2)}</li>
-                    )}
-                    <li>Maximum award before deductions: £{estimate.breakdown.maxAward.toFixed(2)}</li>
-                    {estimate.breakdown.taperDeduction > 0 && (
-                      <li>
-                        Earnings taper (55% above £{estimate.breakdown.workAllowance} work allowance): −£
-                        {estimate.breakdown.taperDeduction.toFixed(2)}
-                      </li>
-                    )}
-                    {estimate.breakdown.savingsTariff > 0 && (
-                      <li>Savings tariff deduction: −£{estimate.breakdown.savingsTariff.toFixed(2)}</li>
-                    )}
-                  </ul>
-                </div>
-              )}
+              <p className="result-summary">{eligibility.summary}</p>
               {eligibility.tip && <p className="result-tip">💡 {eligibility.tip}</p>}
               {estimate?.notes.map((note) => (
                 <p key={note} className="result-tip">💡 {note}</p>
               ))}
-              <a
-                href={eligibility.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`result-link${isPotentiallyEligible ? '' : ' muted'}`}
-              >
-                {eligibility.cta} →
-              </a>
             </div>
           </div>
 
+          <NextSteps isPotentiallyEligible={isPotentiallyEligible} />
+
           <div className="disclaimer">
             <strong>Disclaimer:</strong>{' '}
-            {isPotentiallyEligible
-              ? 'This is an estimate based on simplified calculations and 2026/27 rates. Your actual award may differ — for an exact figure, use the official GOV.UK benefits calculator or contact Citizens Advice.'
-              : 'This tool provides eligibility guidance only, based on the information you enter and 2026/27 rules. It is not financial advice. Your actual entitlement will be determined by DWP. Always verify on GOV.UK or with Citizens Advice before making any claim decisions.'}
+            {isPotentiallyEligible ? ESTIMATE_DISCLAIMER : 'This tool provides eligibility guidance only, based on the information you enter and 2026/27 rules. It is not financial advice. Your actual entitlement will be determined by DWP. Always verify on GOV.UK or with Citizens Advice before making any claim decisions.'}
           </div>
 
           <div className="nav" style={{ marginTop: '1.5rem' }}>

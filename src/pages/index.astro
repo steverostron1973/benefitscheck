@@ -130,9 +130,19 @@ import Header from '../components/Header.astro';
 <section class="checkers-section" style="background:#dcdbd6;">
   <div class="section-eyebrow">Choose your checker</div>
   <h2 class="section-title">Which situation applies to you?</h2>
-  <p class="section-subtitle">Seven free checkers, each built specifically for that audience — not a generic form that covers everyone badly. Select yours and get your results in 60 seconds.</p>
+  <p class="section-subtitle">Eight free checkers, each built specifically for that audience — not a generic form that covers everyone badly. Select yours and get your results in 60 seconds.</p>
 
   <div class="checker-grid">
+
+    <a href="/universal-credit-checker" class="checker-card">
+      <span class="checker-card-badge badge-live">Live now</span>
+      <div class="checker-card-icon">💷</div>
+      <h3 class="checker-card-title">Universal Credit</h3>
+      <p class="checker-card-hook">Working part time or on a low income? You may be entitled to Universal Credit — £24bn goes unclaimed every year.</p>
+      <p class="checker-card-desc">Check eligibility and get a monthly payment estimate based on your earnings, rent, children, and savings. Updated for 2026/27 rates.</p>
+      <div class="checker-card-stat">Eligibility check + <strong>monthly estimate</strong> · Takes under 2 minutes</div>
+      <span class="checker-card-btn">Start check →</span>
+    </a>
 
     <a href="/working-parents" class="checker-card">
       <span class="checker-card-badge badge-live">Live now</span>
@@ -241,6 +251,7 @@ import Header from '../components/Header.astro';
 <footer class="footer">
   <div class="footer-logo">Benefits<span>Check</span> UK</div>
   <div class="footer-links">
+    <a href="/universal-credit-checker" class="footer-link">Universal Credit</a>
     <a href="/working-parents" class="footer-link">Working Parents</a>
     <a href="/pensioners" class="footer-link">Pensioners</a>
     <a href="/carers" class="footer-link">Carers</a>
