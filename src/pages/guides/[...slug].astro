@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
+import { formatReadingTime } from '../../utils/readingTime';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
@@ -63,6 +64,7 @@ function toolNameFromPath(path: string) {
 const categoryLabel = categoryLabels[guide.data.category];
 const toolName = toolNameFromPath(guide.data.relatedTool);
 const pageTitle = `${guide.data.title} | BenefitsCheck.co.uk`;
+const readingTime = formatReadingTime(guide.body);
 ---
 
 <Base title={pageTitle} description={guide.data.description}>
@@ -236,12 +238,8 @@ const pageTitle = `${guide.data.title} | BenefitsCheck.co.uk`;
           Updated {formatDate(guide.data.updatedDate)}
         </>
       )}
-      {guide.data.readingTime && (
-        <>
-          <span class="guide-meta-sep">·</span>
-          {guide.data.readingTime}
-        </>
-      )}
+      <span class="guide-meta-sep">·</span>
+      {readingTime}
     </p>
 
     <div class="guide-content">

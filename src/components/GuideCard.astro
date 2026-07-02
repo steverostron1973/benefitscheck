@@ -1,12 +1,14 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { categoryLabels } from '../data/guideCategories';
+import { formatReadingTime } from '../utils/readingTime';
 
 interface Props {
   guide: CollectionEntry<'guides'>;
 }
 
 const { guide } = Astro.props;
+const readingTime = formatReadingTime(guide.body);
 ---
 
 <a href={`/guides/${guide.slug}/`} class="guide-card">
@@ -14,9 +16,7 @@ const { guide } = Astro.props;
   <h2 class="guide-card-title">{guide.data.title}</h2>
   <p class="guide-card-desc">{guide.data.description}</p>
   <div class="guide-card-footer">
-    {guide.data.readingTime && (
-      <span class="guide-card-reading-time">{guide.data.readingTime}</span>
-    )}
+    <span class="guide-card-reading-time">{readingTime}</span>
     <span class="guide-card-btn">Read guide →</span>
   </div>
 </a>
