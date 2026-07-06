@@ -32,11 +32,11 @@ const readingTime = formatReadingTime(guide.body);
     transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
     display: flex;
     flex-direction: column;
+    height: 100%;
     position: relative;
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     cursor: pointer;
-    min-height: 100%;
   }
 
   .guide-card::before {
@@ -99,8 +99,6 @@ const readingTime = formatReadingTime(guide.body);
     font-size: 13px;
     color: #555;
     line-height: 1.65;
-    flex: 1;
-    margin-bottom: 1.5rem;
   }
 
   .guide-card-footer {
