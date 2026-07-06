@@ -1,12 +1,12 @@
 ---
 
-## title: "Does Pension Credit Affect Other Benefits?"
+title: "Does Pension Credit Affect Other Benefits?"
 description: "Pension Credit doesn't just top up your income — it acts as a passport to a range of other benefits worth thousands of pounds a year. Here's what it unlocks."
 category: "pension-credit"
 publishDate: 2026-07-06
 relatedTool: "/pensioners-checker/"
 readingTime: "4 min read"
-
+---
 Pension Credit is valuable in its own right — but its real power is what it unlocks. Claiming even a small amount of Pension Credit acts as a passport to a range of other benefits and discounts that can collectively be worth far more than the Pension Credit payment itself.
 
 ## Free TV licence
