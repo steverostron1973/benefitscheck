@@ -1,7 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
-import Header from '../../../components/Header.astro';
 import GuideCard from '../../../components/GuideCard.astro';
 import {
   guideCategories,
@@ -35,10 +34,10 @@ const pageTitle = `${categoryLabel} Guides | BenefitsCheck.co.uk`;
 ---
 
 <Base
+  showHeader
   title={pageTitle}
   description={categoryIntros[category]}
 >
-  <Header />
 
   <style is:global>
     body { background: #dcdbd6; }

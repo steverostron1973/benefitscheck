@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import Header from '../components/Header.astro';
 import GuideCard from '../components/GuideCard.astro';
 import { getCollection } from 'astro:content';
 import { guideCategories, categoryLabels } from '../data/guideCategories';
@@ -197,11 +196,10 @@ const categoryIcons: Record<(typeof guideCategories)[number], string> = {
 </style>
 
 <Base
+  showHeader
   title="BenefitsCheck UK — Free Benefit Checkers for Every Situation"
   description="Free UK benefit checkers for working parents, pensioners, carers and more. Find out what you're entitled to in 60 seconds. No sign-up, no long forms, 2026/27 rates."
 >
-
-<Header />
 
 <!-- Hero -->
 <section class="hero">

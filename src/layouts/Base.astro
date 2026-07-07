@@ -1,5 +1,13 @@
 ---
-const { title, description } = Astro.props;
+import Header from '../components/Header.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  showHeader?: boolean;
+}
+
+const { title, description, showHeader = false } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -17,13 +25,19 @@ const { title, description } = Astro.props;
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
+  <style is:global>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --site-header-height: 68px; }
+    html { scroll-padding-top: var(--site-header-height); }
     body { font-family: 'Inter', sans-serif; background: #f5f4f0; color: #1a1a1a; }
+    .site-main--with-header { padding-top: var(--site-header-height); }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2379067721877056" crossorigin="anonymous"></script>
 </head>
 <body>
-  <slot />
+  {showHeader && <Header />}
+  <main class:list={['site-main', { 'site-main--with-header': showHeader }]}>
+    <slot />
+  </main>
 </body>
 </html>
