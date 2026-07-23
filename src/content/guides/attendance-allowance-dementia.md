@@ -1,7 +1,7 @@
 ---
 title: "Attendance Allowance for Dementia — What Carers and Families Need to Know"
 description: "Dementia is one of the most common reasons for Attendance Allowance claims. Find out how dementia is assessed, what rate applies, and how to make a successful claim."
-category: "general"
+category: "attendance-allowance"
 publishDate: 2026-07-22
 relatedTool: "/pensioners-checker/"
 readingTime: "6 min read"

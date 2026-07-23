@@ -1,7 +1,7 @@
 ---
 title: "Attendance Allowance After a Stroke — What You Could Be Entitled To"
 description: "A stroke can leave lasting disabilities that affect personal care and safety. Find out how Attendance Allowance is assessed after a stroke and how to claim successfully."
-category: "general"
+category: "attendance-allowance"
 publishDate: 2026-07-22
 relatedTool: "/pensioners-checker/"
 readingTime: "5 min read"

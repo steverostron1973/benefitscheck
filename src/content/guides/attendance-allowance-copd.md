@@ -1,7 +1,7 @@
 ---
 title: "Attendance Allowance for COPD and Breathing Conditions"
 description: "Severe COPD and other breathing conditions can qualify for Attendance Allowance. Find out how respiratory conditions are assessed and what support is available."
-category: "general"
+category: "attendance-allowance"
 publishDate: 2026-07-22
 relatedTool: "/pensioners-checker/"
 readingTime: "5 min read"

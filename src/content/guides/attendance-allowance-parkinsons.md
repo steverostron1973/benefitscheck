@@ -1,7 +1,7 @@
 ---
 title: "Attendance Allowance for Parkinson's Disease"
 description: "Parkinson's disease progressively affects daily living and personal care. Find out how Attendance Allowance is assessed for Parkinson's and what support is available."
-category: "general"
+category: "attendance-allowance"
 publishDate: 2026-07-22
 relatedTool: "/pensioners-checker/"
 readingTime: "5 min read"

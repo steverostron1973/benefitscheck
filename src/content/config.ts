@@ -13,6 +13,7 @@ const guides = defineCollection({
       'housing-benefit',
       'child-benefit',
       'pension-credit',
+      'attendance-allowance',
       'general',
     ]),
     publishDate: z.coerce.date(),

@@ -1,7 +1,7 @@
 ---
 title: "Attendance Allowance for Arthritis — Rheumatoid and Osteoarthritis"
 description: "Severe arthritis can affect personal care significantly in older age. Find out how arthritis is assessed for Attendance Allowance and what you could be entitled to."
-category: "general"
+category: "attendance-allowance"
 publishDate: 2026-07-22
 relatedTool: "/pensioners-checker/"
 readingTime: "5 min read"

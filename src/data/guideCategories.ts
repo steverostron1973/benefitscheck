@@ -6,6 +6,7 @@ export const guideCategories = [
   'housing-benefit',
   'child-benefit',
   'pension-credit',
+  'attendance-allowance',
   'general',
 ] as const;
 
@@ -19,6 +20,7 @@ export const categoryLabels: Record<GuideCategory, string> = {
   'housing-benefit': 'Housing Benefit',
   'child-benefit': 'Child Benefit',
   'pension-credit': 'Pension Credit',
+  'attendance-allowance': 'Attendance Allowance',
   general: 'General',
 };
 
@@ -37,6 +39,8 @@ export const categoryIntros: Record<GuideCategory, string> = {
     'Guides on Child Benefit — including the High Income Child Benefit Charge and how to claim for your children.',
   'pension-credit':
     'Guides on Pension Credit — a top-up for pensioners on a low income that can unlock other support too.',
+  'attendance-allowance':
+    'Guides on Attendance Allowance — help for people over State Pension age who need personal care or supervision because of illness or disability.',
   general:
     'General guides on UK benefits — useful background for anyone trying to understand the system.',
 };

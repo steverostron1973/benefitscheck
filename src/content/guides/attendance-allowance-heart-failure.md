@@ -1,7 +1,7 @@
 ---
 title: "Attendance Allowance for Heart Failure and Heart Conditions"
 description: "Serious heart conditions including heart failure can qualify for Attendance Allowance. Find out how cardiac conditions are assessed and what support is available."
-category: "general"
+category: "attendance-allowance"
 publishDate: 2026-07-22
 relatedTool: "/pensioners-checker/"
 readingTime: "5 min read"
