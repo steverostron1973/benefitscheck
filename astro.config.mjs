@@ -6,4 +6,5 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   integrations: [react(), sitemap()],
   site: 'https://benefitscheck.co.uk',
+  trailingSlash: 'always',
 });
