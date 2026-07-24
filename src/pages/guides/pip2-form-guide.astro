@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { pip2ActivityContent } from '../../data/pip2GuideContent';
 
 const activities = [
   {
@@ -91,6 +92,13 @@ const activities = [
 const totalActivities = activities.length;
 const dailyLiving = activities.filter((a) => a.group === 'daily-living');
 const mobility = activities.filter((a) => a.group === 'mobility');
+
+const reliabilityCriteria = [
+  'Safely — without unreasonable risk of harm to yourself or others',
+  'To an acceptable standard',
+  'Repeatedly — as often as you reasonably need to',
+  'In a reasonable time — no more than twice as long as someone without your condition',
+];
 ---
 
 <Base
@@ -336,6 +344,153 @@ const mobility = activities.filter((a) => a.group === 'mobility');
       line-height: 1.55;
     }
 
+    .pip2-activity-body {
+      margin-bottom: 1.75rem;
+    }
+
+    .pip2-block {
+      margin-bottom: 1.5rem;
+    }
+
+    .pip2-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .pip2-block-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0d1f3c;
+      margin-bottom: 0.55rem;
+      line-height: 1.35;
+    }
+
+    .pip2-block p,
+    .pip2-block li {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.65;
+    }
+
+    .pip2-block p {
+      margin-bottom: 0.75rem;
+    }
+
+    .pip2-block ul {
+      margin: 0 0 0.25rem 1.15rem;
+    }
+
+    .pip2-block li {
+      margin-bottom: 0.4rem;
+    }
+
+    .pip2-criteria {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .pip2-criteria li {
+      margin: 0;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #e4e0d8;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .pip2-criteria strong {
+      color: #0d1f3c;
+    }
+
+    .pip2-descriptor-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e4e0d8;
+      font-size: 14px;
+    }
+
+    .pip2-descriptor-table th,
+    .pip2-descriptor-table td {
+      padding: 0.7rem 0.85rem;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.45;
+    }
+
+    .pip2-descriptor-table th {
+      background: #0d1f3c;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .pip2-descriptor-table tr:nth-child(even) td {
+      background: #faf9f6;
+    }
+
+    .pip2-descriptor-table td:last-child {
+      width: 5.5rem;
+      white-space: nowrap;
+      font-weight: 700;
+      color: #0d1f3c;
+      text-align: right;
+    }
+
+    .pip2-sample {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .pip2-sample-card {
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      border: 1px solid #e4e0d8;
+      background: #fff;
+    }
+
+    .pip2-sample-card--weak {
+      border-color: #e8b4b4;
+      background: #fff8f8;
+    }
+
+    .pip2-sample-card--strong {
+      border-color: #b7d4b7;
+      background: #f5faf5;
+    }
+
+    .pip2-sample-label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+    }
+
+    .pip2-sample-card--weak .pip2-sample-label {
+      color: #9b1c1c;
+    }
+
+    .pip2-sample-card--strong .pip2-sample-label {
+      color: #1f6b3a;
+    }
+
+    .pip2-sample-card p {
+      margin: 0;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.6;
+    }
+
     .pip2-activity-nav {
       display: flex;
       flex-wrap: wrap;
@@ -399,6 +554,16 @@ const mobility = activities.filter((a) => a.group === 'mobility');
 
       .pip2-nav-next {
         margin-left: 0;
+      }
+
+      .pip2-descriptor-table th,
+      .pip2-descriptor-table td {
+        padding: 0.6rem 0.65rem;
+        font-size: 13px;
+      }
+
+      .pip2-descriptor-table td:last-child {
+        width: 4.25rem;
       }
     }
   </style>
@@ -469,6 +634,7 @@ const mobility = activities.filter((a) => a.group === 'mobility');
       const prev = index > 0 ? activities[index - 1] : null;
       const next = index < activities.length - 1 ? activities[index + 1] : null;
       const groupLabel = activity.group === 'daily-living' ? 'Daily Living' : 'Mobility';
+      const content = pip2ActivityContent[activity.number];
 
       return (
         <section
@@ -482,9 +648,102 @@ const mobility = activities.filter((a) => a.group === 'mobility');
             {groupLabel} · Activity {activity.number} of {totalActivities}
           </p>
           <h2 class="pip2-activity-title">{activity.fullTitle}</h2>
-          <div class="pip2-activity-placeholder">
-            Guidance for this activity will appear here in a later update.
-          </div>
+
+          {content ? (
+            <div class="pip2-activity-body">
+              <div class="pip2-block">
+                <h3 class="pip2-block-title">What this activity means</h3>
+                <p>{content.meaning}</p>
+              </div>
+
+              <div class="pip2-block">
+                <h3 class="pip2-block-title">The four criteria</h3>
+                <p>
+                  You are only treated as able to do this activity if you can do it:
+                </p>
+                <ul class="pip2-criteria">
+                  {reliabilityCriteria.map((item) => {
+                    const [label, detail] = item.split(' — ');
+                    return (
+                      <li>
+                        <strong>{label}</strong>
+                        {detail ? ` — ${detail}` : ''}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              <div class="pip2-block">
+                <h3 class="pip2-block-title">Descriptors and point values</h3>
+                <p>
+                  Score the <strong>highest descriptor that applies</strong> on the majority of days. You do not add multiple descriptors from the same activity together.
+                </p>
+                <table class="pip2-descriptor-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Descriptor</th>
+                      <th scope="col">Points</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {content.descriptors.map((descriptor) => (
+                      <tr>
+                        <td>{descriptor.text}</td>
+                        <td>{descriptor.points}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="pip2-block">
+                <h3 class="pip2-block-title">What assessors look for</h3>
+                <ul>
+                  {content.assessorsLookFor.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="pip2-block">
+                <h3 class="pip2-block-title">Sample answers</h3>
+                <div class="pip2-sample">
+                  <div class="pip2-sample-card pip2-sample-card--weak">
+                    <p class="pip2-sample-label"><span aria-hidden="true">✗</span> Weak answer</p>
+                    <p>{content.weakAnswer}</p>
+                  </div>
+                  <div class="pip2-sample-card pip2-sample-card--strong">
+                    <p class="pip2-sample-label"><span aria-hidden="true">✓</span> Strong answer</p>
+                    <p>{content.strongAnswer}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pip2-block">
+                <h3 class="pip2-block-title">What evidence helps</h3>
+                <ul>
+                  {content.evidence.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="pip2-block">
+                <h3 class="pip2-block-title">Common mistakes</h3>
+                <ul>
+                  {content.mistakes.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <div class="pip2-activity-placeholder">
+              Guidance for this activity will appear here in a later update.
+            </div>
+          )}
+
           <div class="pip2-activity-nav">
             {prev ? (
               <a href={`#${prev.id}`} class="pip2-nav-prev">← Previous activity</a>
