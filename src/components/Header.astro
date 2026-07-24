@@ -16,6 +16,12 @@ const isCheckerActive = checkers.some(
   (checker) => currentPath === checker.href || currentPath.startsWith(`${checker.href}/`)
 );
 
+const guideLinks = [
+  { label: 'All Guides', href: '/guides/' },
+  { label: 'PIP Guides', href: '/guides/pip/' },
+  { label: 'PIP2 Form Guide', href: '/guides/pip2-form-guide/' },
+];
+
 const isGuidesActive =
   currentPath === '/guides' ||
   currentPath === '/guides/' ||
@@ -50,7 +56,7 @@ const isGuidesActive =
   .site-nav-link.active { color: #fff; font-weight: 600; }
 
   .site-nav-dropdown { position: relative; }
-  .site-nav-dropdown-toggle { display: inline-block; cursor: default; user-select: none; }
+  .site-nav-dropdown-toggle { display: inline-block; cursor: pointer; user-select: none; }
   .site-nav-dropdown-menu {
     position: absolute;
     top: calc(100% + 4px);
@@ -131,7 +137,32 @@ const isGuidesActive =
         ))}
       </div>
     </div>
-    <a href="/guides/" class:list={['site-nav-link', { active: isGuidesActive }]}>Guides</a>
+    <div class="site-nav-dropdown">
+      <a
+        href="/guides/"
+        class:list={['site-nav-link', 'site-nav-dropdown-toggle', { active: isGuidesActive }]}
+      >
+        Guides ▾
+      </a>
+      <div class="site-nav-dropdown-menu">
+        {guideLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'site-nav-dropdown-item',
+              {
+                active:
+                  currentPath === link.href ||
+                  currentPath === link.href.replace(/\/$/, '') ||
+                  (link.href !== '/guides/' && currentPath.startsWith(link.href)),
+              },
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
     <a href="/about" class:list={['site-nav-link', { active: currentPath === '/about' }]}>About</a>
   </div>
 </nav>

@@ -1,0 +1,584 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const activities = [
+  {
+    id: 'activity-1',
+    number: 1,
+    group: 'daily-living',
+    title: 'Preparing food',
+    fullTitle: '1. Preparing food',
+  },
+  {
+    id: 'activity-2',
+    number: 2,
+    group: 'daily-living',
+    title: 'Taking nutrition',
+    fullTitle: '2. Taking nutrition',
+  },
+  {
+    id: 'activity-3',
+    number: 3,
+    group: 'daily-living',
+    title: 'Managing therapy',
+    fullTitle: '3. Managing therapy or monitoring a health condition',
+  },
+  {
+    id: 'activity-4',
+    number: 4,
+    group: 'daily-living',
+    title: 'Washing and bathing',
+    fullTitle: '4. Washing and bathing',
+  },
+  {
+    id: 'activity-5',
+    number: 5,
+    group: 'daily-living',
+    title: 'Managing toilet needs',
+    fullTitle: '5. Managing toilet needs or incontinence',
+  },
+  {
+    id: 'activity-6',
+    number: 6,
+    group: 'daily-living',
+    title: 'Dressing and undressing',
+    fullTitle: '6. Dressing and undressing',
+  },
+  {
+    id: 'activity-7',
+    number: 7,
+    group: 'daily-living',
+    title: 'Communicating verbally',
+    fullTitle: '7. Communicating verbally',
+  },
+  {
+    id: 'activity-8',
+    number: 8,
+    group: 'daily-living',
+    title: 'Reading and understanding',
+    fullTitle: '8. Reading and understanding signs, symbols and words',
+  },
+  {
+    id: 'activity-9',
+    number: 9,
+    group: 'daily-living',
+    title: 'Engaging with other people',
+    fullTitle: '9. Engaging with other people face to face',
+  },
+  {
+    id: 'activity-10',
+    number: 10,
+    group: 'daily-living',
+    title: 'Making budgeting decisions',
+    fullTitle: '10. Making budgeting decisions',
+  },
+  {
+    id: 'activity-11',
+    number: 11,
+    group: 'mobility',
+    title: 'Planning and following journeys',
+    fullTitle: '11. Planning and following journeys',
+  },
+  {
+    id: 'activity-12',
+    number: 12,
+    group: 'mobility',
+    title: 'Moving around',
+    fullTitle: '12. Moving around',
+  },
+] as const;
+
+const totalActivities = activities.length;
+const dailyLiving = activities.filter((a) => a.group === 'daily-living');
+const mobility = activities.filter((a) => a.group === 'mobility');
+---
+
+<Base
+  showHeader
+  title="PIP2 Form Guide — How to Answer Every Question | BenefitsCheck.co.uk"
+  description="Free step-by-step guidance on completing the PIP2 'How your disability affects you' form — what assessors look for, sample answers, and what to avoid for all 12 PIP activities."
+>
+
+  <style is:global>
+    :root {
+      --pip2-progress-height: 64px;
+    }
+
+    html {
+      scroll-padding-top: calc(var(--site-header-height) + var(--pip2-progress-height) + 12px);
+    }
+
+    body {
+      background: #f5f4f0;
+    }
+
+    .pip2-progress {
+      position: sticky;
+      top: var(--site-header-height);
+      z-index: 90;
+      background: #0d1f3c;
+      border-bottom: 2px solid #c8102e;
+      color: #fff;
+      padding: 0.65rem 1.5rem 0.75rem;
+      box-shadow: 0 6px 18px rgba(13, 31, 60, 0.18);
+    }
+
+    .pip2-progress-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .pip2-progress-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.35rem 1rem;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .pip2-progress-count {
+      font-weight: 600;
+      color: #a8c0d8;
+      letter-spacing: 0.02em;
+    }
+
+    .pip2-progress-name {
+      font-weight: 600;
+      color: #fff;
+      text-align: right;
+    }
+
+    .pip2-progress-track {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .pip2-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #c8102e;
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    .pip2-page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4.5rem;
+    }
+
+    .pip2-breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem 0.5rem;
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .pip2-breadcrumb a {
+      color: #0d1f3c;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .pip2-breadcrumb a:hover {
+      color: #c8102e;
+    }
+
+    .pip2-breadcrumb-sep {
+      color: #bbb;
+    }
+
+    .pip2-hero {
+      margin-bottom: 2.75rem;
+      padding-bottom: 2.25rem;
+      border-bottom: 1px solid #ddd9d0;
+    }
+
+    .pip2-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.85rem, 4vw, 2.55rem);
+      color: #0d1f3c;
+      line-height: 1.2;
+      margin-bottom: 0.85rem;
+    }
+
+    .pip2-hero-sub {
+      font-size: 16px;
+      color: #444;
+      line-height: 1.65;
+      max-width: 38rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .pip2-hero-note {
+      background: #fff;
+      border-left: 4px solid #c8102e;
+      border-radius: 0 12px 12px 0;
+      padding: 1rem 1.15rem;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 0 rgba(13, 31, 60, 0.04);
+    }
+
+    .pip2-start-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 22px;
+      background: #c8102e;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .pip2-start-btn:hover {
+      background: #e8192e;
+    }
+
+    .pip2-toc {
+      margin: 0 0 2.75rem;
+      padding: 1.35rem 1.4rem 1.5rem;
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid #e4e0d8;
+    }
+
+    .pip2-toc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #0d1f3c;
+      margin-bottom: 0.85rem;
+    }
+
+    .pip2-toc-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #c8102e;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .pip2-toc-group-label:first-of-type {
+      margin-top: 0;
+    }
+
+    .pip2-toc-list {
+      list-style: none;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .pip2-toc-list a {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #0d1f3c;
+      text-decoration: none;
+      padding: 0.45rem 0.6rem;
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .pip2-toc-list a:hover {
+      background: #f5f4f0;
+      color: #c8102e;
+    }
+
+    .pip2-activity {
+      scroll-margin-top: calc(var(--site-header-height) + var(--pip2-progress-height) + 12px);
+      padding: 2rem 0 2.25rem;
+      border-top: 1px solid #ddd9d0;
+    }
+
+    .pip2-activity-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #c8102e;
+      margin-bottom: 0.45rem;
+    }
+
+    .pip2-activity-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.45rem, 3vw, 1.85rem);
+      color: #0d1f3c;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    .pip2-activity-placeholder {
+      min-height: 4.5rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.1rem;
+      background: #fff;
+      border: 1px dashed #d0ccc3;
+      border-radius: 12px;
+      color: #888;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .pip2-activity-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .pip2-activity-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .pip2-nav-prev {
+      color: #0d1f3c;
+      background: #fff;
+      border: 1px solid #d5d1c8;
+    }
+
+    .pip2-nav-prev:hover {
+      border-color: #0d1f3c;
+    }
+
+    .pip2-nav-next {
+      color: #fff;
+      background: #0d1f3c;
+      margin-left: auto;
+    }
+
+    .pip2-nav-next:hover {
+      background: #c8102e;
+    }
+
+    .pip2-nav-spacer {
+      flex: 1;
+    }
+
+    @media (max-width: 600px) {
+      .pip2-progress {
+        padding: 0.55rem 1rem 0.65rem;
+      }
+
+      .pip2-progress-meta {
+        font-size: 12px;
+      }
+
+      .pip2-page {
+        padding: 1.75rem 1.15rem 3.5rem;
+      }
+
+      .pip2-activity-nav a {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .pip2-nav-next {
+        margin-left: 0;
+      }
+    }
+  </style>
+
+  <div
+    class="pip2-progress"
+    id="pip2-progress"
+    data-total={totalActivities}
+    hidden
+    aria-live="polite"
+  >
+    <div class="pip2-progress-inner">
+      <div class="pip2-progress-meta">
+        <span class="pip2-progress-count" id="pip2-progress-count">Activity 1 of {totalActivities}</span>
+        <span class="pip2-progress-name" id="pip2-progress-name">{activities[0].title}</span>
+      </div>
+      <div class="pip2-progress-track" aria-hidden="true">
+        <div class="pip2-progress-fill" id="pip2-progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pip2-page">
+    <nav class="pip2-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="pip2-breadcrumb-sep">›</span>
+      <a href="/guides/">Guides</a>
+      <span class="pip2-breadcrumb-sep">›</span>
+      <a href="/guides/pip/">PIP</a>
+      <span class="pip2-breadcrumb-sep">›</span>
+      <span>PIP2 Form Guide</span>
+    </nav>
+
+    <header class="pip2-hero" id="pip2-intro">
+      <h1 class="pip2-hero-title">PIP2 Form Guide — How to Answer Every Question</h1>
+      <p class="pip2-hero-sub">
+        Free step-by-step guidance on completing the “How your disability affects you” form — what assessors look for, sample answers, and what to avoid
+      </p>
+      <p class="pip2-hero-note">
+        This guide covers all 12 PIP activities — 10 Daily Living and 2 Mobility. Work through each one at your own pace.
+      </p>
+      <a href="#activity-1" class="pip2-start-btn">Start Guide →</a>
+    </header>
+
+    <nav class="pip2-toc" aria-label="PIP activities">
+      <h2 class="pip2-toc-title">Jump to an activity</h2>
+
+      <p class="pip2-toc-group-label">Daily Living</p>
+      <ol class="pip2-toc-list">
+        {dailyLiving.map((activity) => (
+          <li>
+            <a href={`#${activity.id}`}>{activity.fullTitle}</a>
+          </li>
+        ))}
+      </ol>
+
+      <p class="pip2-toc-group-label">Mobility</p>
+      <ol class="pip2-toc-list" start={11}>
+        {mobility.map((activity) => (
+          <li>
+            <a href={`#${activity.id}`}>{activity.fullTitle}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    {activities.map((activity, index) => {
+      const prev = index > 0 ? activities[index - 1] : null;
+      const next = index < activities.length - 1 ? activities[index + 1] : null;
+      const groupLabel = activity.group === 'daily-living' ? 'Daily Living' : 'Mobility';
+
+      return (
+        <section
+          class="pip2-activity"
+          id={activity.id}
+          data-activity-number={activity.number}
+          data-activity-title={activity.title}
+          data-activity-index={index}
+        >
+          <p class="pip2-activity-eyebrow">
+            {groupLabel} · Activity {activity.number} of {totalActivities}
+          </p>
+          <h2 class="pip2-activity-title">{activity.fullTitle}</h2>
+          <div class="pip2-activity-placeholder">
+            Guidance for this activity will appear here in a later update.
+          </div>
+          <div class="pip2-activity-nav">
+            {prev ? (
+              <a href={`#${prev.id}`} class="pip2-nav-prev">← Previous activity</a>
+            ) : (
+              <span class="pip2-nav-spacer" aria-hidden="true" />
+            )}
+            {next ? (
+              <a href={`#${next.id}`} class="pip2-nav-next">Next activity →</a>
+            ) : (
+              <a href="#pip2-intro" class="pip2-nav-next">Back to top ↑</a>
+            )}
+          </div>
+        </section>
+      );
+    })}
+  </div>
+
+  <script>
+    const progress = document.getElementById('pip2-progress');
+    const countEl = document.getElementById('pip2-progress-count');
+    const nameEl = document.getElementById('pip2-progress-name');
+    const fillEl = document.getElementById('pip2-progress-fill');
+    const sections = Array.from(document.querySelectorAll('.pip2-activity'));
+    const total = Number(progress?.dataset.total || sections.length);
+
+    if (progress && countEl && nameEl && fillEl && sections.length) {
+      let currentIndex = 0;
+
+      function setProgress(index: number) {
+        const section = sections[index] as HTMLElement | undefined;
+        if (!section) return;
+
+        currentIndex = index;
+        const number = section.dataset.activityNumber || String(index + 1);
+        const title = section.dataset.activityTitle || '';
+
+        countEl.textContent = `Activity ${number} of ${total}`;
+        nameEl.textContent = title;
+        fillEl.style.width = `${((index + 1) / total) * 100}%`;
+        progress.hidden = false;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+          if (!visible.length) return;
+
+          const section = visible[0].target as HTMLElement;
+          const index = Number(section.dataset.activityIndex || 0);
+          setProgress(index);
+        },
+        {
+          rootMargin: '-30% 0px -45% 0px',
+          threshold: [0.1, 0.25, 0.5, 0.75],
+        }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+
+      function syncFromHash() {
+        const hash = window.location.hash.replace('#', '');
+        if (!hash) {
+          progress.hidden = true;
+          fillEl.style.width = '0%';
+          return;
+        }
+
+        const matchIndex = sections.findIndex((section) => section.id === hash);
+        if (matchIndex >= 0) {
+          setProgress(matchIndex);
+        }
+      }
+
+      window.addEventListener('hashchange', syncFromHash);
+      syncFromHash();
+
+      // Keep progress visible once the user has entered the activity list
+      const intro = document.getElementById('pip2-intro');
+      if (intro) {
+        const introObserver = new IntersectionObserver(
+          ([entry]) => {
+            if (!entry.isIntersecting && currentIndex >= 0) {
+              progress.hidden = false;
+            } else if (entry.isIntersecting && !window.location.hash.startsWith('#activity-')) {
+              progress.hidden = true;
+            }
+          },
+          { threshold: 0.2 }
+        );
+        introObserver.observe(intro);
+      }
+    }
+  </script>
+</Base>
