@@ -113,7 +113,14 @@ const reliabilityCriteria = [
     }
 
     html {
-      scroll-padding-top: calc(var(--site-header-height) + var(--pip2-progress-height) + 12px);
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--site-header-height) + 64px + 12px) !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
     }
 
     body {
@@ -121,14 +128,20 @@ const reliabilityCriteria = [
     }
 
     .pip2-progress {
-      position: sticky;
+      position: fixed;
       top: var(--site-header-height);
+      left: 0;
+      right: 0;
       z-index: 90;
       background: #0d1f3c;
       border-bottom: 2px solid #c8102e;
       color: #fff;
       padding: 0.65rem 1.5rem 0.75rem;
       box-shadow: 0 6px 18px rgba(13, 31, 60, 0.18);
+    }
+
+    .pip2-progress[hidden] {
+      display: none;
     }
 
     .pip2-progress-inner {
@@ -605,7 +618,7 @@ const reliabilityCriteria = [
       <p class="pip2-hero-note">
         This guide covers all 12 PIP activities — 10 Daily Living and 2 Mobility. Work through each one at your own pace.
       </p>
-      <a href="#activity-1" class="pip2-start-btn">Start Guide →</a>
+      <a href="#activity-1" class="pip2-start-btn pip2-scroll-link">Start Guide →</a>
     </header>
 
     <nav class="pip2-toc" aria-label="PIP activities">
@@ -615,7 +628,7 @@ const reliabilityCriteria = [
       <ol class="pip2-toc-list">
         {dailyLiving.map((activity) => (
           <li>
-            <a href={`#${activity.id}`}>{activity.fullTitle}</a>
+            <a href={`#${activity.id}`} class="pip2-scroll-link">{activity.fullTitle}</a>
           </li>
         ))}
       </ol>
@@ -624,14 +637,13 @@ const reliabilityCriteria = [
       <ol class="pip2-toc-list" start={11}>
         {mobility.map((activity) => (
           <li>
-            <a href={`#${activity.id}`}>{activity.fullTitle}</a>
+            <a href={`#${activity.id}`} class="pip2-scroll-link">{activity.fullTitle}</a>
           </li>
         ))}
       </ol>
     </nav>
 
     {activities.map((activity, index) => {
-      const prev = index > 0 ? activities[index - 1] : null;
       const next = index < activities.length - 1 ? activities[index + 1] : null;
       const groupLabel = activity.group === 'daily-living' ? 'Daily Living' : 'Mobility';
       const content = pip2ActivityContent[activity.number];
@@ -744,18 +756,11 @@ const reliabilityCriteria = [
             </div>
           )}
 
-          <div class="pip2-activity-nav">
-            {prev ? (
-              <a href={`#${prev.id}`} class="pip2-nav-prev">← Previous activity</a>
-            ) : (
-              <span class="pip2-nav-spacer" aria-hidden="true" />
-            )}
-            {next ? (
-              <a href={`#${next.id}`} class="pip2-nav-next">Next activity →</a>
-            ) : (
-              <a href="#pip2-intro" class="pip2-nav-next">Back to top ↑</a>
-            )}
-          </div>
+          {!next && (
+            <div class="pip2-activity-nav">
+              <a href="#pip2-intro" class="pip2-nav-next pip2-scroll-link">Back to top ↑</a>
+            </div>
+          )}
         </section>
       );
     })}
@@ -770,7 +775,15 @@ const reliabilityCriteria = [
     const total = Number(progress?.dataset.total || sections.length);
 
     if (progress && countEl && nameEl && fillEl && sections.length) {
-      let currentIndex = 0;
+      let currentIndex = -1;
+      let scrollingProgrammatically = false;
+      let scrollSettleTimer = 0;
+
+      function hideProgress() {
+        progress.hidden = true;
+        fillEl.style.width = '0%';
+        currentIndex = -1;
+      }
 
       function setProgress(index: number) {
         const section = sections[index] as HTMLElement | undefined;
@@ -786,8 +799,70 @@ const reliabilityCriteria = [
         progress.hidden = false;
       }
 
+      function getScrollOffset() {
+        const headerHeight =
+          Number.parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue('--site-header-height')
+          ) || 68;
+        // Progress bar is fixed; reserve its height whenever we land on an activity
+        const progressHeight = 64;
+        return headerHeight + progressHeight + 12;
+      }
+
+      function scrollToTarget(id: string) {
+        const target = document.getElementById(id);
+        if (!target) return;
+
+        scrollingProgrammatically = true;
+        window.clearTimeout(scrollSettleTimer);
+
+        const activityIndex = sections.findIndex((section) => section.id === id);
+        if (activityIndex >= 0) {
+          setProgress(activityIndex);
+        } else if (id === 'pip2-intro') {
+          hideProgress();
+        }
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const behavior: ScrollBehavior = reduceMotion ? 'auto' : 'smooth';
+
+        if (id === 'pip2-intro') {
+          window.scrollTo({ top: 0, behavior });
+        } else {
+          const offset = getScrollOffset();
+          const top = Math.max(
+            0,
+            target.getBoundingClientRect().top + window.scrollY - offset
+          );
+          window.scrollTo({ top, behavior });
+        }
+
+        if (window.location.hash !== `#${id}`) {
+          history.pushState(null, '', `#${id}`);
+        }
+
+        scrollSettleTimer = window.setTimeout(() => {
+          scrollingProgrammatically = false;
+        }, reduceMotion ? 50 : 800);
+      }
+
+      document.querySelectorAll<HTMLAnchorElement>('a.pip2-scroll-link').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          const href = link.getAttribute('href');
+          if (!href || !href.startsWith('#')) return;
+
+          const id = href.slice(1);
+          if (!document.getElementById(id)) return;
+
+          event.preventDefault();
+          scrollToTarget(id);
+        });
+      });
+
       const observer = new IntersectionObserver(
         (entries) => {
+          if (scrollingProgrammatically) return;
+
           const visible = entries
             .filter((entry) => entry.isIntersecting)
             .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
@@ -796,11 +871,13 @@ const reliabilityCriteria = [
 
           const section = visible[0].target as HTMLElement;
           const index = Number(section.dataset.activityIndex || 0);
-          setProgress(index);
+          if (index !== currentIndex) {
+            setProgress(index);
+          }
         },
         {
-          rootMargin: '-30% 0px -45% 0px',
-          threshold: [0.1, 0.25, 0.5, 0.75],
+          rootMargin: '-35% 0px -45% 0px',
+          threshold: [0.05, 0.15, 0.3, 0.5],
         }
       );
 
@@ -809,8 +886,12 @@ const reliabilityCriteria = [
       function syncFromHash() {
         const hash = window.location.hash.replace('#', '');
         if (!hash) {
-          progress.hidden = true;
-          fillEl.style.width = '0%';
+          hideProgress();
+          return;
+        }
+
+        if (hash === 'pip2-intro') {
+          hideProgress();
           return;
         }
 
@@ -821,20 +902,37 @@ const reliabilityCriteria = [
       }
 
       window.addEventListener('hashchange', syncFromHash);
-      syncFromHash();
+      window.addEventListener('popstate', () => {
+        const hash = window.location.hash.replace('#', '');
+        if (hash && document.getElementById(hash)) {
+          scrollToTarget(hash);
+        } else {
+          hideProgress();
+        }
+      });
 
-      // Keep progress visible once the user has entered the activity list
+      // Initial load with a hash (e.g. shared link)
+      const initialHash = window.location.hash.replace('#', '');
+      if (initialHash && document.getElementById(initialHash)) {
+        // Defer so layout (fonts/header) is ready
+        requestAnimationFrame(() => scrollToTarget(initialHash));
+      } else {
+        syncFromHash();
+      }
+
       const intro = document.getElementById('pip2-intro');
       if (intro) {
         const introObserver = new IntersectionObserver(
           ([entry]) => {
-            if (!entry.isIntersecting && currentIndex >= 0) {
-              progress.hidden = false;
-            } else if (entry.isIntersecting && !window.location.hash.startsWith('#activity-')) {
-              progress.hidden = true;
+            if (scrollingProgrammatically) return;
+            if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+              const hash = window.location.hash.replace('#', '');
+              if (!hash.startsWith('activity-')) {
+                hideProgress();
+              }
             }
           },
-          { threshold: 0.2 }
+          { threshold: [0.4, 0.6] }
         );
         introObserver.observe(intro);
       }
