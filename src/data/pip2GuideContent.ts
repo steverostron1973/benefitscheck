@@ -260,4 +260,331 @@ export const pip2ActivityContent: Record<number, Pip2ActivityContent> = {
       },
     ],
   },
+  6: {
+    meaning:
+      'This activity is about dressing and undressing — putting on and taking off clothes and shoes, managing fastenings, and choosing clothing that is appropriate for the weather and situation. It is not only about physical reach and dexterity; prompting because of mental health, cognitive problems, or sensory issues also counts. DWP is assessing whether you can dress and undress reliably on most days, including within a reasonable time and without unsafe struggle.',
+    assessorsLookFor: [
+      'Aids you use: dressing sticks, button hooks, sock aids, velcro adaptations, shoe horns',
+      'Whether you need prompting or help to choose clothes that are clean, suitable, and weather-appropriate',
+      'Whether help is needed for lower body (trousers, underwear, socks, shoes), upper body (tops, bras, coats), or both',
+      'How long dressing takes, how many rests you need, and whether you give up mid-way',
+      'Pain, stiffness, tremor, breathlessness, sensory overload, or motivational barriers on the majority of days',
+    ],
+    weakAnswer:
+      'I get stiff in the mornings so dressing can take a while, but I usually manage somehow.',
+    strongAnswer:
+      'On most days I cannot dress and undress unaided. Pain and limited shoulder movement mean I need my partner’s physical help with tops, bras, and coats (upper body), and I use a sock aid and shoe horn for lower body but still need help with trousers and shoes when my hips seize. Choosing clothes is also a problem on low-mood days — without prompting I wear yesterday’s clothes or go out underdressed. Dressing takes 35–45 minutes with rests, then I need to recover. This pattern applies on about 5–6 days a week.',
+    evidence: [
+      'Occupational therapy reports recommending dressing aids or assistance',
+      'GP, rheumatology, neurology, or physio letters about upper/lower limb limitation, pain, or fatigue',
+      'Mental health evidence where prompting to dress or select clothing is needed',
+      'Carer statements describing which garments they help with and how often',
+      'A short diary of dressing time, aids used, and days you could not finish without help',
+    ],
+    mistakes: [
+      'Saying “I can dress” because you manage in loose joggers on a good day — describe majority days and full outfits including fastenings and shoes',
+      'Not separating lower-body and upper-body help — those are different descriptors',
+      'Forgetting prompting for appropriate clothing when depression, psychosis, dementia, or cognitive impairment is relevant',
+    ],
+    descriptors: [
+      { text: 'Can dress and undress unaided', points: 0 },
+      {
+        text: 'Needs to use an aid or appliance to be able to dress or undress',
+        points: 2,
+      },
+      {
+        text: 'Needs either prompting or assistance to be able to select appropriate clothing',
+        points: 2,
+      },
+      {
+        text: 'Needs assistance to be able to dress or undress their lower body',
+        points: 2,
+      },
+      {
+        text: 'Needs assistance to be able to dress or undress their upper body',
+        points: 2,
+      },
+      { text: 'Cannot dress or undress at all', points: 8 },
+    ],
+  },
+  7: {
+    meaning:
+      'This activity is about expressing and understanding spoken information — talking and being understood, and understanding what others say. It includes using aids such as hearing aids, and needing communication support (another person who helps you understand or be understood). “Basic” verbal information is simple, and “complex” is longer or more detailed. DWP is assessing reliable face-to-face verbal communication on most days, not whether you can send a text message.',
+    assessorsLookFor: [
+      'Whether you need hearing aids, a voice amplifier, or similar to speak or hear',
+      'Whether you need another person for complex conversations (appointments, instructions, explanations)',
+      'Whether you need support even for basic verbal information (simple questions and answers)',
+      'Whether communication fails entirely even with support',
+      'Fatigue, breathlessness, stammering, cognitive overload, or sensory issues that make conversation unreliable',
+    ],
+    weakAnswer:
+      'I sometimes struggle to follow conversations when there is background noise and I prefer texts.',
+    strongAnswer:
+      'On most days I cannot manage spoken communication unaided. Even with hearing aids I miss key words and need my partner to repeat and rephrase what people say in appointments and shops. For anything beyond a simple yes/no exchange I need communication support — my partner explains complex information to me and helps me express my answers, otherwise I agree to things I have not understood. Without that support I leave appointments confused and distressed. This happens on the majority of days when I have to speak with people face to face.',
+    evidence: [
+      'Audiology reports, hearing-aid prescriptions, or ENT letters',
+      'Speech and language therapy assessments',
+      'Neurology, stroke, learning disability, or mental health reports affecting speech or comprehension',
+      'Evidence of British Sign Language, lip-speaking, or interpreter needs where relevant',
+      'Companion/carer statements describing how they support conversations',
+    ],
+    mistakes: [
+      'Relying only on “I wear hearing aids” without explaining what you still cannot do reliably with them',
+      'Confusing preference for written messages with inability to manage basic or complex spoken information',
+      'Not explaining the difference between needing help for complex talk (4 points) versus basic talk (8 points)',
+    ],
+    descriptors: [
+      {
+        text: 'Can express and understand verbal information unaided',
+        points: 0,
+      },
+      {
+        text: 'Needs to use an aid or appliance to be able to speak or hear',
+        points: 2,
+      },
+      {
+        text: 'Needs communication support to be able to express or understand complex verbal information',
+        points: 4,
+      },
+      {
+        text: 'Needs communication support to be able to express or understand basic verbal information',
+        points: 8,
+      },
+      {
+        text: 'Cannot express or understand verbal information at all even with communication support',
+        points: 12,
+      },
+    ],
+  },
+  8: {
+    meaning:
+      'This activity is about reading and understanding written information — signs, symbols, and words — including basic information (simple notices or labels) and complex information (letters, forms, longer text). Ordinary spectacles or contact lenses alone do not score as the relevant aid. DWP is assessing whether you can read and understand reliably, not whether someone else can read things out for convenience.',
+    assessorsLookFor: [
+      'Aids other than standard glasses: magnifiers, screen readers, large-print devices, coloured overlays',
+      'Whether prompting is needed to understand complex written information (letters, forms, instructions)',
+      'Whether prompting is needed even for basic written information (signs, simple labels)',
+      'Vision problems, dyslexia, cognitive impairment, brain injury, or learning disability effects',
+      'Whether you cannot read or understand written information at all on most days',
+    ],
+    weakAnswer:
+      'I find official letters confusing and usually ask my daughter to look at them when she visits.',
+    strongAnswer:
+      'On most days I cannot understand complex written information without prompting. Even with reading glasses, DWP letters, hospital appointments, and forms make no sense to me because of cognitive problems after my stroke — I mix up dates and miss key instructions. My daughter has to sit with me, go through each paragraph, and check I have understood before I reply. Basic signs in shops are usually manageable with large print, but anything letter-length needs prompting on the majority of days. Without that help I miss appointments and deadlines.',
+    evidence: [
+      'Ophthalmology or low-vision clinic reports; evidence of magnifiers or assistive software',
+      'Neuropsychology, stroke, learning disability, or education/psychology reports on reading comprehension',
+      'Dyslexia assessments where relevant',
+      'Examples of missed appointments or errors caused by not understanding letters (redacted)',
+      'Statements from people who regularly read and explain written information to you',
+    ],
+    mistakes: [
+      'Thinking ordinary glasses count toward the “aid or appliance” descriptor — they usually do not',
+      'Describing dislike of paperwork rather than inability to read or understand on most days',
+      'Not saying whether the difficulty is with complex text, basic text, or both',
+    ],
+    descriptors: [
+      {
+        text: 'Can read and understand basic and complex written information either unaided or using spectacles or contact lenses',
+        points: 0,
+      },
+      {
+        text: 'Needs to use an aid or appliance, other than spectacles or contact lenses, to be able to read or understand either basic or complex written information',
+        points: 2,
+      },
+      {
+        text: 'Needs prompting to be able to read or understand complex written information',
+        points: 2,
+      },
+      {
+        text: 'Needs prompting to be able to read or understand basic written information',
+        points: 4,
+      },
+      {
+        text: 'Cannot read or understand signs, symbols or words at all',
+        points: 8,
+      },
+    ],
+  },
+  9: {
+    meaning:
+      'This activity is about engaging with other people face to face — establishing relationships, interacting appropriately, and coping with social contact. It includes needing prompting (encouragement to engage) or social support (an experienced person present to help you engage safely and appropriately). The highest descriptor applies where engagement causes overwhelming psychological distress or a substantial risk of harm. DWP is assessing real-world face-to-face contact on most days, not online chat.',
+    assessorsLookFor: [
+      'Whether you need prompting to answer the door, speak in appointments, or stay in a conversation',
+      'Whether you need social support — someone who knows your needs present during interactions',
+      'Panic, aggression risk, shutdown, or overwhelming distress caused by face-to-face engagement',
+      'How often you avoid people entirely because you cannot engage reliably',
+      'Evidence from mental health, autism, learning disability, or brain injury services',
+    ],
+    weakAnswer:
+      'I’m shy and don’t like meeting new people. I prefer to stay at home.',
+    strongAnswer:
+      'On most days I cannot engage with people face to face without social support. If someone comes to the door or I must speak in a shop or waiting room, I freeze, shake, and often leave. My support worker or partner has to stay with me, speak for me at first, and help me manage distress so I do not break down or walk out. Without that person present I avoid almost all face-to-face contact and miss appointments. Prompting alone is not enough — I need someone experienced with me for engagement on the majority of days.',
+    evidence: [
+      'Psychiatry, psychology, CMHT, or autism/ADHD diagnostic and support reports',
+      'Care plans describing social support needed for appointments and daily interactions',
+      'Crisis or incident records linked to social contact where relevant and safe to share',
+      'Support worker or carer statements about what happens without them present',
+      'Evidence of missed appointments due to inability to engage face to face',
+    ],
+    mistakes: [
+      'Treating ordinary shyness as enough — explain distress, risk, or need for another person',
+      'Confusing prompting (encouragement) with social support (an experienced person helping you engage)',
+      'Only describing strangers — include neighbours, shop staff, clinicians, and household visitors if relevant',
+    ],
+    descriptors: [
+      { text: 'Can engage with other people unaided', points: 0 },
+      {
+        text: 'Needs prompting to be able to engage with other people',
+        points: 2,
+      },
+      {
+        text: 'Needs social support to be able to engage with other people',
+        points: 4,
+      },
+      {
+        text: 'Cannot engage with other people due to such engagement causing either overwhelming psychological distress to the claimant; or the claimant to exhibit behaviour which would result in a substantial risk of harm to the claimant or another person',
+        points: 8,
+      },
+    ],
+  },
+  10: {
+    meaning:
+      'This activity is about making budgeting decisions — understanding and deciding how to spend and manage money. Simple budgeting means basic transactions (paying a single bill, calculating change). Complex budgeting means things like household budgeting, sorting out debts, or working out monthly bills. DWP is assessing decision-making ability, not whether you are poor or whether someone else prefers to handle the accounts for convenience.',
+    assessorsLookFor: [
+      'Whether you can manage complex decisions (monthly budget, comparing tariffs, dealing with priority debts) alone',
+      'Whether you need prompting or assistance for complex decisions but can still do simple ones',
+      'Whether even simple budgeting decisions need help',
+      'Cognitive impairment, learning disability, mental health, addiction, or brain injury effects on money decisions',
+      'Risks when unaided: unpaid rent, unopened bills, impulsive spending you cannot control, scams',
+    ],
+    weakAnswer:
+      'I’m not great with paperwork so my partner usually pays the bills online.',
+    strongAnswer:
+      'On most days I cannot make complex budgeting decisions unaided. Since my brain injury I cannot work out a monthly budget, prioritise rent against other debts, or understand bill breakdowns without my partner sitting with me and prompting each step. I can sometimes buy a simple item with change if someone has already told me exactly what to do, but sorting post, due dates, and payment amounts needs assistance every week. When I have tried alone I have missed rent and direct debits. This is not preference — it is lack of ability on the majority of days.',
+    evidence: [
+      'Neuropsychology, learning disability, or mental health reports affecting financial decision-making',
+      'Appointee, deputy, or DWP Alternative Payment Arrangement evidence where relevant',
+      'Debt advice letters describing inability to manage budgeting without support',
+      'Examples of consequences when unaided (arrears, disconnection) with sensitive details minimised',
+      'Carer statements about prompting/assistance for bills and budgeting',
+    ],
+    mistakes: [
+      'Describing a couple’s division of chores (“my partner does the bills”) without explaining why you cannot do it',
+      'Mixing lack of money with inability to make budgeting decisions',
+      'Not distinguishing simple decisions (4 points if help needed) from complex ones (2 points if help needed)',
+    ],
+    descriptors: [
+      { text: 'Can manage complex budgeting decisions unaided', points: 0 },
+      {
+        text: 'Needs prompting or assistance to be able to make complex budgeting decisions',
+        points: 2,
+      },
+      {
+        text: 'Needs prompting or assistance to be able to make simple budgeting decisions',
+        points: 4,
+      },
+      { text: 'Cannot make any budgeting decisions at all', points: 6 },
+    ],
+  },
+  11: {
+    meaning:
+      'This mobility activity is about planning and following journeys — working out a route and actually undertaking travel to go somewhere. It includes psychological distress that prevents journeys, needing prompting to go out, being unable to plan a route, and needing another person, an assistance dog, or an orientation aid to follow unfamiliar or familiar routes. It is not about how far you can walk (that is Moving around). DWP is assessing orientation, navigation, and the psychological ability to travel on most days.',
+    assessorsLookFor: [
+      'Whether overwhelming psychological distress stops you going out, or means you need prompting to go at all',
+      'Whether you can plan a route yourself (maps, apps, steps in order)',
+      'Whether you can follow unfamiliar routes alone, or need another person, dog, or orientation aid',
+      'Whether you also cannot follow familiar routes alone',
+      'Evidence of getting lost, panic attacks on transport, or never leaving without support',
+    ],
+    weakAnswer:
+      'I get anxious on buses sometimes and prefer someone with me when I can.',
+    strongAnswer:
+      'On most days I cannot follow the route of an unfamiliar journey without another person. Anxiety and cognitive problems mean I cannot plan a route reliably — I panic, lose track of stops, and have got off at the wrong place repeatedly. Even for familiar journeys to the GP I often need my partner with me; on worse days I cannot leave the house at all because the thought of the journey causes overwhelming distress and I freeze at the door. Prompting alone is not enough for unfamiliar routes. Without someone with me I do not complete those journeys safely.',
+    evidence: [
+      'Mental health records describing agoraphobia, panic, PTSD, or journey-related distress',
+      'Neurology, vision, or cognitive assessments affecting navigation and route-following',
+      'Orientation aid / assistance dog evidence where relevant',
+      'Incident examples: getting lost, emergency calls, abandoned journeys',
+      'Carer statements about needing to accompany you on familiar and unfamiliar journeys',
+    ],
+    mistakes: [
+      'Writing about walking distance here — distance belongs in Moving around',
+      'Only describing unfamiliar journeys when familiar journeys are also affected (that can be 12 points)',
+      'Underplaying psychological distress that prevents any journey — that is a specific 10-point descriptor',
+    ],
+    descriptors: [
+      { text: 'Can plan and follow the route of a journey unaided', points: 0 },
+      {
+        text: 'Needs prompting to be able to undertake any journey to avoid overwhelming psychological distress to the claimant',
+        points: 4,
+      },
+      { text: 'Cannot plan the route of a journey', points: 8 },
+      {
+        text: 'Cannot follow the route of an unfamiliar journey without another person, assistance dog or orientation aid',
+        points: 10,
+      },
+      {
+        text: 'Cannot undertake any journey because it would cause overwhelming psychological distress to the claimant',
+        points: 10,
+      },
+      {
+        text: 'Cannot follow the route of a familiar journey without another person, assistance dog or orientation aid',
+        points: 12,
+      },
+    ],
+  },
+  12: {
+    meaning:
+      'This mobility activity is about standing and then moving — how far you can walk (or move using an aid) after standing, repeatedly and safely, on most days. Distances are absolute thresholds: more than 200m, up to 200m, up to 50m, up to 20m, or only up to 1m. Using an aid can change which descriptor applies between 20 and 50 metres. Wheelchair users are assessed on the distance they can move. DWP is assessing reliable walking/moving distance, not a one-off push on assessment day.',
+    assessorsLookFor: [
+      'The furthest you can reliably stand and then move on most days without stopping, and what happens if you push further',
+      'Whether you need aids (stick, crutches, frame, wheelchair) and how that affects the 20–50 metre descriptors',
+      'Pain, breathlessness, balance, weakness, or need to stop and recover',
+      'Whether you can repeat the distance as often as reasonably required in a day',
+      'Falls, near-falls, and safety risks when moving',
+    ],
+    weakAnswer:
+      'I can’t walk far these days and need to pace myself. Some days are better than others.',
+    strongAnswer:
+      'On most days, after standing, I cannot move more than about 40 metres even with a walking stick. Beyond that my hip and lower back pain spike, my leg weakens, and I must stop and hold on or I risk falling. Without the stick I manage even less. I cannot repeat short walks throughout the day without long recovery sits. On my worst days — around 3 days a week — I struggle to move more than 20 metres between rests indoors. I do not manage 50–200 metres reliably on the majority of days.',
+    evidence: [
+      'Physiotherapy or orthopaedic reports with walking distances and aids prescribed',
+      'GP or consultant letters about mobility, falls, breathlessness, or claudication',
+      'Evidence of walking aids, wheelchair prescription, or blue badge / mobility scheme where relevant',
+      'OT or falls clinic assessments',
+      'A diary of distances you can manage before needing to stop, on good and bad days',
+    ],
+    mistakes: [
+      'Giving only “I can’t walk far” without approximate metres on majority days',
+      'Describing your best day at the assessment centre as typical',
+      'Forgetting aids — moving 20–50 metres with an aid is a different descriptor from doing it unaided',
+    ],
+    descriptors: [
+      {
+        text: 'Can stand and then move more than 200 metres, either aided or unaided',
+        points: 0,
+      },
+      {
+        text: 'Can stand and then move more than 50 metres but no more than 200 metres, either aided or unaided',
+        points: 4,
+      },
+      {
+        text: 'Can stand and then move unaided more than 20 metres but no more than 50 metres',
+        points: 8,
+      },
+      {
+        text: 'Can stand and then move using an aid or appliance more than 20 metres but no more than 50 metres',
+        points: 10,
+      },
+      {
+        text: 'Can stand and then move more than 1 metre but no more than 20 metres, either aided or unaided',
+        points: 12,
+      },
+      {
+        text: 'Cannot, either aided or unaided, — (i) stand; or (ii) move more than 1 metre',
+        points: 12,
+      },
+    ],
+  },
 };
+
