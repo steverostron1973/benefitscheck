@@ -7,4 +7,8 @@ export default defineConfig({
   integrations: [react(), sitemap()],
   site: 'https://benefitscheck.co.uk',
   trailingSlash: 'always',
+  redirects: {
+    '/disabled-checker': '/disabled',
+    '/disabled-checker/': '/disabled/',
+  },
 });

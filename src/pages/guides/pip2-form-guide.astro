@@ -103,8 +103,8 @@ const reliabilityCriteria = [
 
 <Base
   showHeader
-  title="PIP2 Form Guide — How to Answer Every Question | BenefitsCheck.co.uk"
-  description="Free step-by-step guidance on completing the PIP2 'How your disability affects you' form — what assessors look for, sample answers, and what to avoid for all 12 PIP activities."
+  title="PIP2 Form Guide — How to Answer Every Question | BenefitsCheck UK"
+  description="Free step-by-step guide to completing the PIP2 'How your disability affects you' form. Every activity explained with descriptors, point values, and sample answers."
 >
 
   <style is:global>
@@ -142,6 +142,18 @@ const reliabilityCriteria = [
 
     .pip2-progress[hidden] {
       display: none;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .pip2-progress-inner {
@@ -547,6 +559,165 @@ const reliabilityCriteria = [
       flex: 1;
     }
 
+    .pip2-score-tracker {
+      margin-top: 1.5rem;
+      padding: 1rem 1.1rem;
+      background: #0d1f3c;
+      border-radius: 12px;
+      color: #fff;
+    }
+
+    .pip2-score-tracker-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #a8c0d8;
+      margin-bottom: 0.55rem;
+    }
+
+    .pip2-score-tracker select {
+      width: 100%;
+      font: inherit;
+      font-size: 14px;
+      padding: 0.65rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #2a4a70;
+      background: #132a4d;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .pip2-score-tracker-totals {
+      display: grid;
+      gap: 0.35rem;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .pip2-score-tracker-totals strong {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .pip2-score-tracker-hint {
+      margin-top: 0.65rem;
+      font-size: 12px;
+      color: #7a9ec0;
+      line-height: 1.45;
+    }
+
+    .pip2-closing {
+      margin-top: 1rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid #ddd9d0;
+    }
+
+    .pip2-closing-section {
+      margin: 2rem 0;
+      padding: 1.5rem 1.4rem;
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid #e4e0d8;
+    }
+
+    .pip2-closing-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.45rem, 3vw, 1.85rem);
+      color: #0d1f3c;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+    }
+
+    .pip2-closing-section p,
+    .pip2-closing-section li {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.65;
+    }
+
+    .pip2-closing-section p {
+      margin-bottom: 0.75rem;
+    }
+
+    .pip2-closing-section ul {
+      margin: 0 0 0.75rem 1.15rem;
+    }
+
+    .pip2-closing-section li {
+      margin-bottom: 0.4rem;
+    }
+
+    .pip2-rate-grid {
+      display: grid;
+      gap: 0.75rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .pip2-rate-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .pip2-rate-card {
+      background: #f5f4f0;
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      border: 1px solid #e4e0d8;
+    }
+
+    .pip2-rate-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #c8102e;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .pip2-rate-card p {
+      margin: 0 0 0.35rem;
+      font-size: 14px;
+    }
+
+    .pip2-next-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .pip2-next-card {
+      padding: 1.1rem 1.15rem;
+      border-radius: 12px;
+      border: 1px solid #e4e0d8;
+      background: #faf9f6;
+    }
+
+    .pip2-next-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0d1f3c;
+      margin-bottom: 0.45rem;
+    }
+
+    .pip2-next-card p {
+      margin-bottom: 0.75rem;
+    }
+
+    .pip2-next-card a.pip2-next-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #c8102e;
+      text-decoration: none;
+    }
+
+    .pip2-next-card a.pip2-next-link:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 600px) {
       .pip2-progress {
         padding: 0.55rem 1rem 0.65rem;
@@ -644,9 +815,11 @@ const reliabilityCriteria = [
     </nav>
 
     {activities.map((activity, index) => {
-      const next = index < activities.length - 1 ? activities[index + 1] : null;
       const groupLabel = activity.group === 'daily-living' ? 'Daily Living' : 'Mobility';
       const content = pip2ActivityContent[activity.number];
+      const pointOptions = content
+        ? [...new Set(content.descriptors.map((d) => d.points))].sort((a, b) => a - b)
+        : [];
 
       return (
         <section
@@ -655,6 +828,7 @@ const reliabilityCriteria = [
           data-activity-number={activity.number}
           data-activity-title={activity.title}
           data-activity-index={index}
+          data-activity-group={activity.group}
         >
           <p class="pip2-activity-eyebrow">
             {groupLabel} · Activity {activity.number} of {totalActivities}
@@ -749,21 +923,124 @@ const reliabilityCriteria = [
                   ))}
                 </ul>
               </div>
+
+              <div class="pip2-score-tracker" data-score-activity={activity.number}>
+                <p class="pip2-score-tracker-label">Score this activity</p>
+                <label class="visually-hidden" for={`pip2-score-${activity.number}`}>
+                  Points for {activity.title}
+                </label>
+                <select
+                  id={`pip2-score-${activity.number}`}
+                  class="pip2-score-select"
+                  data-activity-number={activity.number}
+                  data-activity-group={activity.group}
+                >
+                  <option value="">Not scored yet</option>
+                  {pointOptions.map((points) => (
+                    <option value={points}>
+                      {points} {points === 1 ? 'point' : 'points'}
+                    </option>
+                  ))}
+                </select>
+                <div class="pip2-score-tracker-totals">
+                  {activity.group === 'daily-living' ? (
+                    <p>
+                      Your Daily Living score so far:{' '}
+                      <strong class="pip2-daily-total" data-pip2-daily-total>
+                        0 points
+                      </strong>
+                    </p>
+                  ) : (
+                    <p>
+                      Your Mobility score so far:{' '}
+                      <strong class="pip2-mobility-total" data-pip2-mobility-total>
+                        0 points
+                      </strong>
+                    </p>
+                  )}
+                </div>
+                <p class="pip2-score-tracker-hint">
+                  Pick the highest descriptor that fits on most days. Thresholds: Daily Living 8 / 12 · Mobility 8 / 12.
+                </p>
+              </div>
             </div>
           ) : (
             <div class="pip2-activity-placeholder">
               Guidance for this activity will appear here in a later update.
             </div>
           )}
-
-          {!next && (
-            <div class="pip2-activity-nav">
-              <a href="#pip2-intro" class="pip2-nav-next pip2-scroll-link">Back to top ↑</a>
-            </div>
-          )}
         </section>
       );
     })}
+
+    <div class="pip2-closing">
+      <section class="pip2-closing-section" id="understanding-your-score">
+        <h2 class="pip2-closing-title">Understanding Your Score</h2>
+        <p>
+          PIP has two separate components. You add up the highest score from each Daily Living activity for one total, and the highest score from each Mobility activity for another. The two totals are never combined.
+        </p>
+        <div class="pip2-rate-grid">
+          <div class="pip2-rate-card">
+            <h3>Daily Living</h3>
+            <p><strong>8+ points</strong> — Standard rate (£72.65/week)</p>
+            <p><strong>12+ points</strong> — Enhanced rate (£108.55/week)</p>
+          </div>
+          <div class="pip2-rate-card">
+            <h3>Mobility</h3>
+            <p><strong>8+ points</strong> — Standard rate (£28.70/week)</p>
+            <p><strong>12+ points</strong> — Enhanced rate (£75.75/week)</p>
+          </div>
+        </div>
+        <ul>
+          <li>
+            <strong>Components are independent</strong> — Daily Living points are not added to Mobility points. You can qualify for one, both, or neither.
+          </li>
+          <li>
+            <strong>Only the highest descriptor per activity counts</strong> — descriptors within the same activity do not stack.
+          </li>
+          <li>
+            <strong>7 or fewer</strong> in a component usually means no award for that component, even if the other component scores highly.
+          </li>
+        </ul>
+        <p>
+          Running totals from the score pickers above:{' '}
+          Daily Living <strong data-pip2-daily-total>0 points</strong> · Mobility{' '}
+          <strong data-pip2-mobility-total>0 points</strong>
+        </p>
+      </section>
+
+      <section class="pip2-closing-section" id="what-to-do-next">
+        <h2 class="pip2-closing-title">What to Do Next</h2>
+        <div class="pip2-next-grid">
+          <div class="pip2-next-card">
+            <h3>Use our PIP checker</h3>
+            <p>
+              Get a quick sense of what you might be entitled to based on how your condition affects daily living and mobility — then compare it with the descriptors in this guide.
+            </p>
+            <a href="/disabled-checker/" class="pip2-next-link">Check what benefits you could be entitled to →</a>
+          </div>
+          <div class="pip2-next-card">
+            <h3>If you're starting a claim</h3>
+            <p>
+              Call the DWP PIP new claims line to start your claim (or claim online where available). You will usually receive a PIP1 / initial claim confirmation, then the longer “How your disability affects you” (PIP2) form. Keep a copy of everything you send, gather medical evidence early, and describe how you are on the <strong>majority of days</strong> — not your best day.
+            </p>
+          </div>
+          <div class="pip2-next-card">
+            <h3>If you've been refused</h3>
+            <p>
+              You can usually ask for a Mandatory Reconsideration first, then appeal to a tribunal if needed. Deadlines are tight — act quickly and use the descriptors in this guide to explain why the decision is wrong.
+            </p>
+            <a href="/guides/how-to-appeal-benefit-decision/" class="pip2-next-link">
+              Read the appeal guide →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <div class="pip2-activity-nav">
+        <a href="#pip2-intro" class="pip2-nav-next pip2-scroll-link">Back to top ↑</a>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -936,6 +1213,81 @@ const reliabilityCriteria = [
         );
         introObserver.observe(intro);
       }
+    }
+
+    // Simple running score tracker (persisted in localStorage)
+    const SCORE_KEY = 'benefitscheck-pip2-scores';
+    const scoreSelects = Array.from(
+      document.querySelectorAll<HTMLSelectElement>('select.pip2-score-select')
+    );
+
+    function loadScores(): Record<string, number> {
+      try {
+        const raw = localStorage.getItem(SCORE_KEY);
+        if (!raw) return {};
+        const parsed = JSON.parse(raw) as Record<string, number>;
+        return parsed && typeof parsed === 'object' ? parsed : {};
+      } catch {
+        return {};
+      }
+    }
+
+    function saveScores(scores: Record<string, number>) {
+      try {
+        localStorage.setItem(SCORE_KEY, JSON.stringify(scores));
+      } catch {
+        // Ignore quota / private mode failures
+      }
+    }
+
+    function formatPoints(totalPoints: number) {
+      return `${totalPoints} ${totalPoints === 1 ? 'point' : 'points'}`;
+    }
+
+    function updateScoreDisplays(scores: Record<string, number>) {
+      let daily = 0;
+      let mobility = 0;
+
+      scoreSelects.forEach((select) => {
+        const number = select.dataset.activityNumber || '';
+        const group = select.dataset.activityGroup;
+        const value = scores[number];
+        if (typeof value === 'number') {
+          if (group === 'daily-living') daily += value;
+          if (group === 'mobility') mobility += value;
+        }
+      });
+
+      document.querySelectorAll('[data-pip2-daily-total]').forEach((el) => {
+        el.textContent = formatPoints(daily);
+      });
+      document.querySelectorAll('[data-pip2-mobility-total]').forEach((el) => {
+        el.textContent = formatPoints(mobility);
+      });
+    }
+
+    if (scoreSelects.length) {
+      const scores = loadScores();
+
+      scoreSelects.forEach((select) => {
+        const number = select.dataset.activityNumber || '';
+        if (number && typeof scores[number] === 'number') {
+          select.value = String(scores[number]);
+        }
+
+        select.addEventListener('change', () => {
+          const nextScores = loadScores();
+          if (select.value === '') {
+            delete nextScores[number];
+          } else {
+            nextScores[number] = Number(select.value);
+          }
+          saveScores(nextScores);
+          updateScoreDisplays(nextScores);
+        });
+      });
+
+      updateScoreDisplays(scores);
     }
   </script>
 </Base>
