@@ -27,28 +27,27 @@ const CONDITIONS = [
 ];
 
 const CONDITION_GUIDES = {
-  'Arthritis (rheumatoid or osteoarthritis)': {
-    href: '/guides/pip-arthritis/',
-    label: 'arthritis',
-  },
-  'Autism spectrum condition': { href: '/guides/pip-autism/', label: 'autism' },
-  ADHD: { href: '/guides/pip-adhd/', label: 'ADHD' },
-  'Bipolar disorder': { href: '/guides/pip-bipolar/', label: 'bipolar disorder' },
-  Cancer: { href: '/guides/pip-cancer/', label: 'cancer' },
-  'Chronic pain': { href: '/guides/pip-chronic-pain/', label: 'chronic pain' },
-  "Crohn's disease or IBD": { href: '/guides/pip-crohns-ibd/', label: "Crohn's and IBD" },
-  'Depression or anxiety': {
-    href: '/guides/pip-depression-anxiety/',
-    label: 'depression and anxiety',
-  },
-  Diabetes: { href: '/guides/pip-diabetes/', label: 'diabetes' },
-  Epilepsy: { href: '/guides/pip-epilepsy/', label: 'epilepsy' },
-  Fibromyalgia: { href: '/guides/pip-fibromyalgia/', label: 'fibromyalgia' },
-  'Multiple sclerosis': { href: '/guides/pip-ms/', label: 'multiple sclerosis' },
-  'Schizophrenia or psychosis': {
-    href: '/guides/pip-schizophrenia/',
-    label: 'schizophrenia',
-  },
+  Fibromyalgia: { href: '/guides/pip-fibromyalgia/' },
+  'Arthritis (rheumatoid or osteoarthritis)': { href: '/guides/pip-arthritis/' },
+  'Depression or anxiety': { href: '/guides/pip-depression-anxiety/' },
+  'Autism spectrum condition': { href: '/guides/pip-autism/' },
+  ADHD: { href: '/guides/pip-adhd/' },
+  'Multiple sclerosis': { href: '/guides/pip-ms/' },
+  'Chronic pain': { href: '/guides/pip-chronic-pain/' },
+  Diabetes: { href: '/guides/pip-diabetes/' },
+  Epilepsy: { href: '/guides/pip-epilepsy/' },
+  "Crohn's disease or IBD": { href: '/guides/pip-crohns-ibd/' },
+  'Bipolar disorder': { href: '/guides/pip-bipolar/' },
+  'Schizophrenia or psychosis': { href: '/guides/pip-schizophrenia/' },
+  Cancer: { href: '/guides/pip-cancer/' },
+
+  // No specific guide yet (fallback index)
+  'Motor neurone disease': { href: '/guides/pip/' },
+  "Parkinson's disease": { href: '/guides/pip/' },
+  Stroke: { href: '/guides/pip/' },
+
+  // Catch-all for not listed
+  'Other condition': { href: '/guides/pip/' },
 };
 
 const RATES = {
@@ -369,13 +368,8 @@ function formatMoney(amount) {
 }
 
 function getConditionGuide(condition) {
-  return (
-    CONDITION_GUIDES[condition] || {
-      href: '/guides/pip/',
-      label: condition && condition !== 'Other condition' ? condition : 'your condition',
-      isIndex: !CONDITION_GUIDES[condition],
-    }
-  );
+  // Ensure we always return an absolute path starting with `/`.
+  return CONDITION_GUIDES[condition] || { href: '/guides/pip/' };
 }
 
 function getTopActivities(dailyLiving, mobility) {
@@ -474,7 +468,13 @@ export default function PipChecker() {
 
   const nav = (next) => {
     setStep(next);
-    document.querySelector('.right-panel')?.scrollTo({ top: 0, behavior: 'smooth' });
+    requestAnimationFrame(() => {
+      const panel = document.querySelector('.right-panel');
+      if (panel) {
+        panel.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   };
 
   const introValid =
@@ -498,7 +498,10 @@ export default function PipChecker() {
   );
 
   const conditionGuide = getConditionGuide(d.condition);
-  const guideLinkText = `Read our guide to PIP for ${conditionGuide.label} →`;
+  const guideLinkText =
+    d.condition && d.condition !== 'Other condition'
+      ? `Read our guide to PIP for ${d.condition} →`
+      : 'Read our PIP guides →';
 
   useEffect(() => {
     const footerNote = document.getElementById('footer-note');

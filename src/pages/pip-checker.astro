@@ -3,8 +3,8 @@ import Base from '../layouts/Base.astro';
 import PipChecker from '../components/PipChecker.jsx';
 ---
 <Base
-  title="PIP Checker 2026/27 — Find Out What You Could Be Entitled To | BenefitsCheck UK"
-  description="Free Personal Independence Payment (PIP) checker. Answer questions about 12 daily living and mobility activities to estimate your likely award. Updated for 2026/27 rates."
+  title="Free PIP Checker 2026/27 — Calculate Your Score | BenefitsCheck UK"
+  description="Use our free PIP checker to calculate your Daily Living and Mobility scores based on the official descriptors. Find out if you qualify for Standard or Enhanced rate PIP."
 >
   <style is:global>
     body { min-height: 100vh; background: #ede9e3; }
@@ -600,9 +600,75 @@ import PipChecker from '../components/PipChecker.jsx';
 
     @media (max-width: 800px) {
       .page { grid-template-columns: 1fr; }
-      .left-panel { position: relative; height: auto; padding: 2rem 1.5rem; }
-      .right-panel { padding: 2rem 1.25rem; }
+      .left-panel {
+        position: relative;
+        height: auto;
+        max-height: none;
+        padding: 1.35rem 1.15rem 1.5rem;
+        overflow: visible;
+      }
+      .right-panel {
+        padding: 1.35rem 1rem 2rem;
+        overflow: visible;
+        min-width: 0;
+      }
+      .left-title { font-size: 1.4rem; margin-bottom: 0.65rem; }
+      .left-sub { font-size: 14px; margin-bottom: 1rem; }
+      .left-badges { margin-bottom: 1rem; }
+      .left-disclaimer { margin-bottom: 0.75rem; padding: 0.85rem 0.95rem; }
+      .left-footer { margin-top: 0.5rem; }
+      .progress-wrap { margin-bottom: 1.25rem; }
+      .progress-labels { gap: 2px; }
+      .progress-label { font-size: 9px; letter-spacing: 0.02em; min-width: 0; }
+      .progress-step-of { font-size: 8px; }
+      .progress-step-name { line-height: 1.2; }
+      .step-title { font-size: 1.35rem; }
+      .step-hint { font-size: 13px; margin-bottom: 1.25rem; }
+      .pip-activity { padding: 1rem 0.95rem 1.1rem; }
+      .pip-activity-name { font-size: 1.05rem; }
+      .pip-activity-blurb { font-size: 13px; }
+      .radio-option {
+        padding: 10px 11px;
+        gap: 8px;
+        font-size: 13px;
+        align-items: flex-start;
+      }
+      .radio-option-pts {
+        font-size: 11px;
+        max-width: 3.5rem;
+        text-align: right;
+        white-space: normal;
+        line-height: 1.2;
+      }
+      .pip-score-bar {
+        padding: 0.9rem 1rem;
+        border-radius: 10px;
+      }
+      .pip-score-value { font-size: 1.25rem; }
+      .pip-score-thresholds { font-size: 11px; }
       .pip-result-scores { grid-template-columns: 1fr; }
+      .pip-result-weekly-value { font-size: 1.45rem; }
+      .nav {
+        flex-direction: column-reverse;
+        align-items: stretch;
+        gap: 0.65rem;
+      }
+      .nav-right { margin-left: 0; width: 100%; }
+      .nav-right .btn-primary,
+      .btn-ghost,
+      .btn-primary {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+      .field-label { font-size: 11px; }
+      .text-input, .sel-input { font-size: 16px; } /* avoid iOS zoom */
+    }
+
+    @media (max-width: 400px) {
+      .left-panel, .right-panel { padding-left: 0.9rem; padding-right: 0.9rem; }
+      .pip-activity-name { font-size: 1rem; }
+      .radio-option { padding: 9px 10px; }
     }
   </style>
 

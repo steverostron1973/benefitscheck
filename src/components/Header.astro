@@ -2,20 +2,21 @@
 const currentPath = Astro.url.pathname;
 
 const checkers = [
-  { label: 'PIP Checker', href: '/pip-checker' },
-  { label: 'Universal Credit', href: '/universal-credit-checker' },
-  { label: 'Working Parents', href: '/working-parents' },
-  { label: 'Pensioners', href: '/pensioners' },
-  { label: 'Carers', href: '/carers' },
-  { label: 'Recently Redundant', href: '/redundancy' },
-  { label: 'Self-Employed', href: '/self-employed' },
-  { label: 'New Parents', href: '/new-parent' },
-  { label: 'Sick or Disabled Workers', href: '/disabled' },
+  { label: 'PIP Checker', href: '/pip-checker/' },
+  { label: 'Universal Credit', href: '/universal-credit-checker/' },
+  { label: 'Working Parents', href: '/working-parents/' },
+  { label: 'Pensioners', href: '/pensioners/' },
+  { label: 'Carers', href: '/carers/' },
+  { label: 'Recently Redundant', href: '/redundancy/' },
+  { label: 'Self-Employed', href: '/self-employed/' },
+  { label: 'New Parents', href: '/new-parent/' },
+  { label: 'Sick or Disabled Workers', href: '/disabled/' },
 ];
 
-const isCheckerActive = checkers.some(
-  (checker) => currentPath === checker.href || currentPath.startsWith(`${checker.href}/`)
-);
+const isCheckerActive = checkers.some((checker) => {
+  const href = checker.href.replace(/\/$/, '');
+  return currentPath === checker.href || currentPath === href || currentPath.startsWith(`${href}/`);
+});
 
 const guideLinks = [
   { label: 'All Guides', href: '/guides/' },
@@ -131,7 +132,15 @@ const isGuidesActive =
         {checkers.map((checker) => (
           <a
             href={checker.href}
-            class:list={['site-nav-dropdown-item', { active: currentPath === checker.href }]}
+            class:list={[
+              'site-nav-dropdown-item',
+              {
+                active:
+                  currentPath === checker.href ||
+                  currentPath === checker.href.replace(/\/$/, '') ||
+                  currentPath.startsWith(checker.href),
+              },
+            ]}
           >
             {checker.label}
           </a>

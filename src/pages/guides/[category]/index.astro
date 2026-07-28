@@ -165,11 +165,11 @@ const pageTitle = `${categoryLabel} Guides | BenefitsCheck.co.uk`;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       gap: 1rem 1.5rem;
       margin: 0 0 1.25rem;
-      padding: 1.25rem 1.4rem;
-      background: #fff;
+      padding: 1.15rem 1.25rem;
+      background: #0d1f3c;
       border-radius: 14px;
       border: 1.5px solid #0d1f3c;
     }
@@ -204,6 +204,7 @@ const pageTitle = `${categoryLabel} Guides | BenefitsCheck.co.uk`;
     .pip-checker-banner-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       padding: 11px 18px;
       background: #0d1f3c;
@@ -213,11 +214,24 @@ const pageTitle = `${categoryLabel} Guides | BenefitsCheck.co.uk`;
       font-weight: 600;
       text-decoration: none;
       white-space: nowrap;
-      transition: background 0.15s;
+      transition: background 0.15s, color 0.15s;
     }
 
-    .pip-checker-banner-btn:hover {
+    .pip-checker-banner-btn--full {
+      width: 100%;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.45;
+      padding: 0.85rem 1rem;
+      background: transparent;
+      color: #fff;
+      font-size: 15px;
+    }
+
+    .pip-checker-banner-btn:hover,
+    .pip-checker-banner-btn--full:hover {
       background: #c8102e;
+      color: #fff;
     }
 
     @media (max-width: 600px) {
@@ -242,14 +256,9 @@ const pageTitle = `${categoryLabel} Guides | BenefitsCheck.co.uk`;
     {category === 'pip' && (
       <>
         <aside class="pip-checker-banner" aria-label="Free PIP checker">
-          <div class="pip-checker-banner-copy">
-            <p class="pip-checker-banner-label">Free tool</p>
-            <p class="pip-checker-banner-title">PIP Checker</p>
-            <p class="pip-checker-banner-text">
-              Estimate your likely Daily Living and Mobility scores across all 12 PIP activities.
-            </p>
-          </div>
-          <a href="/pip-checker/" class="pip-checker-banner-btn">Use our free PIP checker →</a>
+          <a href="/pip-checker/" class="pip-checker-banner-btn pip-checker-banner-btn--full">
+            Use our free PIP checker to find out what you might be entitled to →
+          </a>
         </aside>
 
         <aside class="pip2-banner" aria-label="Free PIP2 form guide">
