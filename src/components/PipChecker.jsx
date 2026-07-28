@@ -40,11 +40,9 @@ const CONDITION_GUIDES = {
   'Bipolar disorder': { href: '/guides/pip-bipolar/' },
   'Schizophrenia or psychosis': { href: '/guides/pip-schizophrenia/' },
   Cancer: { href: '/guides/pip-cancer/' },
-
-  // No specific guide yet (fallback index)
-  'Motor neurone disease': { href: '/guides/pip/' },
-  "Parkinson's disease": { href: '/guides/pip/' },
-  Stroke: { href: '/guides/pip/' },
+  'Motor neurone disease': { href: '/guides/pip-motor-neurone-disease/' },
+  "Parkinson's disease": { href: '/guides/pip-parkinsons/' },
+  Stroke: { href: '/guides/pip-stroke/' },
 
   // Catch-all for not listed
   'Other condition': { href: '/guides/pip/' },
