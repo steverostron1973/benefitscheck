@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
-const STEPS = ['intro', 'daily-living', 'mobility', 'results'];
 const PROGRESS_STEPS = [
   { key: 'daily-living', label: 'Daily Living', stepOf: 'Step 1 of 3' },
   { key: 'mobility', label: 'Mobility', stepOf: 'Step 2 of 3' },
@@ -27,9 +26,149 @@ const CONDITIONS = [
   'Other condition',
 ];
 
+const RELIABILITY_HINT =
+  'You are only treated as able to do an activity if you can do it safely, to an acceptable standard, repeatedly, and in a reasonable time (no more than twice as long as someone without your condition). Choose the highest descriptor that fits on the majority of days.';
+
+const DAILY_LIVING = [
+  {
+    id: 'preparingFood',
+    name: 'Preparing food',
+    blurb: 'Preparing and cooking a simple meal for one using fresh ingredients — not just reheating ready meals.',
+    descriptors: [
+      { id: '0', label: 'Can prepare and cook a simple meal unaided', points: 0 },
+      { id: '1', label: 'Needs to use an aid or appliance', points: 2 },
+      { id: '2', label: 'Cannot cook using a microwave', points: 2 },
+      { id: '3', label: 'Needs prompting', points: 2 },
+      { id: '4', label: 'Needs supervision', points: 4 },
+      { id: '5', label: 'Needs assistance', points: 4 },
+      { id: '6', label: 'Cannot prepare and cook food', points: 8 },
+    ],
+  },
+  {
+    id: 'takingNutrition',
+    name: 'Taking nutrition',
+    blurb: 'Eating and drinking — cutting food, using cutlery, and getting food and drink to your mouth.',
+    descriptors: [
+      { id: '0', label: 'Can take nutrition unaided', points: 0 },
+      { id: '1', label: 'Needs an aid or appliance', points: 2 },
+      { id: '2', label: 'Needs prompting', points: 4 },
+      { id: '3', label: 'Needs assistance', points: 6 },
+      { id: '4', label: 'Cannot take nutrition', points: 10 },
+    ],
+  },
+  {
+    id: 'managingTherapy',
+    name: 'Managing therapy or monitoring a health condition',
+    blurb: 'Managing medication, monitoring a condition, or getting help with therapy at home.',
+    descriptors: [
+      { id: '0', label: 'Can manage unaided or no therapy needed', points: 0 },
+      { id: '1', label: 'Needs aid or appliance', points: 1 },
+      { id: '2', label: 'Needs supervision/prompting/assistance less than 3.5 hrs/week', points: 1 },
+      { id: '3', label: 'Needs supervision/prompting/assistance 3.5-7 hrs/week', points: 2 },
+      { id: '4', label: 'Needs supervision/prompting/assistance 7-14 hrs/week', points: 4 },
+      { id: '5', label: 'Needs supervision/prompting/assistance 14+ hrs/week', points: 8 },
+    ],
+  },
+  {
+    id: 'washingBathing',
+    name: 'Washing and bathing',
+    blurb: 'Washing your whole body, including hair, and getting in and out of a bath or shower.',
+    descriptors: [
+      { id: '0', label: 'Can wash and bathe unaided', points: 0 },
+      { id: '1', label: 'Needs aid or appliance', points: 2 },
+      { id: '2', label: 'Needs supervision or prompting', points: 2 },
+      { id: '3', label: 'Needs assistance to wash between shoulders and waist', points: 2 },
+      { id: '4', label: 'Needs assistance to wash below waist', points: 4 },
+      { id: '5', label: 'Needs assistance to get in or out of bath/shower', points: 3 },
+      { id: '6', label: 'Cannot wash and bathe at all', points: 8 },
+    ],
+  },
+  {
+    id: 'toiletNeeds',
+    name: 'Managing toilet needs or incontinence',
+    blurb: 'Getting on and off the toilet, cleaning yourself, and managing incontinence if it applies.',
+    descriptors: [
+      { id: '0', label: 'Can manage unaided', points: 0 },
+      { id: '1', label: 'Needs aid or appliance', points: 2 },
+      { id: '2', label: 'Needs supervision or prompting', points: 2 },
+      { id: '3', label: 'Needs assistance to manage toilet needs', points: 4 },
+      { id: '4', label: 'Needs assistance to get on or off toilet', points: 4 },
+      { id: '5', label: 'Cannot manage toilet needs at all', points: 8 },
+    ],
+  },
+  {
+    id: 'dressing',
+    name: 'Dressing and undressing',
+    blurb: 'Putting on and taking off clothes and shoes, including choosing appropriate clothing.',
+    descriptors: [
+      { id: '0', label: 'Can dress and undress unaided', points: 0 },
+      { id: '1', label: 'Needs aid or appliance', points: 2 },
+      { id: '2', label: 'Needs prompting to dress or select appropriate clothing', points: 2 },
+      { id: '3', label: 'Needs assistance to dress or undress lower body', points: 2 },
+      { id: '4', label: 'Needs assistance to dress or undress upper body', points: 4 },
+      { id: '5', label: 'Cannot dress or undress at all', points: 8 },
+    ],
+  },
+  {
+    id: 'communicating',
+    name: 'Communicating verbally',
+    blurb: 'Expressing yourself in speech and understanding what other people say.',
+    descriptors: [
+      { id: '0', label: 'Can express and understand verbal information unaided', points: 0 },
+      { id: '1', label: 'Needs aid or appliance', points: 2 },
+      { id: '2', label: 'Needs communication support for complex verbal information', points: 4 },
+      { id: '3', label: 'Needs communication support for basic verbal information', points: 8 },
+      { id: '4', label: 'Cannot express or understand verbal information at all', points: 12 },
+    ],
+  },
+  {
+    id: 'reading',
+    name: 'Reading and understanding signs, symbols and words',
+    blurb: 'Reading and understanding basic and complex written information, including signs and labels.',
+    descriptors: [
+      {
+        id: '0',
+        label: 'Can read and understand basic and complex written information unaided or with glasses',
+        points: 0,
+      },
+      { id: '1', label: 'Needs aid or appliance other than glasses', points: 2 },
+      { id: '2', label: 'Needs prompting to read or understand complex written information', points: 2 },
+      { id: '3', label: 'Needs prompting to read or understand basic written information', points: 4 },
+      { id: '4', label: 'Cannot read or understand signs, symbols or words at all', points: 8 },
+    ],
+  },
+  {
+    id: 'engaging',
+    name: 'Engaging with other people face to face',
+    blurb: 'Meeting, talking to, and coping with other people in person.',
+    descriptors: [
+      { id: '0', label: 'Can engage with other people unaided', points: 0 },
+      { id: '1', label: 'Needs prompting', points: 2 },
+      { id: '2', label: 'Needs social support', points: 4 },
+      { id: '3', label: 'Cannot engage with other people', points: 8 },
+    ],
+  },
+  {
+    id: 'budgeting',
+    name: 'Making budgeting decisions',
+    blurb: 'Understanding and deciding how to spend and manage money — from simple purchases to complex bills.',
+    descriptors: [
+      { id: '0', label: 'Can manage complex budgeting decisions unaided', points: 0 },
+      { id: '1', label: 'Needs prompting or assistance for complex budgeting decisions', points: 2 },
+      { id: '2', label: 'Needs prompting or assistance for simple budgeting decisions', points: 4 },
+      { id: '3', label: 'Cannot make any budgeting decisions at all', points: 6 },
+    ],
+  },
+];
+
+const DEFAULT_DAILY_LIVING = Object.fromEntries(
+  DAILY_LIVING.map((activity) => [activity.id, activity.descriptors[0].id])
+);
+
 const INITIAL_STATE = {
   condition: '',
   age: '',
+  dailyLiving: DEFAULT_DAILY_LIVING,
 };
 
 function Btn({ children, onClick, ghost, disabled }) {
@@ -74,11 +213,73 @@ function ProgressBar({ step }) {
   );
 }
 
+function getActivityPoints(activity, selectedId) {
+  const match = activity.descriptors.find((d) => d.id === selectedId);
+  return match ? match.points : 0;
+}
+
+function sumDailyLiving(dailyLiving) {
+  return DAILY_LIVING.reduce(
+    (total, activity) => total + getActivityPoints(activity, dailyLiving[activity.id]),
+    0
+  );
+}
+
+function ActivityCard({ activity, index, selectedId, onChange }) {
+  return (
+    <fieldset className="pip-activity">
+      <legend className="pip-activity-name">
+        {index + 1}. {activity.name}
+      </legend>
+      <p className="pip-activity-blurb">{activity.blurb}</p>
+
+      <details className="pip-hint">
+        <summary>What does this mean?</summary>
+        <p>{RELIABILITY_HINT}</p>
+      </details>
+
+      <div className="radio-group" role="radiogroup" aria-label={activity.name}>
+        {activity.descriptors.map((descriptor) => {
+          const inputId = `${activity.id}-${descriptor.id}`;
+          const checked = selectedId === descriptor.id;
+          return (
+            <label
+              key={descriptor.id}
+              htmlFor={inputId}
+              className={`radio-option${checked ? ' selected' : ''}`}
+            >
+              <input
+                id={inputId}
+                type="radio"
+                name={activity.id}
+                value={descriptor.id}
+                checked={checked}
+                onChange={() => onChange(descriptor.id)}
+              />
+              <span className="radio-option-text">{descriptor.label}</span>
+              <span className="radio-option-pts">
+                {descriptor.points} {descriptor.points === 1 ? 'pt' : 'pts'}
+              </span>
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+
 export default function PipChecker() {
   const [step, setStep] = useState('intro');
   const [d, setD] = useState(INITIAL_STATE);
 
   const set = (k, v) => setD((prev) => ({ ...prev, [k]: v }));
+
+  const setDailyLiving = (activityId, descriptorId) => {
+    setD((prev) => ({
+      ...prev,
+      dailyLiving: { ...prev.dailyLiving, [activityId]: descriptorId },
+    }));
+  };
 
   const nav = (next) => {
     setStep(next);
@@ -90,6 +291,8 @@ export default function PipChecker() {
     d.age !== '' &&
     Number(d.age) >= 16 &&
     Number(d.age) <= 120;
+
+  const dailyLivingTotal = useMemo(() => sumDailyLiving(d.dailyLiving), [d.dailyLiving]);
 
   useEffect(() => {
     const footerNote = document.getElementById('footer-note');
@@ -160,14 +363,33 @@ export default function PipChecker() {
         <div>
           <h2 className="step-title">Daily Living</h2>
           <p className="step-hint">
-            Next we&apos;ll ask about the 10 Daily Living activities. This section is coming in Stage 2.
+            For each activity, choose the descriptor that best matches how you are on the <strong>majority of days</strong>. Only the highest descriptor per activity counts.
           </p>
-          <div className="placeholder-box">
-            <p>
-              You selected <strong>{d.condition || 'your condition'}</strong>
-              {d.age ? `, age ${d.age}` : ''}. Daily Living questions will appear here soon.
+
+          <div className="pip-activity-list">
+            {DAILY_LIVING.map((activity, index) => (
+              <ActivityCard
+                key={activity.id}
+                activity={activity}
+                index={index}
+                selectedId={d.dailyLiving[activity.id]}
+                onChange={(descriptorId) => setDailyLiving(activity.id, descriptorId)}
+              />
+            ))}
+          </div>
+
+          <div className="pip-score-bar" aria-live="polite">
+            <div>
+              <span className="pip-score-label">Your Daily Living score so far</span>
+              <strong className="pip-score-value">
+                {dailyLivingTotal} {dailyLivingTotal === 1 ? 'point' : 'points'}
+              </strong>
+            </div>
+            <p className="pip-score-thresholds">
+              Thresholds: 8+ Standard (£72.65/week) · 12+ Enhanced (£108.55/week)
             </p>
           </div>
+
           <div className="nav">
             <Btn ghost onClick={() => nav('intro')}>
               ← Back
@@ -185,6 +407,12 @@ export default function PipChecker() {
           <p className="step-hint">
             Next we&apos;ll ask about Planning and following journeys, and Moving around. Coming in a later stage.
           </p>
+          <div className="placeholder-box">
+            <p>
+              Daily Living total saved: <strong>{dailyLivingTotal} points</strong>
+              {d.condition ? ` · ${d.condition}` : ''}.
+            </p>
+          </div>
           <div className="nav">
             <Btn ghost onClick={() => nav('daily-living')}>
               ← Back
@@ -200,12 +428,13 @@ export default function PipChecker() {
         <div>
           <h2 className="step-title">Your Results</h2>
           <p className="step-hint">
-            Your Daily Living and Mobility score estimates will appear here once the full checker is built.
+            Your Daily Living and Mobility score estimates will appear here once Mobility scoring is built.
           </p>
           <div className="placeholder-box">
             <p>
-              Based on <strong>{d.condition || 'your answers'}</strong>
-              {d.age ? ` (age ${d.age})` : ''}. Full scoring arrives in Stage 2+.
+              Daily Living: <strong>{dailyLivingTotal} points</strong>
+              {d.condition ? ` · ${d.condition}` : ''}
+              {d.age ? ` · age ${d.age}` : ''}.
             </p>
           </div>
           <div className="nav">

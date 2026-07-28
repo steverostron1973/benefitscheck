@@ -222,11 +222,171 @@ import PipChecker from '../components/PipChecker.jsx';
       margin-bottom: 0.5rem;
     }
 
+    .pip-activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .pip-activity {
+      margin: 0;
+      padding: 1.25rem 1.3rem 1.35rem;
+      background: #fff;
+      border: 1.5px solid #e0dfd9;
+      border-radius: 14px;
+      min-width: 0;
+    }
+
+    .pip-activity-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #0d1f3c;
+      font-weight: 700;
+      padding: 0;
+      margin-bottom: 0.4rem;
+    }
+
+    .pip-activity-blurb {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.55;
+      margin-bottom: 0.75rem;
+    }
+
+    .pip-hint {
+      margin-bottom: 0.9rem;
+      border-radius: 10px;
+      background: #f5f4f0;
+      border: 1px solid #e4e0d8;
+    }
+
+    .pip-hint summary {
+      cursor: pointer;
+      list-style: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0d1f3c;
+      padding: 0.65rem 0.85rem;
+    }
+
+    .pip-hint summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .pip-hint summary::before {
+      content: '+ ';
+      color: #c8102e;
+      font-weight: 700;
+    }
+
+    .pip-hint[open] summary::before {
+      content: '− ';
+    }
+
+    .pip-hint p {
+      margin: 0;
+      padding: 0 0.85rem 0.85rem;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.55;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1.5px solid #d8cfc4;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #2a1a0a;
+      background: #faf7f3;
+      transition: all 0.15s;
+      font-weight: 500;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .radio-option:hover {
+      border-color: #c8102e;
+    }
+
+    .radio-option.selected {
+      border-color: #c8102e;
+      background: #fff0f2;
+    }
+
+    .radio-option input {
+      accent-color: #c8102e;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      cursor: pointer;
+      margin-top: 2px;
+    }
+
+    .radio-option-text {
+      flex: 1;
+      line-height: 1.45;
+    }
+
+    .radio-option-pts {
+      flex-shrink: 0;
+      font-size: 12px;
+      font-weight: 700;
+      color: #8b1528;
+      white-space: nowrap;
+      padding-top: 1px;
+    }
+
+    .pip-score-bar {
+      position: sticky;
+      bottom: 0;
+      z-index: 5;
+      margin: 0.5rem 0 0;
+      padding: 1rem 1.15rem;
+      background: #0d1f3c;
+      color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 -8px 24px rgba(13, 31, 60, 0.12);
+    }
+
+    .pip-score-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #a8c0d8;
+      margin-bottom: 0.25rem;
+    }
+
+    .pip-score-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .pip-score-thresholds {
+      margin: 0.45rem 0 0;
+      font-size: 12px;
+      color: #7a9ec0;
+      line-height: 1.45;
+    }
+
     .nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 2rem;
+      margin-top: 1.25rem;
       padding-top: 1.5rem;
       border-top: 2px solid #d8cfc4;
     }
