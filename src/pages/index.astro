@@ -40,6 +40,190 @@ const categoryIcons: Record<(typeof guideCategories)[number], string> = {
   .hero-trust-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #7a9ec0; font-weight: 500; }
   .hero-trust-dot { width: 6px; height: 6px; background: #c8102e; border-radius: 50%; flex-shrink: 0; }
 
+  /* Announce strip */
+  .pip-announce {
+    position: sticky;
+    top: var(--site-header-height);
+    z-index: 90;
+    background: #c8102e;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem 1.25rem;
+    padding: 0.7rem 2.5rem;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(200, 16, 46, 0.35);
+  }
+  .pip-announce[hidden] { display: none; }
+  .pip-announce-text {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.45;
+    margin: 0;
+  }
+  .pip-announce-text a {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .pip-announce-text a:hover { color: #ffe8ec; }
+  .pip-announce-close {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    opacity: 0.9;
+  }
+  .pip-announce-close:hover { background: rgba(0,0,0,0.15); opacity: 1; }
+
+  /* PIP Tools feature section */
+  .pip-tools-section {
+    background: #c8c7c1;
+    padding: 3.5rem 2rem 4rem;
+    border-bottom: 1px solid #b8b7b1;
+  }
+  .pip-tools-inner { max-width: 1060px; margin: 0 auto; }
+  .pip-tools-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #c8102e;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .pip-tools-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    color: #0d1f3c;
+    text-align: center;
+    margin-bottom: 0.6rem;
+  }
+  .pip-tools-subtitle {
+    font-size: 15px;
+    color: #444;
+    text-align: center;
+    margin-bottom: 2.25rem;
+    line-height: 1.65;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pip-tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.35rem;
+  }
+  .pip-feature-card {
+    border-radius: 16px;
+    padding: 2rem 1.85rem 1.85rem;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 36px rgba(13, 31, 60, 0.18);
+    min-height: 100%;
+  }
+  .pip-feature-card--navy { background: linear-gradient(160deg, #0d1f3c 0%, #132a4d 100%); }
+  .pip-feature-card--red { background: linear-gradient(160deg, #c8102e 0%, #a00d24 100%); }
+  .pip-feature-label {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 4px;
+    margin-bottom: 1.1rem;
+  }
+  .pip-feature-card--navy .pip-feature-label {
+    background: #c8102e;
+    color: #fff;
+  }
+  .pip-feature-card--red .pip-feature-label {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+  }
+  .pip-feature-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.55rem, 2.5vw, 1.9rem);
+    line-height: 1.2;
+    margin-bottom: 0.85rem;
+    color: #fff;
+  }
+  .pip-feature-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+    flex: 1;
+  }
+  .pip-feature-card--navy .pip-feature-desc { color: #a8c0d8; }
+  .pip-feature-card--red .pip-feature-desc { color: rgba(255,255,255,0.88); }
+  .pip-feature-list {
+    list-style: none;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .pip-feature-list li {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.45;
+    padding-left: 1.35rem;
+    position: relative;
+  }
+  .pip-feature-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 700;
+  }
+  .pip-feature-card--navy .pip-feature-list li { color: #e8eef5; }
+  .pip-feature-card--navy .pip-feature-list li::before { color: #c8102e; }
+  .pip-feature-card--red .pip-feature-list li { color: #fff; }
+  .pip-feature-card--red .pip-feature-list li::before { color: rgba(255,255,255,0.95); }
+  .pip-feature-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    align-self: flex-start;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+  }
+  .pip-feature-card--navy .pip-feature-cta {
+    background: #fff;
+    color: #0d1f3c;
+  }
+  .pip-feature-card--navy .pip-feature-cta:hover {
+    background: #c8102e;
+    color: #fff;
+  }
+  .pip-feature-card--red .pip-feature-cta {
+    background: #fff;
+    color: #c8102e;
+  }
+  .pip-feature-card--red .pip-feature-cta:hover {
+    background: #0d1f3c;
+    color: #fff;
+  }
+
   /* Stats bar */
   .stats-bar { background: #091629; padding: 0; display: flex; justify-content: center; }
   .stat-item { text-align: center; padding: 1.75rem 3rem; border-right: 1px solid #1a3050; flex: 1; max-width: 280px; }
@@ -187,12 +371,19 @@ const categoryIcons: Record<(typeof guideCategories)[number], string> = {
   .footer-link:hover { color: #fff; }
   .footer-copy { font-size: 11px; color: #3a5070; line-height: 1.6; }
 
+  @media (max-width: 800px) {
+    .pip-tools-grid { grid-template-columns: 1fr; }
+  }
   @media (max-width: 700px) {
     .how-steps { grid-template-columns: 1fr; gap: 2rem; }
     .stats-bar { flex-direction: column; }
     .stat-item { border-right: none; border-bottom: 1px solid #1a3050; max-width: 100%; padding: 1.25rem; }
     .stat-item:last-child { border-bottom: none; }
     .hero { padding: 3rem 1.25rem 3rem; }
+    .pip-announce { padding: 0.75rem 2.75rem 0.75rem 1.25rem; }
+    .pip-announce-text { font-size: 12px; }
+    .pip-tools-section { padding: 2.75rem 1.25rem 3.25rem; }
+    .pip-feature-card { padding: 1.65rem 1.4rem 1.5rem; }
   }
 </style>
 
@@ -201,6 +392,24 @@ const categoryIcons: Record<(typeof guideCategories)[number], string> = {
   title="BenefitsCheck UK — Free Benefit Checkers for Every Situation"
   description="Free UK benefit checkers for working parents, pensioners, carers and more. Find out what you're entitled to in 60 seconds. No sign-up, no long forms, 2026/27 rates."
 >
+
+<!-- Announcement strip -->
+<div class="pip-announce" id="pip-announce" role="region" aria-label="New PIP tools">
+  <p class="pip-announce-text">
+    <a href="/pip-checker/">New: Free PIP Checker &amp; PIP2 Form Guide</a> — the UK's most detailed free PIP resources
+  </p>
+  <button type="button" class="pip-announce-close" id="pip-announce-close" aria-label="Dismiss announcement">×</button>
+</div>
+<script is:inline>
+  (function () {
+    try {
+      if (localStorage.getItem('bc_pip_announce_dismissed') === '1') {
+        var el = document.getElementById('pip-announce');
+        if (el) el.hidden = true;
+      }
+    } catch (e) {}
+  })();
+</script>
 
 <!-- Hero -->
 <section class="hero">
@@ -212,6 +421,41 @@ const categoryIcons: Record<(typeof guideCategories)[number], string> = {
     <span class="hero-trust-item"><span class="hero-trust-dot"></span>No sign-up required</span>
     <span class="hero-trust-item"><span class="hero-trust-dot"></span>Your data never leaves your device</span>
     <span class="hero-trust-item"><span class="hero-trust-dot"></span>Updated for 2026/27</span>
+  </div>
+</section>
+
+<!-- PIP Tools -->
+<section class="pip-tools-section" aria-labelledby="pip-tools-heading">
+  <div class="pip-tools-inner">
+    <div class="pip-tools-eyebrow">Personal Independence Payment</div>
+    <h2 class="pip-tools-title" id="pip-tools-heading">Free PIP tools — built to help you claim</h2>
+    <p class="pip-tools-subtitle">Two free resources covering every PIP activity: score your claim, then write stronger answers on the PIP2 form.</p>
+
+    <div class="pip-tools-grid">
+      <article class="pip-feature-card pip-feature-card--navy">
+        <span class="pip-feature-label">Free interactive tool</span>
+        <h3 class="pip-feature-heading">PIP Checker</h3>
+        <p class="pip-feature-desc">Answer questions about how your condition affects you across 12 activities. We calculate your Daily Living and Mobility scores and show you what award you might qualify for — with condition-specific guidance.</p>
+        <ul class="pip-feature-list">
+          <li>Based on official 2026/27 PIP descriptors</li>
+          <li>Personalised results for your condition</li>
+          <li>Links to your condition-specific guide</li>
+        </ul>
+        <a href="/pip-checker/" class="pip-feature-cta">Start PIP Checker →</a>
+      </article>
+
+      <article class="pip-feature-card pip-feature-card--red">
+        <span class="pip-feature-label">Free step-by-step guide</span>
+        <h3 class="pip-feature-heading">PIP2 Form Guide</h3>
+        <p class="pip-feature-desc">The complete guide to answering every question in the 'How your disability affects you' form — with official descriptors, point values, and sample answers. Free. No sign-up.</p>
+        <ul class="pip-feature-list">
+          <li>All 12 activities covered with descriptor points</li>
+          <li>Strong and weak answer examples</li>
+          <li>Interactive score tracker</li>
+        </ul>
+        <a href="/guides/pip2-form-guide/" class="pip-feature-cta">Open Free Guide →</a>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -412,5 +656,21 @@ const categoryIcons: Record<(typeof guideCategories)[number], string> = {
   </div>
   <p class="footer-copy">© 2026 BenefitsCheck UK · Free, independent benefit checkers · Not financial advice · 2026/27 rates</p>
 </footer>
+
+<script>
+  const announce = document.getElementById('pip-announce');
+  const closeBtn = document.getElementById('pip-announce-close');
+  const storageKey = 'bc_pip_announce_dismissed';
+
+  if (announce && typeof localStorage !== 'undefined') {
+    if (localStorage.getItem(storageKey) === '1') {
+      announce.hidden = true;
+    }
+    closeBtn?.addEventListener('click', () => {
+      announce.hidden = true;
+      localStorage.setItem(storageKey, '1');
+    });
+  }
+</script>
 
 </Base>

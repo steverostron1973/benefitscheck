@@ -167,11 +167,19 @@ const pageTitle = `${categoryLabel} Guides | BenefitsCheck.co.uk`;
       align-items: center;
       justify-content: center;
       gap: 1rem 1.5rem;
-      margin: 0 0 1.25rem;
+      margin: 0 0 1rem;
       padding: 1.15rem 1.25rem;
       background: #0d1f3c;
       border-radius: 14px;
       border: 1.5px solid #0d1f3c;
+    }
+
+    .pip-tools-lead {
+      margin-bottom: 2rem;
+    }
+
+    .pip-tools-lead .pip2-banner {
+      margin-bottom: 0;
     }
 
     .pip-checker-banner-copy {
@@ -242,19 +250,8 @@ const pageTitle = `${categoryLabel} Guides | BenefitsCheck.co.uk`;
   </style>
 
   <div class="guides-page">
-    <nav class="guides-breadcrumb" aria-label="Breadcrumb">
-      <a href="/">Home</a>
-      <span class="guides-breadcrumb-sep">›</span>
-      <a href="/guides/">Guides</a>
-      <span class="guides-breadcrumb-sep">›</span>
-      <span>{categoryLabel}</span>
-    </nav>
-
-    <h1 class="guides-title">{categoryLabel} Guides</h1>
-    <p class="guides-subtitle">{categoryIntros[category]}</p>
-
     {category === 'pip' && (
-      <>
+      <div class="pip-tools-lead">
         <aside class="pip-checker-banner" aria-label="Free PIP checker">
           <a href="/pip-checker/" class="pip-checker-banner-btn pip-checker-banner-btn--full">
             Use our free PIP checker to find out what you might be entitled to →
@@ -271,8 +268,19 @@ const pageTitle = `${categoryLabel} Guides | BenefitsCheck.co.uk`;
           </div>
           <a href="/guides/pip2-form-guide/" class="pip2-banner-btn">Open Free PIP2 Guide →</a>
         </aside>
-      </>
+      </div>
     )}
+
+    <nav class="guides-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="guides-breadcrumb-sep">›</span>
+      <a href="/guides/">Guides</a>
+      <span class="guides-breadcrumb-sep">›</span>
+      <span>{categoryLabel}</span>
+    </nav>
+
+    <h1 class="guides-title">{categoryLabel} Guides</h1>
+    <p class="guides-subtitle">{categoryIntros[category]}</p>
 
     {guides.length === 0 ? (
       <p class="guides-empty">No {categoryLabel.toLowerCase()} guides published yet. <a href="/guides/">Browse all guides</a>.</p>

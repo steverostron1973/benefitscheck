@@ -57,6 +57,53 @@ const isGuidesActive =
   .site-nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
   .site-nav-link.active { color: #fff; font-weight: 600; }
 
+  .site-nav-link--pip,
+  .site-nav-link--pip2 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1.5px solid transparent;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    margin-left: 0.2rem;
+    line-height: 1.2;
+  }
+  .site-nav-link--pip {
+    background: #c8102e;
+    border-color: #c8102e;
+  }
+  .site-nav-link--pip:hover {
+    color: #fff;
+    background: #e8192e;
+    border-color: #e8192e;
+  }
+  .site-nav-link--pip.active {
+    color: #fff;
+    background: #e8192e;
+    border-color: #fff;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
+  }
+  .site-nav-link--pip2 {
+    background: #132a4d;
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+  .site-nav-link--pip2:hover {
+    color: #fff;
+    background: #1a3a66;
+    border-color: #fff;
+  }
+  .site-nav-link--pip2.active {
+    color: #fff;
+    background: #1a3a66;
+    border-color: #fff;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
+  }
+
   .site-nav-dropdown { position: relative; }
   .site-nav-dropdown-toggle { display: inline-block; cursor: pointer; user-select: none; }
   .site-nav-dropdown-menu {
@@ -173,6 +220,36 @@ const isGuidesActive =
         ))}
       </div>
     </div>
+    <a
+      href="/pip-checker/"
+      class:list={[
+        'site-nav-link',
+        'site-nav-link--pip',
+        {
+          active:
+            currentPath === '/pip-checker/' ||
+            currentPath === '/pip-checker' ||
+            currentPath.startsWith('/pip-checker/'),
+        },
+      ]}
+    >
+      PIP Checker
+    </a>
+    <a
+      href="/guides/pip2-form-guide/"
+      class:list={[
+        'site-nav-link',
+        'site-nav-link--pip2',
+        {
+          active:
+            currentPath === '/guides/pip2-form-guide/' ||
+            currentPath === '/guides/pip2-form-guide' ||
+            currentPath.startsWith('/guides/pip2-form-guide/'),
+        },
+      ]}
+    >
+      PIP Guide
+    </a>
     <a href="/about" class:list={['site-nav-link', { active: currentPath === '/about' }]}>About</a>
   </div>
 </nav>
