@@ -18,6 +18,7 @@ const guides = defineCollection({
     ]),
     publishDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
+    reviewedDate: z.coerce.date().optional(),
     relatedTool: z.string(),
     readingTime: z.string().optional(),
   }),

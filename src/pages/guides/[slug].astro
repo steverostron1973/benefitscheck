@@ -72,6 +72,7 @@ const toolName = toolNameFromPath(guide.data.relatedTool);
 const pageTitle = `${guide.data.title} | BenefitsCheck.co.uk`;
 const readingTime = formatReadingTime(guide.body);
 const isAppealGuide = guide.slug === 'pip-appeal' || guide.slug === 'universal-credit-appeal';
+const reviewedDate = guide.data.reviewedDate ?? guide.data.publishDate;
 ---
 
 <Base showHeader title={pageTitle} description={guide.data.description}>
@@ -125,7 +126,7 @@ const isAppealGuide = guide.slug === 'pip-appeal' || guide.slug === 'universal-c
     .guide-meta {
       font-size: 13px;
       color: #888;
-      margin-bottom: 2.25rem;
+      margin-bottom: 0.65rem;
       line-height: 1.6;
     }
 
@@ -133,10 +134,28 @@ const isAppealGuide = guide.slug === 'pip-appeal' || guide.slug === 'universal-c
       margin: 0 0.4rem;
     }
 
+    .guide-byline {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
     .guide-content {
       font-size: 15px;
       color: #333;
       line-height: 1.75;
+    }
+
+    .guide-review-note {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.55;
+      margin: 2rem 0 0;
+      padding: 0.85rem 1rem;
+      background: #eef1f5;
+      border-left: 3px solid #0d1f3c;
+      border-radius: 0 8px 8px 0;
     }
 
     .guide-content :global(h2) {
@@ -273,9 +292,15 @@ const isAppealGuide = guide.slug === 'pip-appeal' || guide.slug === 'universal-c
       {readingTime}
     </p>
 
+    <p class="guide-byline">Written by the BenefitsCheck Editorial Team</p>
+
     <div class="guide-content">
       <Content />
     </div>
+
+    <p class="guide-review-note">
+      Content reviewed for accuracy against 2026/27 DWP rates. Last reviewed: {formatDate(reviewedDate)}
+    </p>
 
     {isAppealGuide && (
       <aside class="guide-cta guide-cta--templates" aria-label="Free downloadable templates">
