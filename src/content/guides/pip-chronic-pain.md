@@ -141,6 +141,8 @@ PIP is assessed on the **majority of days** over a 12-month period — not your 
 
 ### Sample chronic pain symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Keep this for at least 2–4 weeks and bring a summary to assessment:
 
 | Date | Pain 0–10 / location | Trigger | Sleep / fatigue | Meds + side effects | Could cook? | Could wash/dress? | Walking distance before stop | Help needed | Recovery afterwards |

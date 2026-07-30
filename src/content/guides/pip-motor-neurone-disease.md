@@ -222,6 +222,8 @@ The progressive nature of MND is critical. You should not answer as if a brief b
 
 ### Sample symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Use a diary for 2-4 weeks and keep it simple:
 
 | Date | Energy / fatigue | Could cook? | Could wash/dress? | Speech / swallowing problems | Walking distance before stop | Help needed | Recovery afterwards |

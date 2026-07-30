@@ -125,6 +125,8 @@ Also count mixed days, residual symptoms between episodes, medication side effec
 
 ### Sample mood / symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 | Date | Mood state (dep / hypo / manic / mixed / stable) | Sleep hrs | Energy 0–10 | Meds taken as prescribed? | Could wash/dress? | Could cook/eat? | Money decisions today | Could go out alone? | Social contact | Risk / incidents | Help needed |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | e.g. 1 Mar | Depressive | 11 | 2 | Yes — prompted | Needed prompting all day | No cooking; ate toast when reminded | None — avoided | No | Avoided all contact | Stayed in bed till 3pm | Partner prompted care |

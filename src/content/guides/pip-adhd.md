@@ -158,6 +158,8 @@ Describe your typical range honestly, including the bad periods, and be clear ab
 
 ### Sample symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 A 2–4 week diary before you claim, or before a review, makes it much easier to give the assessor a reliable, majority-of-days picture rather than relying on memory alone.
 
 | Date | Medication taken as prescribed? | Cooking / food safety incidents | Bills / budgeting | Journeys attempted | Forgotten tasks | Support needed |

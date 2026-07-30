@@ -126,6 +126,8 @@ A flare is not just "a bit more pain." It can mean joints too hot, swollen, and 
 
 ### Sample symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Keep a diary for 2–4 weeks before completing your form or before a review — especially to capture the difference between a flare and a "normal" day.
 
 | Date | Pain 0–10 | Joints affected | Flare or baseline? | Could cook / wash / dress? | Walking distance | Help / aids needed | Effect afterwards |

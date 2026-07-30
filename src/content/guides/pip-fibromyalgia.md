@@ -162,6 +162,8 @@ If your pattern is “manageable morning, crashed by afternoon,” say so. PIP l
 
 ### Sample fibromyalgia symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Keep this for at least 2–4 weeks and bring a summary to assessment:
 
 | Date | Pain 0–10 / where | Fatigue / crash | Brain fog | Sleep | Could cook? | Could wash/dress? | Walking distance | Help needed | Recovery afterwards |

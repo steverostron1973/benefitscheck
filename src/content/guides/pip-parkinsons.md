@@ -210,6 +210,8 @@ That gives DWP a more realistic picture than “some days are better than others
 
 ### Sample symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Keep a diary for 2-4 weeks. Include time of day, medication timing, and what happened before and after tasks.
 
 | Date / time | Medication stage | Movement symptoms | Could cook / wash / dress? | Communication / cognition | Walking distance | Help needed | After-effects |

@@ -71,6 +71,7 @@ const categoryHref = `/guides/${guide.data.category}/`;
 const toolName = toolNameFromPath(guide.data.relatedTool);
 const pageTitle = `${guide.data.title} | BenefitsCheck.co.uk`;
 const readingTime = formatReadingTime(guide.body);
+const isAppealGuide = guide.slug === 'pip-appeal' || guide.slug === 'universal-credit-appeal';
 ---
 
 <Base showHeader title={pageTitle} description={guide.data.description}>
@@ -185,6 +186,14 @@ const readingTime = formatReadingTime(guide.body);
       border-top: 4px solid #c8102e;
     }
 
+    .guide-cta + .guide-cta {
+      margin-top: 1rem;
+    }
+
+    .guide-cta--templates {
+      background: #132a4d;
+    }
+
     .guide-cta-text {
       font-family: 'Playfair Display', serif;
       font-size: 1.35rem;
@@ -209,6 +218,23 @@ const readingTime = formatReadingTime(guide.body);
 
     .guide-cta-btn:hover {
       background: #e8192e;
+    }
+
+    .guide-cta-downloads {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .guide-cta-downloads .guide-cta-btn {
+      background: #fff;
+      color: #0d1f3c;
+    }
+
+    .guide-cta-downloads .guide-cta-btn:hover {
+      background: #c8102e;
+      color: #fff;
     }
 
     @media (max-width: 600px) {
@@ -250,6 +276,25 @@ const readingTime = formatReadingTime(guide.body);
     <div class="guide-content">
       <Content />
     </div>
+
+    {isAppealGuide && (
+      <aside class="guide-cta guide-cta--templates" aria-label="Free downloadable templates">
+        <p class="guide-cta-text">
+          Free downloadable templates — Symptom diary, evidence checklist, and Mandatory Reconsideration letter template to help build your case.
+        </p>
+        <div class="guide-cta-downloads">
+          <a href="/downloads/symptom-diary-template.pdf" class="guide-cta-btn" download>
+            Symptom diary →
+          </a>
+          <a href="/downloads/evidence-checklist-template.pdf" class="guide-cta-btn" download>
+            Evidence checklist →
+          </a>
+          <a href="/downloads/mandatory-reconsideration-letter-template.pdf" class="guide-cta-btn" download>
+            MR letter →
+          </a>
+        </div>
+      </aside>
+    )}
 
     <aside class="guide-cta">
       <p class="guide-cta-text">

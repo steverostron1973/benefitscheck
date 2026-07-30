@@ -163,6 +163,8 @@ PIP looks at the **majority of days** over a 12-month period. Include ordinary m
 
 ### Sample diabetes symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Keep this for 2–4 weeks (longer if possible) and take a summary to assessment:
 
 | Date | Glucose / hypos | Warning signs? | Help needed for hypo | Neuropathy / feet | Vision issues | Could cook? | Walking distance before stop | Fatigue after | Notes (pump/CGM, sleep, mood) |

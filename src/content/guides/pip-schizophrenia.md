@@ -147,6 +147,8 @@ PIP looks at how the person is on the **majority of days** over a 12-month perio
 
 ### Sample symptom / support diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Carers or the person (if able) should keep notes for at least 2–4 weeks, longer if covering a relapse cycle:
 
 | Date | Voices / paranoia today? | Mood / motivation 0–10 | Meds taken as prescribed? | Washed / dressed? | Ate properly? | Left house? | Social contact | Money / risk incidents | Help given (who / what / how long) | Notes |

@@ -145,6 +145,8 @@ This diary becomes powerful evidence showing the realistic picture of life with 
 
 ### Sample symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 | Date | Flare? (Y/N) | Bowel movements | Urgency warning | Accidents / near-misses | Pain 0–10 | Fatigue 0–10 | Could cook? | Could wash/dress? | Left house? | Toilet access problems when out | Help needed | Meds / notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | e.g. 4 Mar | Y | 14 | &lt;2 min | 1 accident at home | 8 | 9 | No | Shower interrupted x3 | No | — | Partner cooked, helped clean up | Biologic due tomorrow |

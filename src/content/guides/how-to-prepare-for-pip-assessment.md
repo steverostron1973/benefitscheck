@@ -104,6 +104,8 @@ You don't need to prove something happens every single day, and you shouldn't de
 
 ## Sample symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Keeping a diary for two to four weeks before your assessment captures the majority-of-days pattern accurately, rather than relying on memory under pressure on the day.
 
 | Date | Pain/fatigue (0–10) | Prepare food safely? | Wash/bathe unaided? | Dress unaided? | Walking distance | Social contact | Help needed |

@@ -123,6 +123,8 @@ The single biggest mistake made by people with fluctuating conditions is describ
 
 ### Sample symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Keeping a diary for two to four weeks before you claim, or before a review, makes this pattern far easier to describe accurately.
 
 | Date | Pain / fatigue (0–10) | Could cook/wash/dress? | Mood / concentration | Walking distance | Help needed | Recovery time |

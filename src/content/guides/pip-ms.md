@@ -165,6 +165,8 @@ PIP is assessed on the **majority of days** over a 12-month period. For relapsin
 
 ### Sample MS symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Keep this for at least 2–4 weeks (longer if you can cover a relapse cycle):
 
 | Date | Fatigue | Walking distance / aids | Weakness / spasticity / balance | Bladder / bowel | Cognition / vision | Could cook / wash / dress? | Help needed | Relapse / heat notes | Recovery afterwards |

@@ -139,6 +139,8 @@ This matters enormously in practice. People with depression and anxiety very com
 
 ### Sample symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Keeping a diary for 2–4 weeks before completing your form, or before a review, is one of the most effective ways to capture your real pattern rather than a single snapshot.
 
 | Date | Mood 0–10 | Anxiety 0–10 | Physical symptoms | Could wash / dress / cook? | Left the house? | Contact with others? | Help / prompting needed |

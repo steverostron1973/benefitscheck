@@ -163,6 +163,8 @@ When completing your form or diary, describe your typical range, including bad d
 
 ### Sample symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Keeping a diary for 2–4 weeks before you claim, or before a review, makes it much easier to describe your majority-of-days pattern accurately.
 
 | Date | Sensory triggers | Social demands / masking | Could cook / wash / dress unprompted? | Journeys attempted | Meltdown / shutdown | Support needed |

@@ -187,6 +187,8 @@ Post-stroke fatigue makes this especially important. Someone may manage a task i
 
 ### Sample symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Keep a diary for 2-4 weeks once you are home and lasting effects are clearer.
 
 | Date | Fatigue 0–10 | Physical difficulties | Communication / cognition | Could cook / wash / dress? | Walking distance | Help needed | Recovery afterwards |

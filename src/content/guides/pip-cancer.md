@@ -134,6 +134,8 @@ Keep a diary during treatment cycles showing which days you can and can't manage
 
 ### Sample symptom diary template
 
+You can [download a free printable symptom diary template (PDF)](/downloads/symptom-diary-template.pdf) to fill in by hand.
+
 Use a simple table or notebook for at least one full treatment cycle (ideally 2–4 weeks or longer). For each day, record:
 
 | Date | Day in cycle (e.g. chemo +2) | Fatigue 0–10 | Nausea 0–10 | Pain / other symptoms | Could cook? | Could wash/dress? | Walking distance before stop | Help needed from others | Notes (sleep, mood, chemo brain) |
