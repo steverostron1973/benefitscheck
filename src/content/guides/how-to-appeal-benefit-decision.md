@@ -1,56 +1,39 @@
 ---
-title: "How to Appeal a Benefit Decision — Mandatory Reconsideration Explained"
-description: "If you've been refused a benefit or had your award reduced, you have the right to challenge the decision. Here's how the appeals process works step by step."
+title: "How to Appeal a Benefit Decision — Mandatory Reconsideration and Tribunal, in Brief"
+description: "Every DWP benefit decision can be challenged through the same two-stage process. Here's the general process in brief, plus links to our full PIP and Universal Credit appeal guides."
 category: "general"
 publishDate: 2026-07-02
 relatedTool: "/disabled-checker/"
-readingTime: "5 min read"
+readingTime: "3 min read"
 ---
 
-Being turned down for a benefit — or receiving a lower award than you expected — doesn't have to be the end of the road. The DWP's decisions are challenged successfully thousands of times every year. Understanding the process is the first step.
+If you disagree with a decision the DWP has made about any benefit — PIP, Universal Credit, Attendance Allowance, ESA, or another — the same two-stage process applies to challenge it.
 
-## Step 1: Mandatory Reconsideration
+## The two-stage process
 
-Before you can appeal to a tribunal, you must first request a Mandatory Reconsideration (MR) from the DWP. This is a review of the original decision by a different DWP decision maker.
+1. **Mandatory Reconsideration (MR)** — the DWP reviews its own decision again. This is a legal requirement before you can appeal; you can't skip straight to a tribunal.
+2. **Tribunal appeal** — if MR doesn't change the outcome, you can take your case to the independent First-tier Tribunal (Social Security and Child Support), entirely separate from DWP.
 
-You must request an MR within one month of the date on your decision letter. If you miss this deadline, you can still request one within 13 months if you have a good reason for the delay.
+Both stages have a one calendar month time limit (from the decision letter for MR, then from the Mandatory Reconsideration Notice for a tribunal appeal), though late requests can sometimes be accepted up to 13 months later with a good reason.
 
-To request an MR, contact the office that made the decision — the phone number and address will be on your decision letter. You can request it by phone, letter, or by completing form CRMR1. Explain why you think the decision is wrong and provide any additional evidence you have.
+## Which guide do you need?
 
-## What happens during Mandatory Reconsideration
+The general shape is the same for every benefit, but the specific evidence, common issues, and descriptors involved differ significantly by benefit type:
 
-A different DWP decision maker reviews your case. They can:
+- **[Appealing a PIP decision →](/guides/pip-appeal/)** — full step-by-step guide covering Mandatory Reconsideration, tribunal, evidence, and what to expect at a hearing
+- **[Appealing a Universal Credit decision →](/guides/universal-credit-appeal/)** — covers sanctions, Work Capability Assessment outcomes, and overpayment disputes specifically
 
-- Uphold the original decision (most common outcome at MR stage)
-- Change the decision in your favour
-- Change the decision in a way that makes things worse (rare, but possible — you don't have to accept a worsened decision)
+## Free templates
 
-You'll receive a Mandatory Reconsideration Notice explaining the outcome, usually within a few weeks.
+Whichever benefit you're appealing, our [downloadable templates](/downloads/) — including a symptom diary, evidence checklist, and Mandatory Reconsideration letter template — can help you build a stronger case.
 
-## Step 2: Tribunal appeal
+## Frequently asked questions
 
-If the MR upholds the original decision, you can appeal to the Social Security and Child Support Tribunal — an independent body that's separate from the DWP. This is where the success rates improve significantly.
+**Does the appeal process work the same way for every benefit?**
+The two-stage structure (Mandatory Reconsideration, then tribunal) is the same across DWP benefits, but the specific things you're assessed on — descriptors, activities, or criteria — differ by benefit, so it's worth using the guide specific to your benefit where one exists.
 
-Appeal within one month of the MR Notice date using form SSCS1 (available on GOV.UK). Include your MR Notice and any supporting evidence.
+**What if my benefit isn't PIP or Universal Credit?**
+The same general process applies to Attendance Allowance, ESA, JSA, and most other DWP decisions. The core steps — request Mandatory Reconsideration within one month, then appeal to tribunal within one month of the MRN — remain the same even without a benefit-specific guide.
 
-Appeal success rates at tribunal are high — for PIP appeals, around 70% of cases that reach tribunal are decided in the claimant's favour. The tribunal is genuinely independent and looks at your case fresh.
-
-## Getting help with your appeal
-
-You don't have to do this alone. The following can help you prepare:
-
-- **Citizens Advice** — free advice on challenging benefit decisions
-- **Disability Rights UK** — specialist support for disability benefit appeals
-- **Your local welfare rights team** — many councils offer free welfare rights advice
-- **A benefits adviser** — some charities offer specialist representation at tribunal
-
-Having someone help you prepare your case significantly increases your chances of success.
-
-## Key tips for a successful appeal
-
-- Get supporting evidence from your GP, consultant, or other healthcare professional before your tribunal hearing
-- Describe how your condition affects you on your worst days, not your best
-- Request a paper hearing if you find in-person attendance difficult — many tribunals are now conducted by phone or video too
-- Don't give up after a failed MR — the tribunal stage has a much higher success rate
-
-## Check what you might be entitled to
+**Is there a fee to appeal?**
+No — there's no fee to request Mandatory Reconsideration or to submit a tribunal appeal (form SSCS1), and you can claim back reasonable travel expenses for attending a hearing.
