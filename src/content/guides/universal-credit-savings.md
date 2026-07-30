@@ -38,4 +38,6 @@ If you're making a joint UC claim with a partner, your savings are combined. So 
 
 You're required to report changes in your savings to the DWP. If your savings drop below £16,000 — for example after paying a large bill — you may become eligible again and should make a new claim at that point.
 
+Not sure exactly when your payment will land? Check our [benefit payment dates guide](/benefit-payment-dates/).
+
 ## Check what you could be entitled to

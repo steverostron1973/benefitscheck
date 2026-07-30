@@ -41,4 +41,6 @@ Others feel it's not worth the effort for a small amount — but given the passp
 
 Call the Pension Credit claim line on 0800 99 1234 (free to call, Monday to Friday 8am to 6pm). You can also claim online through GOV.UK. Claims can be backdated by up to three months.
 
+Not sure exactly when your payment will land? Check our [benefit payment dates guide](/benefit-payment-dates/).
+
 ## Check if you or someone you know might be eligible

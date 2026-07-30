@@ -33,4 +33,6 @@ This makes it even more important to also check your PIP entitlement — PIP is 
 
 Yes — they're completely separate benefits assessed on different criteria. UC health element is about your ability to work; PIP is about how your condition affects daily living and mobility. Many people receive both simultaneously.
 
+Not sure exactly when your payment will land? Check our [benefit payment dates guide](/benefit-payment-dates/).
+
 ## Check what you might be entitled to
