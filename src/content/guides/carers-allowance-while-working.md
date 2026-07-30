@@ -23,6 +23,8 @@ To qualify for Carer's Allowance, you must spend at least 35 hours a week caring
 
 Carer's Allowance is currently £83.30 per week (2026/27). It's taxable, and it counts as income for Universal Credit purposes — though carers on UC also receive a Carer Element on top.
 
+Not sure exactly when your payment will land? Check our [benefit payment dates guide](/benefit-payment-dates/).
+
 ## The UC overlap trap
 
 One important catch: you can't receive Carer's Allowance and certain other benefits at the same time due to the overlapping benefits rule. If you're on Universal Credit, you won't receive Carer's Allowance as a cash payment — but you'll still get the Carer Element added to your UC award, which is worth £198.31/month in 2026/27.

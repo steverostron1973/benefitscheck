@@ -1,0 +1,320 @@
+---
+/*
+  MAINTENANCE: Update this page annually (and whenever GOV.UK confirms Christmas / bank holiday payment dates).
+  Last reviewed: 30 July 2026 — covers bank holidays from July 2026 through New Year 2027.
+  Next review due: ahead of Easter 2027 / the 2027–28 tax year, then again before Christmas 2027.
+  Source of truth for exact dates: https://www.gov.uk/
+*/
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  showHeader
+  title="UK Benefit Payment Dates 2026/27 — What Happens on Bank Holidays | BenefitsCheck.co.uk"
+  description="When your Universal Credit, PIP, State Pension or other DWP payment is due on a bank holiday or weekend, here's exactly when it'll actually arrive."
+>
+  <!--
+    MAINTENANCE: Keep the visible "Last updated" note in sync with the frontmatter comment above when you refresh dates.
+    Last reviewed: 30 July 2026.
+  -->
+  <style is:global>
+    body { background: #f5f4f0; }
+
+    .bpd-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+    }
+
+    .bpd-breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem 0.5rem;
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 1.75rem;
+      line-height: 1.5;
+    }
+
+    .bpd-breadcrumb a {
+      color: #0d1f3c;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .bpd-breadcrumb a:hover { color: #c8102e; }
+    .bpd-breadcrumb-sep { color: #bbb; }
+
+    .bpd-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 2.5rem);
+      color: #0d1f3c;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .bpd-meta {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .bpd-updated {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0d1f3c;
+      background: #e8e7e2;
+      border-left: 3px solid #c8102e;
+      padding: 0.55rem 0.9rem;
+      margin-bottom: 1.75rem;
+      line-height: 1.45;
+    }
+
+    .bpd-content {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.75;
+    }
+
+    .bpd-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: #0d1f3c;
+      margin: 2rem 0 0.75rem;
+      line-height: 1.3;
+    }
+
+    .bpd-content p { margin-bottom: 1rem; }
+
+    .bpd-content ul {
+      margin: 0 0 1rem 1.25rem;
+    }
+
+    .bpd-content li { margin-bottom: 0.45rem; }
+
+    .bpd-content strong { color: #1a1a1a; }
+
+    .bpd-content a {
+      color: #0d1f3c;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .bpd-content a:hover { color: #c8102e; }
+
+    .bpd-table-wrap {
+      overflow-x: auto;
+      margin: 0 0 1.25rem;
+      border: 1px solid #d0cfc9;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .bpd-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .bpd-content th,
+    .bpd-content td {
+      text-align: left;
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid #e8e7e2;
+      vertical-align: top;
+    }
+
+    .bpd-content th {
+      background: #0d1f3c;
+      color: #fff;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .bpd-content tr:last-child td { border-bottom: none; }
+
+    .bpd-content tr:nth-child(even) td { background: #faf9f6; }
+
+    .bpd-faq strong {
+      display: block;
+      margin-top: 1.15rem;
+      margin-bottom: 0.35rem;
+      color: #0d1f3c;
+      font-size: 15px;
+    }
+
+    .bpd-faq p { margin-bottom: 0.85rem; }
+
+    @media (max-width: 600px) {
+      .bpd-page { padding: 2rem 1.25rem 3rem; }
+    }
+  </style>
+
+  <article class="bpd-page">
+    <nav class="bpd-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="bpd-breadcrumb-sep">›</span>
+      <span>Benefit payment dates</span>
+    </nav>
+
+    <h1 class="bpd-title">UK Benefit Payment Dates 2026/27 — What Happens on Bank Holidays</h1>
+
+    <p class="bpd-meta">Published 30 July 2026 · 6 min read</p>
+
+    <p class="bpd-updated" role="status">
+      Last updated: 30 July 2026 — covers bank holidays from July 2026 through New Year 2027. Check GOV.UK closer to Christmas for confirmed exact dates.
+    </p>
+
+    <div class="bpd-content">
+      <p>
+        If your Universal Credit, PIP, State Pension, Carer's Allowance, or other DWP payment is due on a weekend or bank holiday, it won't arrive late — it'll arrive <strong>early</strong>, on the last working day before. This guide explains the rule, when the next affected dates are, and how to avoid being caught out when a payment lands sooner than usual.
+      </p>
+
+      <h2>The general rule</h2>
+      <p>
+        DWP-administered benefits (Universal Credit, State Pension, PIP, Attendance Allowance, Carer's Allowance, ESA, JSA, Income Support, Pension Credit, Disability Living Allowance) all follow the same principle: if your normal payment date falls on a weekend or bank holiday, you're paid on the <strong>last working day before</strong> it, not the next working day after.
+      </p>
+      <p>
+        This is not extra money — it's the same payment arriving sooner. It also means there's a <strong>longer gap</strong> than usual before your next payment, so it's worth budgeting for that rather than treating the early arrival as a bonus.
+      </p>
+      <p>
+        Child Benefit (administered by HMRC, not DWP) can behave differently in some cases — occasionally arriving a day <em>later</em> rather than earlier around certain regional bank holidays. If you receive Child Benefit and a bank holiday is approaching, it's worth checking your exact date rather than assuming it follows the same early-payment pattern as everything else.
+      </p>
+
+      <h2>It depends which nation's bank holiday it is</h2>
+      <p>This trips a lot of people up: not every UK bank holiday affects your payment date, and it depends on where the holiday is observed.</p>
+      <ul>
+        <li><strong>UK-wide bank holidays</strong> (New Year's Day, Good Friday, Christmas Day, Boxing Day) — affects everyone's payment dates if they fall on your normal payment day.</li>
+        <li><strong>England, Wales &amp; Northern Ireland bank holidays</strong> (Easter Monday, the early May and Spring bank holidays, the August Summer bank holiday) — affects payment dates in those nations. Scotland is unaffected, since Scotland doesn't observe these particular dates.</li>
+        <li><strong>Scotland-only bank holidays</strong> (2 January, St Andrew's Day on 30 November, Scotland's earlier Summer bank holiday in early August) — these do <strong>not</strong> shift DWP payment dates, because the underlying Bacs payment system stays open on Scotland-only holidays.</li>
+        <li><strong>Northern Ireland-only bank holidays</strong> (St Patrick's Day, the Battle of the Boyne in July) — these <strong>do</strong> shift payment dates for claimants in Northern Ireland, unlike the Scotland-only holidays above.</li>
+      </ul>
+
+      <h2>Upcoming dates to know (from July 2026)</h2>
+      <div class="bpd-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>What it is</th>
+              <th>Where it applies</th>
+              <th>Effect on payments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mon 3 Aug 2026</td>
+              <td>Scotland Summer Bank Holiday</td>
+              <td>Scotland only</td>
+              <td>No change — Bacs stays open</td>
+            </tr>
+            <tr>
+              <td>Mon 31 Aug 2026</td>
+              <td>Summer Bank Holiday</td>
+              <td>England, Wales, Northern Ireland</td>
+              <td>Payments due this day paid <strong>Fri 28 Aug 2026</strong></td>
+            </tr>
+            <tr>
+              <td>Mon 30 Nov 2026</td>
+              <td>St Andrew's Day</td>
+              <td>Scotland only</td>
+              <td>No change — Bacs stays open</td>
+            </tr>
+            <tr>
+              <td>Fri 25 Dec 2026</td>
+              <td>Christmas Day</td>
+              <td>UK-wide</td>
+              <td>Payments due this day paid <strong>Thu 24 Dec 2026</strong></td>
+            </tr>
+            <tr>
+              <td>Mon 28 Dec 2026</td>
+              <td>Boxing Day (substitute day, as 26 Dec falls on a Saturday)</td>
+              <td>UK-wide</td>
+              <td>Payments due around this date are likely to be paid before Christmas — check GOV.UK closer to the time, as the exact day depends on your normal payment date</td>
+            </tr>
+            <tr>
+              <td>Fri 1 Jan 2027</td>
+              <td>New Year's Day</td>
+              <td>UK-wide</td>
+              <td>Payments due this day paid <strong>Thu 31 Dec 2026</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Because Christmas Day, the weekend, and the Boxing Day substitute all fall together in 2026 (Fri–Mon), anyone with a payment due anywhere in that window should expect it earlier than usual — often several days before Christmas — and a longer-than-normal wait before the next one. GOV.UK publishes confirmed exact dates closer to the time; check there if your specific date isn't listed above.
+      </p>
+
+      <h2>State Pension: payment day depends on your National Insurance number</h2>
+      <p>
+        Unlike most other benefits, the State Pension isn't paid on a fixed date — it's paid every 4 weeks, on a day of the week set by the last two digits of your National Insurance number:
+      </p>
+      <div class="bpd-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Last 2 digits of NI number</th>
+              <th>Payment day</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>00–19</td><td>Monday</td></tr>
+            <tr><td>20–39</td><td>Tuesday</td></tr>
+            <tr><td>40–59</td><td>Wednesday</td></tr>
+            <tr><td>60–79</td><td>Thursday</td></tr>
+            <tr><td>80–99</td><td>Friday</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        If your usual payment day falls on a bank holiday, the same early-payment rule applies — you'll be paid on the last working day before.
+      </p>
+
+      <h2>Universal Credit: same date every month</h2>
+      <p>
+        Universal Credit is paid once a month, on the same date each cycle, based on when you made your claim. If that date falls on a weekend or bank holiday, it's brought forward to the last working day before — but your <strong>assessment period</strong> (which determines your award amount) doesn't change, only when the money physically lands.
+      </p>
+
+      <h2>What to do if your payment hasn't arrived</h2>
+      <ul>
+        <li>First, check whether your due date fell on a weekend or bank holiday — if so, it was likely paid early, so check your account from the working day before.</li>
+        <li>Allow one extra working day for your bank to process it.</li>
+        <li>If it still hasn't arrived, contact the relevant office (DWP for most benefits, the Pension Service for State Pension, HMRC for Child Benefit).</li>
+      </ul>
+
+      <h2>Frequently asked questions</h2>
+      <div class="bpd-faq">
+        <p>
+          <strong>If my payment is paid early because of a bank holiday, do I get less next time?</strong>
+          No — the amount you're entitled to doesn't change. You just get it slightly sooner this cycle, and the gap before your next payment will be a little longer than usual.
+        </p>
+        <p>
+          <strong>Why did my Scotland-based friend's payment not change for a Scottish bank holiday?</strong>
+          Scotland-only bank holidays (2 January, St Andrew's Day, and Scotland's earlier Summer bank holiday) don't affect DWP payment dates, because the Bacs payment system continues operating on those days. Only UK-wide or England/Wales/NI bank holidays typically move payment dates for Scottish claimants.
+        </p>
+        <p>
+          <strong>Does this apply to Child Benefit too?</strong>
+          Usually, yes — but not always in the same direction. Child Benefit is administered by HMRC, and in some cases (particularly around Northern Ireland-only bank holidays) it has arrived a day later rather than earlier. Check your specific date if you're unsure.
+        </p>
+        <p>
+          <strong>I get paid on the 1st of the month — what happens over New Year?</strong>
+          If your payment date is 1 January, you'll be paid on the last working day before — 31 December — since New Year's Day is a UK-wide bank holiday.
+        </p>
+        <p>
+          <strong>Does an early payment affect my other benefits or Universal Credit assessment period?</strong>
+          No. Early payment is purely about when the money arrives in your account; it doesn't change your entitlement, your assessment period, or your award amount.
+        </p>
+        <p>
+          <strong>Where can I find exact confirmed payment dates for a specific month?</strong>
+          GOV.UK publishes exact confirmed dates for bank holidays and any payment adjustments, usually well in advance. This page will be updated whenever new dates are confirmed, but for the most time-sensitive periods (like Christmas), it's worth double-checking closer to the date.
+        </p>
+      </div>
+    </div>
+  </article>
+</Base>

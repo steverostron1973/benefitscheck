@@ -22,12 +22,15 @@ const guideLinks = [
   { label: 'All Guides', href: '/guides/' },
   { label: 'PIP Guides', href: '/guides/pip/' },
   { label: 'PIP2 Form Guide', href: '/guides/pip2-form-guide/' },
+  { label: 'Payment Dates', href: '/benefit-payment-dates/' },
 ];
 
 const isGuidesActive =
   currentPath === '/guides' ||
   currentPath === '/guides/' ||
-  currentPath.startsWith('/guides/');
+  currentPath.startsWith('/guides/') ||
+  currentPath === '/benefit-payment-dates/' ||
+  currentPath === '/benefit-payment-dates';
 ---
 
 <style>

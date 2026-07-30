@@ -269,4 +269,6 @@ Usually the opposite for many activities: needing an aid is itself a scoring des
 
 Yes. Planning and following journeys, or moving around, can each score up to 12 points — enough for Enhanced Mobility without points from the other mobility activity.
 
+Not sure exactly when your payment will land? Check our [benefit payment dates guide](/benefit-payment-dates/).
+
 ## Check what you might be entitled to
