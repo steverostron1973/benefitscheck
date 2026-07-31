@@ -329,3 +329,7 @@ If your award looks wrong, ask for a written explanation of how each termination
 ## Check what you might be entitled to
 
 Redundancy changes earnings and capital at the same time, so two households with the same redundancy cheque can get very different Universal Credit outcomes. Use our free [Universal Credit checker](/universal-credit-checker/) to estimate what you could receive with your new circumstances — then compare it with your UC statement and challenge anything that does not add up.
+
+## Sources
+
+- [GOV.UK — Universal Credit](https://www.gov.uk/universal-credit)

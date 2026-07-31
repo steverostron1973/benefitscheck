@@ -297,3 +297,7 @@ If your award stays low after earnings have clearly stopped, ask DWP which payme
 ## Check what you might be entitled to
 
 Stopping work can move you from a small UC top-up — or no UC at all — to a full award based on your standard allowance, children, and housing costs. Use our free [Universal Credit checker](/universal-credit-checker/) to estimate what you could receive with your new earnings (including £0), then compare it with your statement once final pay has cleared.
+
+## Sources
+
+- [GOV.UK — Universal Credit](https://www.gov.uk/universal-credit)

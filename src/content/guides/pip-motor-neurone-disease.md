@@ -388,3 +388,8 @@ The **MND Association** is one of the best places to start. They can help with p
 ## Check what you might be entitled to
 
 If you want a quick estimate of how the daily living and mobility descriptors may apply, use our free [PIP checker](/pip-checker/). It will help you see how points can add up across activities before you start or update a claim.
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

@@ -218,3 +218,8 @@ No. A review is a fresh look against the same descriptors, so your award can inc
 ## Check what you might be entitled to
 
 Understanding the points system and reliability criteria before your assessment is one of the most effective things you can do to improve your chances of a fair outcome. If you want a quick, free estimate of how your daily living and mobility difficulties might score, try our [PIP checker](/pip-checker/) — it can help you see where points may add up and what to focus on before your assessment.
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

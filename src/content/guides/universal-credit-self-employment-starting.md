@@ -301,3 +301,7 @@ If DWP applies the MIF while you believe you are still in a start-up period, or 
 ## Check what you might be entitled to
 
 Starting self-employment can leave your Universal Credit almost unchanged in a quiet month — or cut it sharply once the Minimum Income Floor applies. Use our free [Universal Credit checker](/universal-credit-checker/) to estimate your award with different profit levels, then compare it with your monthly UC statements as you report.
+
+## Sources
+
+- [GOV.UK — Universal Credit](https://www.gov.uk/universal-credit)

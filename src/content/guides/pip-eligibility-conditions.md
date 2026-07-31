@@ -289,3 +289,8 @@ Use our free [PIP checker](/pip-checker/) to get an estimate of how your specifi
 Whatever your diagnosis, the best way to understand your likely PIP outcome is to focus on function rather than labels. Use our free [PIP checker](/pip-checker/) to see how your day-to-day difficulties might map onto the descriptors before you claim or prepare for a review.
 
 Not sure exactly when your payment will land? Check our [benefit payment dates guide](/benefit-payment-dates/).
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

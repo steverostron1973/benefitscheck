@@ -172,3 +172,8 @@ No, if the form and evidence describe the regular pattern including off periods 
 Yes. Report a change of circumstances when night needs develop or daytime care increases. Many people start on the lower rate and later move to the higher rate as night toileting, turning in bed, or overnight confusion becomes regular.
 
 ## Check if you or someone you know might be entitled
+
+## Sources
+
+- [GOV.UK — Attendance Allowance](https://www.gov.uk/attendance-allowance)
+- [GOV.UK — Benefit and pension rates 2026 to 2027](https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027)

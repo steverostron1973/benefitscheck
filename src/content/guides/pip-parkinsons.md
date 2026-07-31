@@ -388,3 +388,8 @@ That can significantly affect daily living activities such as managing medicatio
 ## Check what you might be entitled to
 
 If you want a quick estimate before you claim or before a review, use our free [PIP checker](/pip-checker/). It can help you see how daily living and mobility points may add up across both motor and non-motor symptoms.
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

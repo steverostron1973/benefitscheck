@@ -315,3 +315,7 @@ If a decision about who receives child elements looks wrong, ask for a written e
 ## Check what you might be entitled to
 
 Separation rebuilds your Universal Credit from the ground up — standard allowance, children, rent, and earnings all shift. Use our free [Universal Credit checker](/universal-credit-checker/) to estimate what you could receive as a single person or single parent, then compare it with what DWP actually pays during and after the transition.
+
+## Sources
+
+- [GOV.UK — Universal Credit](https://www.gov.uk/universal-credit)

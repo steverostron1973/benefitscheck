@@ -343,3 +343,8 @@ No. Claim when current effects already limit activities on the majority of days.
 ## Check what you might be entitled to
 
 If you want a quick estimate of how diabetes-related limits may score across Daily Living and Mobility, use our free [PIP checker](/pip-checker/). It can help you see where points may add up before you claim or prepare for a review.
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

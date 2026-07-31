@@ -306,3 +306,7 @@ If the housing costs on your statement do not match your new rent or LHA expecta
 ## Check what you might be entitled to
 
 A house move can raise your Universal Credit, shrink it, or leave the headline payment similar while your rent shortfall grows. Use our free [Universal Credit checker](/universal-credit-checker/) to estimate your award with the new rent and household details — then compare it with your UC statement after the move and challenge anything that looks wrong.
+
+## Sources
+
+- [GOV.UK — Universal Credit](https://www.gov.uk/universal-credit)

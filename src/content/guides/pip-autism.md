@@ -320,3 +320,8 @@ You can ask for a Mandatory Reconsideration, providing further evidence — part
 ## Check what you might be entitled to
 
 If you want a quick estimate of how your specific autism-related difficulties might score across Daily Living and Mobility, use our free [PIP checker](/pip-checker/). It only takes a few minutes and can help you see where points may add up before you claim or prepare for a review.
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

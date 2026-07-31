@@ -184,3 +184,8 @@ No. Claiming promptly matters because Attendance Allowance is generally paid fro
 ## Check if you or someone you know might be entitled
 
 If you or a relative is over State Pension age and needs help with personal care or supervision because of cancer or its treatment — including night-time help with pain, sickness, or toilet trips — check Attendance Allowance now rather than waiting for recovery. Ask the cancer team about an SR1 if Special Rules may apply, keep a simple treatment-cycle diary, and contact Macmillan for benefits advice alongside your claim. A pensioner benefits checker can also show whether Pension Credit and other linked support could follow from an award.
+
+## Sources
+
+- [GOV.UK — Attendance Allowance](https://www.gov.uk/attendance-allowance)
+- [GOV.UK — Benefit and pension rates 2026 to 2027](https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027)

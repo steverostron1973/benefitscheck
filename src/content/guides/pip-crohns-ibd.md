@@ -266,3 +266,8 @@ Not if you clearly describe the yearly flare pattern and toilet-access limits th
 You need 8 points for Standard rate and 12 for Enhanced rate on each component (scored separately). For 2026/27: Standard Daily Living £72.65 a week, Enhanced £108.55; Standard Mobility £28.70, Enhanced £75.75. Toilet needs plus journeys often combine to reach Standard or Enhanced awards for IBD.
 
 ## Check what you might be entitled to
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

@@ -171,3 +171,8 @@ As soon as care or supervision needs are regular. Waiting until after “the nex
 ## Check if you or someone you know might be entitled
 
 If you or a relative is over State Pension age, unsteady, exhausted, or already falling — and needs help to wash, dress, or get to the toilet safely by day or night — check Attendance Allowance. Gather falls history, GP and therapy letters, and a short day/night care diary, then complete the AA1 with specific examples rather than “getting old.” Age UK and a pensioner benefits checker can help you see the full picture, including Pension Credit and council tax help that an award may unlock.
+
+## Sources
+
+- [GOV.UK — Attendance Allowance](https://www.gov.uk/attendance-allowance)
+- [GOV.UK — Benefit and pension rates 2026 to 2027](https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027)

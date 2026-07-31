@@ -101,3 +101,8 @@ Action for M.E. and the ME Association both provide information and support spec
 
 **If I'm refused, is it worth appealing?**
 Often, yes — particularly if the original decision didn't properly apply the reliability criteria, or seems to be based on a single description of a "good" moment rather than your overall pattern. See our [PIP appeal guide](/guides/pip-appeal/) for the full process.
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

@@ -246,3 +246,8 @@ Yes if it is part of your condition. Budgeting and safety descriptors depend on 
 You need 8 points for Standard rate and 12 for Enhanced rate on each component (scored separately). For 2026/27: Standard Daily Living £72.65 a week, Enhanced £108.55; Standard Mobility £28.70, Enhanced £75.75. Points often add up across personal care, medication, budgeting, engaging with people, and journeys.
 
 ## Check what you might be entitled to
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

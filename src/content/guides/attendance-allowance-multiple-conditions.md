@@ -190,3 +190,8 @@ Often worth checking once Attendance Allowance is in payment. Rules on earnings 
 ## Check if you or someone you know might be entitled
 
 If you or a relative is over State Pension age and needs help because several conditions act together — even if no single diagnosis “sounds severe enough” — check Attendance Allowance. Write the claim as a 24-hour care story, attach a GP letter that addresses multi-morbidity, and keep a short day/night diary. Age UK, a carers’ centre, or a pensioner benefits checker can help you claim Attendance Allowance and the Pension Credit and council tax support it may unlock.
+
+## Sources
+
+- [GOV.UK — Attendance Allowance](https://www.gov.uk/attendance-allowance)
+- [GOV.UK — Benefit and pension rates 2026 to 2027](https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027)

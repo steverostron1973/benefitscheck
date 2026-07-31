@@ -185,3 +185,8 @@ Apply as soon as care needs are regular. Attendance Allowance is generally not b
 ## Check if you or someone you know might be entitled
 
 If you or a relative is over State Pension age and needs help with washing, dressing, meals, medication, or safe movement because of sight loss — especially if someone also helps at night — it is worth checking Attendance Allowance. Use a pensioner benefits checker to estimate possible entitlement, then gather ophthalmology evidence, your CVI if you have one, and a simple day/night care diary before you complete the AA1. RNIB and local sight-loss services can help you put the claim into practical, specific language that reflects real safety needs rather than diagnosis alone.
+
+## Sources
+
+- [GOV.UK — Attendance Allowance](https://www.gov.uk/attendance-allowance)
+- [GOV.UK — Benefit and pension rates 2026 to 2027](https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027)

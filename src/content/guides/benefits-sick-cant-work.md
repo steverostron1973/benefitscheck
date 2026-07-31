@@ -379,3 +379,8 @@ If you are in immediate financial crisis — no food, no heating, eviction risk 
 ## Check what you might be entitled to
 
 If illness has stopped you working, you may be entitled to more than one benefit at the same time. Start with sick pay and income replacement (SSP, UC, New Style ESA), protect your council tax position, and check PIP if your condition affects daily living or mobility. The earlier you claim, the fewer gaps you leave in your income.
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

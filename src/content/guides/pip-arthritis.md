@@ -245,3 +245,8 @@ Yes. PIP has no earnings limit and is not means-tested. Many people with signifi
 ## Check what you might be entitled to
 
 If you want a quick estimate of how your arthritis might score across Daily Living and Mobility before you claim or prepare for a review, use our free [PIP checker](/pip-checker/). It takes a few minutes and can help you see where points may add up based on your own grip strength, walking distance, and the help you actually need day to day.
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

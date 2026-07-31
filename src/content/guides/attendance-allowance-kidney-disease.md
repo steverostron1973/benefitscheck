@@ -174,3 +174,8 @@ Be specific: “Three times a week after dialysis I need full help to wash and d
 ## Check if you or someone you know might be entitled
 
 If you or a relative is over State Pension age with CKD or dialysis and needs help with washing, dressing, meals, medication, or safe movement — especially after dialysis sessions or at night with cramps, itch, breathlessness, or PD alarms — check Attendance Allowance. Ask the renal nurse for a supporting letter, keep a short dialysis-week diary, and contact Kidney Care UK or the unit social worker for claim help. A pensioner benefits checker can show whether Pension Credit and other linked support should follow an award.
+
+## Sources
+
+- [GOV.UK — Attendance Allowance](https://www.gov.uk/attendance-allowance)
+- [GOV.UK — Benefit and pension rates 2026 to 2027](https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027)

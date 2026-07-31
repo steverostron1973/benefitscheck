@@ -185,3 +185,8 @@ At review, report reduced needs accurately. If you recover fully, the award may 
 ## Check if you or someone you know might be entitled
 
 If you or a relative is over State Pension age and needs help washing, dressing, transferring, or getting to the toilet after a hip or knee replacement — including night pain and toilet trips — check Attendance Allowance during recovery rather than waiting until you are better. Use discharge and physio letters, keep a short day/night diary for a fortnight, and ask Age UK or Versus Arthritis for claim help if paperwork feels overwhelming. A pensioner benefits checker can also show whether Pension Credit or other support should be claimed while the award is in payment.
+
+## Sources
+
+- [GOV.UK — Attendance Allowance](https://www.gov.uk/attendance-allowance)
+- [GOV.UK — Benefit and pension rates 2026 to 2027](https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027)

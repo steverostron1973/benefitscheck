@@ -187,3 +187,8 @@ Payment depends on funding arrangements and setting. Self-funders and some tempo
 ## Check if you or someone you know might be entitled
 
 If you or a relative is over State Pension age with MND and already needs help with washing, dressing, meals, transfers, or night-time care — or if clinicians have indicated Special Rules may apply — claim Attendance Allowance without delay. Ask for an SR1 where appropriate, involve the MND Association for benefits support, and keep a simple day/night care note for the form. A pensioner benefits checker can then show whether Pension Credit and other linked support should be claimed as soon as Attendance Allowance is awarded.
+
+## Sources
+
+- [GOV.UK — Attendance Allowance](https://www.gov.uk/attendance-allowance)
+- [GOV.UK — Benefit and pension rates 2026 to 2027](https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027)

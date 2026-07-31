@@ -171,3 +171,8 @@ Very — they often make the difference between lower and higher rate. Detail to
 ## Check if you or someone you know might be entitled
 
 If you or a relative is over State Pension age with serious liver disease and needs help with washing, dressing, meals, medication, or safe supervision — especially with ascites, encephalopathy, itching, or night toilet trips — check Attendance Allowance as soon as those needs are regular. Ask the liver nurse for a letter that describes real care needs, keep a short diary through a fluid or confusion flare, and contact the British Liver Trust or a pensioner benefits checker for claim and passporting support including Pension Credit.
+
+## Sources
+
+- [GOV.UK — Attendance Allowance](https://www.gov.uk/attendance-allowance)
+- [GOV.UK — Benefit and pension rates 2026 to 2027](https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027)

@@ -272,3 +272,8 @@ Yes. Planning and following journeys, or moving around, can each score up to 12 
 Not sure exactly when your payment will land? Check our [benefit payment dates guide](/benefit-payment-dates/).
 
 ## Check what you might be entitled to
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

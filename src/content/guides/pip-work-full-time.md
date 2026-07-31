@@ -279,3 +279,8 @@ Use our free [PIP checker](/pip-checker/) to get an estimate of how your difficu
 ## Check what you might be entitled to
 
 If you work full time and want a realistic estimate of how your condition's effects, at work and at home, might score across Daily Living and Mobility, use our free [PIP checker](/pip-checker/).
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

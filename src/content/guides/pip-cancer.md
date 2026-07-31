@@ -260,3 +260,8 @@ No. Appearance on the day is not the test. Explain which day of your treatment c
 You need 8 points for Standard rate and 12 for Enhanced rate on each component (scored separately). For 2026/27: Standard Daily Living £72.65 a week, Enhanced £108.55; Standard Mobility £28.70, Enhanced £75.75. Under Special Rules, Enhanced Daily Living is awarded automatically; Mobility still depends on how your condition affects journeys and walking.
 
 ## Check what you might be entitled to
+
+## Sources
+
+- [GOV.UK — Personal Independence Payment (PIP)](https://www.gov.uk/pip)
+- [GOV.UK — PIP: what you'll get](https://www.gov.uk/pip/what-youll-get)

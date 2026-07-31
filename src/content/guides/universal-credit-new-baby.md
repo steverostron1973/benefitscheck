@@ -308,3 +308,7 @@ If DWP refuses a child element or childcare help you believe is due, ask for a c
 ## Check what you might be entitled to
 
 A new baby can raise your Universal Credit by hundreds of pounds a month — or, because of maternity pay and the two-child limit, change your award in ways that are easy to misread on a statement. Use our free [Universal Credit checker](/universal-credit-checker/) to estimate what you could receive with your new household, then compare it with your UC payment and challenge anything that looks wrong.
+
+## Sources
+
+- [GOV.UK — Universal Credit](https://www.gov.uk/universal-credit)
