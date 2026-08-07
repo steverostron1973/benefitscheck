@@ -7,8 +7,10 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.115.0",
     "@astrojs/react": "^3.0.0",
     "@astrojs/sitemap": "^3.6.0",
+    "@upstash/redis": "^1.38.2",
     "astro": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

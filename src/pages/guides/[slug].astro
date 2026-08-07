@@ -329,5 +329,16 @@ const reviewedDate = guide.data.reviewedDate ?? guide.data.publishDate;
         Start check →
       </a>
     </aside>
+
+    {guide.data.category === 'pip' && (
+      <aside class="guide-cta" aria-label="PIP Answer Helper">
+        <p class="guide-cta-text">
+          Writing your PIP2 form? Draft a clearer starting-point answer from your own description
+        </p>
+        <a href="/pip-answer-helper/" class="guide-cta-btn">
+          Open PIP Answer Helper →
+        </a>
+      </aside>
+    )}
   </article>
 </Base>

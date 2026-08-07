@@ -120,7 +120,7 @@ const categoryIcons: Record<(typeof guideCategories)[number], string> = {
   }
   .pip-tools-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.35rem;
   }
   .pip-feature-card {
@@ -427,7 +427,7 @@ const categoryIcons: Record<(typeof guideCategories)[number], string> = {
   .footer-link:hover { color: #fff; }
   .footer-copy { font-size: 11px; color: #3a5070; line-height: 1.6; }
 
-  @media (max-width: 800px) {
+  @media (max-width: 1100px) {
     .pip-tools-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 700px) {
@@ -485,7 +485,7 @@ const categoryIcons: Record<(typeof guideCategories)[number], string> = {
   <div class="pip-tools-inner">
     <div class="pip-tools-eyebrow">Personal Independence Payment</div>
     <h2 class="pip-tools-title" id="pip-tools-heading">Free PIP tools — built to help you claim</h2>
-    <p class="pip-tools-subtitle">Two free resources covering every PIP activity: score your claim, then write stronger answers on the PIP2 form.</p>
+    <p class="pip-tools-subtitle">Free resources covering every PIP activity: score your claim, strengthen your PIP2 answers, then draft a clearer starting point in your own words.</p>
 
     <div class="pip-tools-grid">
       <article class="pip-feature-card pip-feature-card--navy">
@@ -510,6 +510,18 @@ const categoryIcons: Record<(typeof guideCategories)[number], string> = {
           <li>Interactive score tracker</li>
         </ul>
         <a href="/guides/pip2-form-guide/" class="pip-feature-cta">Open Free Guide →</a>
+      </article>
+
+      <article class="pip-feature-card pip-feature-card--navy">
+        <span class="pip-feature-label">Free drafting aid</span>
+        <h3 class="pip-feature-heading">PIP Answer Helper</h3>
+        <p class="pip-feature-desc">Describe how one activity is difficult for you. We’ll turn it into a clearer first-person starting-point draft — based only on what you say, ready for you to review and edit.</p>
+        <ul class="pip-feature-list">
+          <li>All 12 daily living and mobility activities</li>
+          <li>Concrete wording, not vague statements</li>
+          <li>You stay in control — edit before you claim</li>
+        </ul>
+        <a href="/pip-answer-helper/" class="pip-feature-cta">Draft an answer →</a>
       </article>
     </div>
 
@@ -701,26 +713,6 @@ const categoryIcons: Record<(typeof guideCategories)[number], string> = {
 <div class="disclaimer-strip">
   <p><strong>Disclaimer:</strong> BenefitsCheck UK provides estimates only, based on information entered and 2026/27 benefit rates. Results are not financial advice. Always verify your entitlement on GOV.UK or with Citizens Advice before making any claim decisions. Nothing you enter is stored or shared.</p>
 </div>
-
-<!-- Footer -->
-<footer class="footer">
-  <div class="footer-logo">Benefits<span>Check</span> UK</div>
-  <div class="footer-links">
-    <a href="/pip-checker/" class="footer-link">PIP Checker</a>
-    <a href="/universal-credit-checker" class="footer-link">Universal Credit</a>
-    <a href="/working-parents" class="footer-link">Working Parents</a>
-    <a href="/pensioners" class="footer-link">Pensioners</a>
-    <a href="/carers" class="footer-link">Carers</a>
-    <a href="/redundancy" class="footer-link">Redundancy</a>
-    <a href="/self-employed" class="footer-link">Self-Employed</a>
-    <a href="/new-parent" class="footer-link">New Parents</a>
-    <a href="/disabled" class="footer-link">Disabled Workers</a>
-    <a href="/about" class="footer-link">About</a>
-    <a href="/contact" class="footer-link">Contact</a>
-    <a href="/privacy" class="footer-link">Privacy Policy</a>
-  </div>
-  <p class="footer-copy">© 2026 BenefitsCheck UK · Free, independent benefit checkers · Not financial advice · 2026/27 rates</p>
-</footer>
 
 <script>
   const announce = document.getElementById('pip-announce');

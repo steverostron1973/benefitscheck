@@ -1,0 +1,102 @@
+---
+interface Props {
+  title: string;
+  snippet: string;
+  href: string;
+  /** Human-readable date, e.g. "30 July 2026" */
+  date: string;
+  /** Optional ISO date for the datetime attribute */
+  dateTime?: string;
+}
+
+const { title, snippet, href, date, dateTime } = Astro.props;
+---
+
+<a href={href} class="news-card">
+  <time class="news-card-date" datetime={dateTime || date}>{date}</time>
+  <h2 class="news-card-title">{title}</h2>
+  <p class="news-card-snippet">{snippet}</p>
+  <span class="news-card-cta">Read update →</span>
+</a>
+
+<style>
+  .news-card {
+    display: block;
+    background: #fff;
+    border: 2px solid #d0cfc9;
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .news-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #0d1f3c;
+    transition: background 0.2s;
+  }
+
+  .news-card:hover {
+    border-color: #0d1f3c;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(13, 31, 60, 0.14);
+  }
+
+  .news-card:hover::before {
+    background: #c8102e;
+  }
+
+  .news-card:hover .news-card-title {
+    color: #c8102e;
+  }
+
+  .news-card:hover .news-card-cta {
+    background: #c8102e;
+  }
+
+  .news-card-date {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.6rem;
+  }
+
+  .news-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: #0d1f3c;
+    line-height: 1.3;
+    margin-bottom: 0.65rem;
+    transition: color 0.15s;
+  }
+
+  .news-card-snippet {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+
+  .news-card-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 18px;
+    background: #0d1f3c;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.15s;
+  }
+</style>

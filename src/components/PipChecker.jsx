@@ -728,6 +728,13 @@ export default function PipChecker() {
                 <strong>Complete the PIP2 form</strong>
                 <span>Use our activity-by-activity guide to describe how your condition affects you.</span>
               </a>
+              <a className="pip-next-card" href="/pip-answer-helper/">
+                <strong>Draft a stronger answer</strong>
+                <span>
+                  Turn your own description of an activity into a clearer first-person starting point —
+                  then review and edit before you use it.
+                </span>
+              </a>
               <div className="pip-next-card static">
                 <strong>If you&apos;re starting a claim</strong>
                 <span>

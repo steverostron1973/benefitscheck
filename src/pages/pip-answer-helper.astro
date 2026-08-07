@@ -1,0 +1,192 @@
+---
+import Base from '../layouts/Base.astro';
+import PipAnswerDrafter from '../components/PipAnswerDrafter.astro';
+---
+
+<Base
+  showHeader
+  title="PIP Answer Helper — Draft Stronger PIP2 Answers | BenefitsCheck.co.uk"
+  description="Free drafting aid to turn your description of daily living or mobility difficulties into a clearer starting-point answer for your PIP2 form. Review and edit before you use it."
+>
+  <style is:global>
+    body { background: #f5f4f0; }
+
+    .pah-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+    }
+
+    .pah-breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem 0.5rem;
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 1.75rem;
+      line-height: 1.5;
+    }
+
+    .pah-breadcrumb a {
+      color: #0d1f3c;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .pah-breadcrumb a:hover { color: #c8102e; }
+    .pah-breadcrumb-sep { color: #bbb; }
+
+    .pah-eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #c8102e;
+      margin-bottom: 0.65rem;
+    }
+
+    .pah-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 2.5rem);
+      color: #0d1f3c;
+      line-height: 1.2;
+      margin-bottom: 0.85rem;
+    }
+
+    .pah-intro {
+      font-size: 16px;
+      color: #333;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .pah-limits {
+      background: #fff;
+      border: 1px solid #d0cfc9;
+      border-left: 4px solid #0d1f3c;
+      border-radius: 0 12px 12px 0;
+      padding: 1rem 1.15rem;
+      margin-bottom: 2rem;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .pah-limits strong {
+      color: #0d1f3c;
+    }
+
+    .pah-tool-wrap {
+      margin-bottom: 2.5rem;
+    }
+
+    .pah-more h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: #0d1f3c;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .pah-more p {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+
+    .pah-more a {
+      color: #0d1f3c;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .pah-more a:hover { color: #c8102e; }
+
+    .pah-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+
+    .pah-links a {
+      display: block;
+      background: #fff;
+      border: 1px solid #d0cfc9;
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      color: #0d1f3c;
+      font-weight: 700;
+      text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .pah-links a:hover {
+      border-color: #c8102e;
+      color: #c8102e;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .pah-page {
+        padding: 2rem 1.25rem 3rem;
+      }
+    }
+  </style>
+
+  <article class="pah-page">
+    <nav class="pah-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="pah-breadcrumb-sep">›</span>
+      <a href="/guides/pip/">PIP</a>
+      <span class="pah-breadcrumb-sep">›</span>
+      <span>PIP Answer Helper</span>
+    </nav>
+
+    <div class="pah-eyebrow">Free drafting aid</div>
+    <h1 class="pah-title">PIP Answer Helper</h1>
+
+    <p class="pah-intro">
+      Stuck on how to word an answer on the PIP2 “How your disability affects you” form?
+      Describe one activity in your own words and we’ll turn it into a clearer first-person
+      starting point — based only on what you tell us, not invented symptoms or made-up detail.
+    </p>
+
+    <p class="pah-limits">
+      <strong>What this is not:</strong> legal advice, medical advice, or a finished claim answer.
+      You must review every draft, correct anything that doesn’t match your situation, and add
+      further detail before you submit. Your description is sent only to generate the draft —
+      we do not store your health information.
+    </p>
+
+    <div class="pah-tool-wrap">
+      <PipAnswerDrafter />
+    </div>
+
+    <section class="pah-more" aria-labelledby="pah-more-heading">
+      <h2 id="pah-more-heading">Useful next reading</h2>
+      <p>
+        Use this tool alongside our guides on how points work and what to do if a decision goes against you.
+      </p>
+      <ul class="pah-links">
+        <li>
+          <a href="/guides/how-pip-points-work/">How PIP points work →</a>
+        </li>
+        <li>
+          <a href="/guides/pip-appeal/">PIP appeal guide →</a>
+        </li>
+        <li>
+          <a href="/guides/pip2-form-guide/">Full PIP2 form guide →</a>
+        </li>
+        <li>
+          <a href="/pip-checker/">Free PIP Checker →</a>
+        </li>
+      </ul>
+    </section>
+  </article>
+</Base>

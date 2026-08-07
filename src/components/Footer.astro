@@ -1,0 +1,86 @@
+---
+import NewsletterSignup from './NewsletterSignup.astro';
+---
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-newsletter">
+      <NewsletterSignup />
+    </div>
+
+    <div class="site-footer-brand">Benefits<span>Check</span> UK</div>
+    <div class="site-footer-links">
+      <a href="/news/" class="site-footer-link">News</a>
+      <a href="/pip-checker/" class="site-footer-link">PIP Checker</a>
+      <a href="/universal-credit-checker/" class="site-footer-link">Universal Credit</a>
+      <a href="/working-parents/" class="site-footer-link">Working Parents</a>
+      <a href="/pensioners/" class="site-footer-link">Pensioners</a>
+      <a href="/carers/" class="site-footer-link">Carers</a>
+      <a href="/redundancy/" class="site-footer-link">Redundancy</a>
+      <a href="/self-employed/" class="site-footer-link">Self-Employed</a>
+      <a href="/new-parent/" class="site-footer-link">New Parents</a>
+      <a href="/disabled/" class="site-footer-link">Disabled Workers</a>
+      <a href="/guides/" class="site-footer-link">Guides</a>
+      <a href="/about/" class="site-footer-link">About</a>
+      <a href="/contact/" class="site-footer-link">Contact</a>
+      <a href="/privacy/" class="site-footer-link">Privacy Policy</a>
+    </div>
+    <p class="site-footer-copy">© 2026 BenefitsCheck UK · Free, independent benefit checkers · Not financial advice · 2026/27 rates</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #091629;
+    padding: 2.75rem 2rem 2.5rem;
+    text-align: center;
+    margin-top: auto;
+  }
+
+  .site-footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .site-footer-newsletter {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(122, 158, 192, 0.2);
+  }
+
+  .site-footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 1.25rem;
+  }
+
+  .site-footer-brand span {
+    color: #c8102e;
+  }
+
+  .site-footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem 2rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .site-footer-link {
+    font-size: 13px;
+    color: #7a9ec0;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .site-footer-link:hover {
+    color: #fff;
+  }
+
+  .site-footer-copy {
+    font-size: 11px;
+    color: #3a5070;
+    line-height: 1.6;
+  }
+</style>

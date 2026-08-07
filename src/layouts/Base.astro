@@ -1,5 +1,6 @@
 ---
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -29,7 +30,8 @@ const { title, description, showHeader = false } = Astro.props;
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --site-header-height: 68px; }
     html { scroll-padding-top: var(--site-header-height); }
-    body { font-family: 'Inter', sans-serif; background: #f5f4f0; color: #1a1a1a; }
+    body { font-family: 'Inter', sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; display: flex; flex-direction: column; }
+    .site-main { flex: 1 0 auto; }
     .site-main--with-header { padding-top: var(--site-header-height); }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2379067721877056" crossorigin="anonymous"></script>
@@ -39,5 +41,6 @@ const { title, description, showHeader = false } = Astro.props;
   <main class:list={['site-main', { 'site-main--with-header': showHeader }]}>
     <slot />
   </main>
+  <Footer />
 </body>
 </html>

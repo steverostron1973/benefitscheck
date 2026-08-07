@@ -1,0 +1,341 @@
+---
+const activities = [
+  'Preparing food',
+  'Taking nutrition',
+  'Managing therapy or monitoring a health condition',
+  'Washing and bathing',
+  'Managing toilet needs or incontinence',
+  'Dressing and undressing',
+  'Communicating verbally',
+  'Reading and understanding signs, symbols and words',
+  'Engaging with other people face to face',
+  'Making budgeting decisions',
+  'Planning and following journeys',
+  'Moving around',
+];
+---
+
+<div class="pad-tool" id="pip-answer-drafter">
+  <form class="pad-form" id="pad-form" novalidate>
+    <div class="pad-field">
+      <label for="pad-activity">PIP activity</label>
+      <select id="pad-activity" name="activity" required>
+        <option value="">Select an activity…</option>
+        {activities.map((name) => (
+          <option value={name}>{name}</option>
+        ))}
+      </select>
+    </div>
+
+    <div class="pad-field">
+      <label for="pad-condition">Your condition or diagnosis</label>
+      <input
+        type="text"
+        id="pad-condition"
+        name="condition"
+        required
+        maxlength="200"
+        placeholder="e.g. rheumatoid arthritis, depression and anxiety"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="pad-field">
+      <label for="pad-description">Describe how this activity is difficult for you</label>
+      <textarea
+        id="pad-description"
+        name="description"
+        required
+        rows="6"
+        maxlength="2000"
+        placeholder="In your own words: what happens, how often, what help you need, and what goes wrong if you try alone…"
+      ></textarea>
+      <p class="pad-hint">Include concrete detail where you can — safety risks, how long things take, and whether you can repeat the task on most days.</p>
+    </div>
+
+    <button type="submit" class="pad-submit" id="pad-submit">
+      Draft my answer
+    </button>
+  </form>
+
+  <div class="pad-status" id="pad-status" hidden role="status" aria-live="polite"></div>
+  <div class="pad-error" id="pad-error" hidden role="alert"></div>
+
+  <div class="pad-result" id="pad-result" hidden>
+    <h3 class="pad-result-heading">Your draft starting point</h3>
+    <div class="pad-draft" id="pad-draft"></div>
+    <p class="pad-disclaimer">
+      <strong>This is a drafting aid based on general PIP guidance — not personalised advice. Review it carefully, edit anything that doesn't reflect your situation accurately, and add more detail before using it in your claim.</strong>
+    </p>
+  </div>
+</div>
+
+<style>
+  .pad-tool {
+    background: #fff;
+    border: 1px solid #d0cfc9;
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem 1.5rem;
+    box-shadow: 0 2px 12px rgba(13, 31, 60, 0.06);
+  }
+
+  .pad-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+
+  .pad-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0d1f3c;
+    margin-bottom: 0.4rem;
+  }
+
+  .pad-field select,
+  .pad-field input,
+  .pad-field textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 15px;
+    color: #1a1a1a;
+    background: #fafaf8;
+    border: 1.5px solid #cfcfc8;
+    border-radius: 10px;
+    padding: 0.7rem 0.85rem;
+    line-height: 1.45;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .pad-field select:focus,
+  .pad-field input:focus,
+  .pad-field textarea:focus {
+    outline: none;
+    border-color: #0d1f3c;
+    box-shadow: 0 0 0 3px rgba(13, 31, 60, 0.12);
+    background: #fff;
+  }
+
+  .pad-field textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  .pad-hint {
+    margin-top: 0.45rem;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.45;
+  }
+
+  .pad-submit {
+    align-self: flex-start;
+    background: #c8102e;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.85rem 1.4rem;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .pad-submit:hover:not(:disabled) {
+    background: #a00d24;
+  }
+
+  .pad-submit:disabled {
+    opacity: 0.65;
+    cursor: wait;
+  }
+
+  .pad-status {
+    margin-top: 1.25rem;
+    padding: 0.9rem 1rem;
+    background: #eef2f7;
+    border-left: 3px solid #0d1f3c;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: #0d1f3c;
+    font-weight: 600;
+  }
+
+  .pad-error {
+    margin-top: 1.25rem;
+    padding: 0.9rem 1rem;
+    background: #fdf0f2;
+    border-left: 3px solid #c8102e;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: #7a0a1a;
+    line-height: 1.5;
+  }
+
+  .pad-result {
+    margin-top: 1.5rem;
+  }
+
+  .pad-result-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: #0d1f3c;
+    margin-bottom: 0.75rem;
+  }
+
+  .pad-draft {
+    border: 2px solid #0d1f3c;
+    border-radius: 12px;
+    background: #f8fafc;
+    padding: 1.15rem 1.2rem;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #1a1a1a;
+    white-space: pre-wrap;
+  }
+
+  .pad-disclaimer {
+    margin-top: 1rem;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #0d1f3c;
+  }
+
+  @media (max-width: 600px) {
+    .pad-tool {
+      padding: 1.35rem 1.15rem 1.25rem;
+    }
+
+    .pad-submit {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<script>
+  const SESSION_KEY = 'benefitscheck-pip-draft-session';
+
+  function getSessionId() {
+    try {
+      let id = sessionStorage.getItem(SESSION_KEY);
+      if (!id) {
+        id =
+          typeof crypto !== 'undefined' && crypto.randomUUID
+            ? crypto.randomUUID()
+            : `s-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+        sessionStorage.setItem(SESSION_KEY, id);
+      }
+      return id;
+    } catch {
+      return `s-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    }
+  }
+
+  const form = document.getElementById('pad-form');
+  const submitBtn = document.getElementById('pad-submit');
+  const statusEl = document.getElementById('pad-status');
+  const errorEl = document.getElementById('pad-error');
+  const resultEl = document.getElementById('pad-result');
+  const draftEl = document.getElementById('pad-draft');
+
+  function showError(message) {
+    if (!errorEl) return;
+    errorEl.hidden = false;
+    errorEl.textContent = message;
+  }
+
+  function hideError() {
+    if (!errorEl) return;
+    errorEl.hidden = true;
+    errorEl.textContent = '';
+  }
+
+  function setLoading(loading) {
+    if (submitBtn instanceof HTMLButtonElement) {
+      submitBtn.disabled = loading;
+      submitBtn.textContent = loading ? 'Drafting…' : 'Draft my answer';
+    }
+    if (statusEl) {
+      statusEl.hidden = !loading;
+      statusEl.textContent = loading
+        ? 'Writing a starting-point draft from what you described…'
+        : '';
+    }
+  }
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    hideError();
+    if (resultEl) resultEl.hidden = true;
+
+    const activity = /** @type {HTMLSelectElement | null} */ (
+      document.getElementById('pad-activity')
+    )?.value?.trim();
+    const condition = /** @type {HTMLInputElement | null} */ (
+      document.getElementById('pad-condition')
+    )?.value?.trim();
+    const description = /** @type {HTMLTextAreaElement | null} */ (
+      document.getElementById('pad-description')
+    )?.value?.trim();
+
+    if (!activity || !condition || !description) {
+      showError('Please choose an activity and fill in your condition and description.');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch('/.netlify/functions/draft-pip-answer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          activity,
+          condition,
+          description,
+          sessionId: getSessionId(),
+        }),
+      });
+
+      let data = {};
+      try {
+        data = await response.json();
+      } catch {
+        data = {};
+      }
+
+      if (response.status === 429) {
+        showError(
+          data.error ||
+            'Too many requests, try again tomorrow.'
+        );
+        return;
+      }
+
+      if (!response.ok) {
+        showError(
+          data.error || 'Something went wrong, please try again.'
+        );
+        return;
+      }
+
+      if (!data.draft) {
+        showError('Something went wrong, please try again.');
+        return;
+      }
+
+      if (draftEl) draftEl.textContent = data.draft;
+      if (resultEl) {
+        resultEl.hidden = false;
+        resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    } catch {
+      showError('Something went wrong, please try again.');
+    } finally {
+      setLoading(false);
+    }
+  });
+</script>
