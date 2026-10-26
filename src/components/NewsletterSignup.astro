@@ -15,13 +15,14 @@ const emailId = `${idPrefix}-email`;
   onsubmit="window.open('https://buttondown.com/SteveRostron', 'popupwindow')"
   class="newsletter-signup"
 >
-  <label for={emailId} class="newsletter-signup-label">Get notified when benefit rates or rules change</label>
+  <label for={emailId} class="newsletter-signup-label">Get benefit news by email</label>
+  <p class="newsletter-signup-note">A free newsletter covering benefit rate changes, DWP announcements and new guides. It is general news only, not a personal benefits check or case follow-up.</p>
   <div class="newsletter-signup-row">
-    <input type="email" name="email" id={emailId} placeholder="you@example.com" required />
+    <input type="email" name="email" id={emailId} placeholder="Your email address" required />
     <input type="hidden" value="1" name="embed" />
-    <button type="submit">Subscribe</button>
+    <button type="submit">Subscribe to the newsletter</button>
   </div>
-  <p class="newsletter-signup-note">One email when rates change each April, plus occasional new guide alerts. Unsubscribe anytime.</p>
+  <p class="newsletter-signup-note">No spam. Unsubscribe any time. <a href="/#checkers">To check what you may be entitled to, use our free checkers.</a></p>
 </form>
 
 <style>
