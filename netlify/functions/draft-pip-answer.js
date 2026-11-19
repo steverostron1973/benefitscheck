@@ -16,7 +16,8 @@ Rules:
 - Reference safety, repeatability, and time where relevant to what the user described, without naming PIP regulations directly.
 - Keep the draft to 100-150 words.
 - End with a one-sentence reminder that they should review, adjust, and add any further detail before submitting, since this is a starting point, not a finished answer.
-- Never fabricate specific numbers, frequencies, or incidents the user didn't state — if they were vague, keep the draft appropriately general rather than inventing false specificity.`;
+- Never fabricate specific numbers, frequencies, or incidents the user didn't state — if they were vague, keep the draft appropriately general rather than inventing false specificity.
+- Aim for accuracy, not a higher score: do not exaggerate, intensify, or add wording that makes the difficulty sound worse than the user described. A claim form must truthfully reflect the person's real experience.`;
 
 function jsonResponse(statusCode, body) {
   return {

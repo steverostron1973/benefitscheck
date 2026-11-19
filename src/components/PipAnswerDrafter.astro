@@ -53,6 +53,11 @@ const activities = [
       <p class="pad-hint">Include concrete detail where you can — safety risks, how long things take, and whether you can repeat the task on most days.</p>
     </div>
 
+    <label class="pad-consent">
+      <input type="checkbox" id="pad-consent" name="consent" required />
+      <span>I agree that what I've typed, which may include health information, will be sent to our AI provider (Anthropic) to create this draft. It is not saved by BenefitsCheck. <a href="/privacy/">Privacy policy</a></span>
+    </label>
+
     <button type="submit" class="pad-submit" id="pad-submit">
       Draft my answer
     </button>
@@ -196,6 +201,17 @@ const activities = [
     white-space: pre-wrap;
   }
 
+  .pad-consent {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #444;
+    margin: 0 0 1rem;
+  }
+  .pad-consent input { margin-top: 0.2rem; flex-shrink: 0; }
+  .pad-consent a { color: inherit; }
   .pad-disclaimer {
     margin-top: 1rem;
     font-size: 15px;
@@ -283,6 +299,14 @@ const activities = [
 
     if (!activity || !condition || !description) {
       showError('Please choose an activity and fill in your condition and description.');
+      return;
+    }
+
+    const consented = /** @type {HTMLInputElement | null} */ (
+      document.getElementById('pad-consent')
+    )?.checked;
+    if (!consented) {
+      showError('Please tick the box to agree to your description being sent to our AI provider.');
       return;
     }
 
