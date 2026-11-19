@@ -18,9 +18,9 @@ function calcBenefits(d) {
   const livesAlone = d.livesAlone === "yes";
   const rents = d.housing === "rent" || d.housing === "council";
 
-  // Savings tariff income: first £10k ignored, then £1/week per £500 above £10k
+  // Savings tariff income: first £10k ignored, then £1/week for every £500 (or part of £500) above £10k
   const savingsAbove10k = Math.max(0, savings - 10000);
-  const tariffIncome = Math.floor(savingsAbove10k / 500) * 52; // annual
+  const tariffIncome = Math.ceil(savingsAbove10k / 500) * 52; // annual
   const assessedIncome = totalIncome + tariffIncome;
 
   // 2026/27 Pension Credit Guarantee Credit thresholds
@@ -29,7 +29,13 @@ function calcBenefits(d) {
   const pcBase = single ? pcThresholdSingle : pcThresholdCouple;
 
   // Additional amounts
-  const severeDisabilityAddition = (hasDisability && livesAlone) ? 86.05 * 52 : 0;
+  // Severe disability addition needs a qualifying disability benefit (e.g. Attendance Allowance)
+  // already in payment, living alone, and nobody being paid Carer's Allowance for caring for them.
+  const getsAA = already.includes("Attendance Allowance");
+  const sdaWeekly = 86.05;
+  const severeDisabilityAddition = (getsAA && livesAlone) ? sdaWeekly * 52 : 0;
+  // Could an Attendance Allowance award later add the severe disability addition?
+  const sdaPossibleAfterAA = !getsAA && livesAlone && (hasDisability || needsHelp) && age >= 66;
   const carerAddition = isCarer ? 48.15 * 52 : 0;
   const pcThreshold = pcBase + severeDisabilityAddition + carerAddition;
 
@@ -37,7 +43,9 @@ function calcBenefits(d) {
   const pcAmount = Math.max(0, pcThreshold - assessedIncome);
 
   let pcNote = "";
-  if (severeDisabilityAddition > 0) pcNote += " A severe disability addition of £86.05/week has been included.";
+  if (severeDisabilityAddition > 0) pcNote += " A severe disability addition of £86.05/week has been included, assuming nobody is paid Carer's Allowance for looking after you.";
+  if (sdaPossibleAfterAA) pcNote += " If Attendance Allowance is awarded, a severe disability addition of up to £86.05/week could be added — re-check Pension Credit when the award letter arrives.";
+  const pcEligibleAfterAA = sdaPossibleAfterAA && age >= 66 && assessedIncome < pcThreshold + sdaWeekly * 52;
   if (carerAddition > 0) pcNote += " A carer addition of £48.15/week has been included.";
   if (tariffIncome > 0) pcNote += ` Savings above £10,000 add £${Math.round(tariffIncome/52)}/week of tariff income to your assessment.`;
 
@@ -48,7 +56,9 @@ function calcBenefits(d) {
     summary: pcEligible
       ? `Based on assessed income of £${Math.round(assessedIncome)}/year, you may be entitled to Pension Credit to top it up to the minimum guarantee of £${Math.round(pcThreshold)}/year.${pcNote}`
       : age < 66 ? "You need to be State Pension age (66+) to claim Pension Credit."
-      : `Your assessed income of £${Math.round(assessedIncome)}/year appears to be above the Pension Credit threshold of £${Math.round(pcThreshold)}/year.`,
+      : pcEligibleAfterAA
+        ? `Your assessed income of £${Math.round(assessedIncome)}/year appears to be just above the Pension Credit threshold of £${Math.round(pcThreshold)}/year. But if Attendance Allowance is awarded, a severe disability addition could bring you within reach — claim Attendance Allowance first, then re-check Pension Credit.`
+        : `Your assessed income of £${Math.round(assessedIncome)}/year appears to be above the Pension Credit threshold of £${Math.round(pcThreshold)}/year.`,
     tip: pcEligible ? "Pension Credit is a gateway benefit — claiming it automatically unlocks other support including Cold Weather Payments and can help with Council Tax. You can backdate a claim by up to 3 months." : "Even if you think you don't qualify, it's worth calling 0800 99 1234 to check — many people are surprised to find they're eligible.",
     url: "https://www.gov.uk/pension-credit",
     cta: "Check Pension Credit on GOV.UK",
@@ -80,15 +90,15 @@ function calcBenefits(d) {
   all.push({
     name: "Free TV Licence",
     likely: tvEligible,
-    amount: tvEligible ? "£174.50/year" : null,
+    amount: tvEligible ? "£180/year" : null,
     summary: tvEligible
-      ? "People aged 75 or over who receive Pension Credit are entitled to a free TV licence worth £174.50/year."
+      ? "People aged 75 or over who receive Pension Credit are entitled to a free TV licence worth £180/year."
       : age >= 75 ? "You need to be receiving Pension Credit to qualify for a free TV licence at age 75+."
       : "Free TV licences for over-75s are only available to those receiving Pension Credit.",
     tip: tvEligible ? "Apply through TV Licensing — it's not automatic even if you receive Pension Credit." : null,
     url: "https://www.tvlicensing.co.uk/check-if-you-need-one/for-your-home/discounts-and-concessions",
     cta: "Apply for free TV licence",
-    annualValue: tvEligible ? 175 : 0
+    annualValue: tvEligible ? 180 : 0
   });
 
   // Warm Home Discount
@@ -160,15 +170,15 @@ function calcBenefits(d) {
   });
 
   // Attendance Allowance — 2026/27 correct rates
-  const aaEligible = age >= 65 && (hasDisability || needsHelp);
+  const aaEligible = age >= 66 && (hasDisability || needsHelp);
   all.push({
     name: "Attendance Allowance",
     likely: aaEligible,
     amount: aaEligible ? "£76.70–£114.60/week (£3,988–£5,959/year)" : null,
     summary: aaEligible
       ? "Attendance Allowance helps with personal care costs if you have a disability or health condition requiring help or supervision. The higher rate (£114.60/week) applies if you need help day and night."
-      : "Attendance Allowance is for people aged 65+ who have a disability or health condition requiring help with personal care or supervision.",
-    tip: aaEligible ? "Not means-tested — income and savings don't affect this at all. Receiving Attendance Allowance may also increase your Pension Credit through the severe disability addition." : null,
+      : "Attendance Allowance is for people of State Pension age (66+) who have a disability or health condition requiring help with personal care or supervision.",
+    tip: aaEligible ? "Not means-tested — income and savings don't affect this at all. Claim it first: it isn't backdated, so request the form straight away. Once awarded, re-check Pension Credit, as it may add a severe disability addition. Important: if a family member is paid Carer's Allowance for looking after you, that addition usually stops — check before anyone claims Carer's Allowance." : null,
     url: "https://www.gov.uk/attendance-allowance",
     cta: "Check Attendance Allowance",
     annualValue: aaEligible ? 3988 : 0
